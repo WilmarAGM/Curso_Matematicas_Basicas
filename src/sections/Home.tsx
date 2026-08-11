@@ -3,6 +3,10 @@ import { WEEKS } from '@/data/weeks'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { QRCodeSVG } from 'qrcode.react'
+
+const SITE_URL = 'https://curso-matematicas-basicas-plum.vercel.app/'
+
 interface HomeProps {
   onNavigate: (id: SectionId) => void
   completed: Record<string, boolean>
@@ -18,25 +22,36 @@ export function Home({ onNavigate, completed }: HomeProps) {
   return (
     <div className="mx-auto max-w-6xl px-5 py-10">
       <header className="border-b border-line pb-8">
-        <p className="font-mono-nums text-sm uppercase tracking-[0.14em] text-warm">
-          Institución Universitaria Pascual Bravo
-        </p>
-        <div className="mt-2 flex items-center gap-4">
-          <img src="/icon_home.png" alt="Home" className="h-16 w-16 drop-shadow-md" />
-          <h1 className="font-display text-3xl leading-tight text-ink md:text-5xl">
-            Matemáticas Operativas
-          </h1>
-        </div>
-        <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-ink-muted">
-          Curso semana a semana sobre los fundamentos de la aritmética: conjuntos numéricos,
-          propiedades de las operaciones, jerarquía de operaciones, patrones numéricos, MCM y MCD,
-          entre otros temas que se irán publicando durante el semestre. Cada semana combina teoría
-          con ejercicios interactivos.
-        </p>
-        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-ink-muted">
-          <span>Prof. Wilmar Alberto González Medina</span>
-          <span className="h-1 w-1 rounded-full bg-line-strong" />
-          <span>Semestre 2026-II</span>
+        <div className="flex flex-wrap items-start justify-between gap-6">
+          <div className="min-w-0">
+            <p className="font-mono-nums text-sm uppercase tracking-[0.14em] text-warm">
+              Institución Universitaria Pascual Bravo
+            </p>
+            <div className="mt-2 flex items-center gap-4">
+              <img src="/icon_home.png" alt="Home" className="h-16 w-16 drop-shadow-md" />
+              <h1 className="font-display text-3xl leading-tight text-ink md:text-5xl">
+                Matemáticas Operativas
+              </h1>
+            </div>
+            <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-ink-muted">
+              Curso semana a semana sobre los fundamentos de la aritmética: conjuntos numéricos,
+              propiedades de las operaciones, jerarquía de operaciones, patrones numéricos, MCM y MCD,
+              entre otros temas que se irán publicando durante el semestre. Cada semana combina teoría
+              con ejercicios interactivos.
+            </p>
+            <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-ink-muted">
+              <span>Prof. Wilmar Alberto González Medina</span>
+              <span className="h-1 w-1 rounded-full bg-line-strong" />
+              <span>Semestre 2026-II</span>
+            </div>
+          </div>
+
+          <div className="flex shrink-0 flex-col items-center gap-2 rounded-lg border border-line bg-surface p-4">
+            <QRCodeSVG value={SITE_URL} size={112} className="h-28 w-28" />
+            <span className="text-center text-xs text-ink-muted">
+              Escanea para acceder<br />al sitio del curso
+            </span>
+          </div>
         </div>
       </header>
 
