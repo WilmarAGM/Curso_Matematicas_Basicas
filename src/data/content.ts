@@ -203,7 +203,7 @@ export interface PemdasPractice {
 
 export const PEMDAS_PRACTICE: PemdasPractice[] = [
   { expr: '20 − { 3 + [ 5 − (2 + 1) ] }', answer: 15 },
-  { expr: '4 + { 10 − [ 2 + (3 − 5) ] }', answer: 4 },
+  { expr: '4 + { 10 − [ 2 + (3 − 5) ] }', answer: 14 },
 ]
 
 // ---- Módulo 4: Patrones ----
