@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------
+   Design tokens — Brilliant.org inspired palette
+   "Pear" Green: #D6F523
+   Deep Navy: #0B162C
+   Clean Backgrounds: #F7F9FA, #FFFFFF
+   Primary Blue: #2050DF
+---------------------------------------------------------- */
+@layer base {
+  :root {
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --surface-raised: #ffffff;
+    --ink: #0b162c;
+    --ink-muted: #5e6b82;
+    --accent: #2050df;
+    --accent-ink: #ffffff;
+    --accent-warm: #ff5757;
+    --accent-warm-ink: #ffffff;
+    --accent-green: #d6f523; /* Pear Green */
+    --accent-green-ink: #0b162c;
+    --accent-orange: #ff9d00;
+    --accent-orange-ink: #0b162c;
+    --line: #e1e5eb;
+    --line-strong: #c2cad6;
+    --danger: #ff5757;
+    --success: #1fb141;
+
+    --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    /* shadcn/ui mapping (HSL) so shipped components stay in-palette */
+    --background: 210 16% 96%;
+    --foreground: 220 60% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 60% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 60% 11%;
+    --primary: 225 75% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 70 90% 55%; /* Pear Green for secondary */
+    --secondary-foreground: 220 60% 11%;
+    --muted: 210 16% 96%;
+    --muted-foreground: 218 16% 44%;
+    --accent-hsl: 225 75% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 100% 67%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 225 75% 50%;
+    --radius: 1rem; /* Much more rounded for Game Feel */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --bg: #0b162c;
+      --surface: #142240;
+      --surface-raised: #1f3054;
+      --ink: #f7f9fa;
+      --ink-muted: #a3adc2;
+      --accent: #4a77ff;
+      --accent-ink: #ffffff;
+      --accent-warm: #ff7878;
+      --accent-warm-ink: #ffffff;
+      --accent-green: #d6f523; /* Still vibrant in dark mode */
+      --accent-green-ink: #0b162c;
+      --accent-orange: #ffb433;
+      --accent-orange-ink: #0b162c;
+      --line: #293859;
+      --line-strong: #3b4e78;
+      --danger: #ff7878;
+      --success: #3be665;
+
+      --background: 220 60% 11%;
+      --foreground: 210 16% 96%;
+      --card: 220 52% 16%;
+      --card-foreground: 210 16% 96%;
+      --popover: 220 52% 16%;
+      --popover-foreground: 210 16% 96%;
+      --primary: 225 100% 65%;
+      --primary-foreground: 0 0% 100%;
+      --secondary: 70 90% 55%;
+      --secondary-foreground: 220 60% 11%;
+      --muted: 220 52% 16%;
+      --muted-foreground: 218 20% 70%;
+      --accent-hsl: 225 100% 65%;
+      --accent-foreground: 0 0% 100%;
+      --destructive: 0 100% 74%;
+      --destructive-foreground: 0 0% 100%;
+      --border: 222 36% 25%;
+      --input: 222 36% 25%;
+      --ring: 225 100% 65%;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .font-mono-nums {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
