@@ -1,4 +1,5 @@
-import { NEWS, type SectionId } from '@/data/content'
+import { NEWS, SUPPORT_MATERIALS, type SectionId } from '@/data/content'
+import { FileText, Download } from 'lucide-react'
 import { WEEKS } from '@/data/weeks'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -140,6 +141,36 @@ export function Home({ onNavigate, completed }: HomeProps) {
           </div>
         </section>
       </div>
+
+      <section aria-labelledby="materiales-heading" className="mt-10 border-t border-line pt-8">
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 id="materiales-heading" className="font-display text-xl text-ink">
+            Material formal de apoyo
+          </h2>
+          <span className="text-xs italic text-ink-muted">Guías oficiales en PDF</span>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {SUPPORT_MATERIALS.map((m) => (
+            <a
+              key={m.file}
+              href={m.file}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start gap-3 rounded-lg border border-line bg-surface p-4 transition-all hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(32,80,223,0.15)]"
+            >
+              <FileText className="mt-0.5 h-8 w-8 shrink-0 text-primary" />
+              <div className="min-w-0">
+                <h3 className="font-display text-base text-ink">{m.title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-ink-muted">{m.description}</p>
+                <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-primary">
+                  <Download className="h-3.5 w-3.5" />
+                  Descargar PDF
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
 
       {!completed['historia'] && (
         <div className="mt-10 flex flex-wrap gap-3 border-t border-line pt-6">

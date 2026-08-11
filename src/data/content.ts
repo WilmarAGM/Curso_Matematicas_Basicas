@@ -45,6 +45,35 @@ export const NEWS: NewsItem[] = [
 ]
 // ---- FIN PLACEHOLDER ----
 
+export interface SupportMaterial {
+  title: string
+  description: string
+  file: string
+}
+
+export const SUPPORT_MATERIALS: SupportMaterial[] = [
+  {
+    title: 'Programación semanal — Matemáticas Operativas',
+    description: 'Cronograma oficial del curso: elementos de competencia, temáticas y eventos evaluativos semana a semana.',
+    file: '/docs/Programacion_Semanal.pdf',
+  },
+  {
+    title: 'Guía Unidad 1 — Aritmética',
+    description: 'Conjuntos numéricos, propiedades de las operaciones, números primos, MCM, MCD y fraccionarios.',
+    file: '/docs/U1_Guia_Aritmetica.pdf',
+  },
+  {
+    title: 'Guía — Álgebra',
+    description: 'Expresiones algebraicas, operaciones con polinomios, factorización, ecuaciones y sistemas de ecuaciones.',
+    file: '/docs/Guia_Algebra.pdf',
+  },
+  {
+    title: 'Guía Unidad 3 — Trigonometría',
+    description: 'Ángulos, teorema de Pitágoras, razones trigonométricas, ley del seno y coseno, identidades y ecuaciones trigonométricas.',
+    file: '/docs/Guia_Trigonometria_Unidad3.pdf',
+  },
+]
+
 export interface TimelineEntry {
   era: string
   title: string
