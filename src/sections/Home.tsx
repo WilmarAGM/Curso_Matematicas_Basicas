@@ -76,7 +76,7 @@ export function Home() {
               const titleColor = isGreen ? 'text-leaf drop-shadow-[0_0_10px_rgba(214,245,35,0.8)]' : 'text-ember drop-shadow-[0_0_10px_rgba(255,180,51,0.8)]'
               
               return (
-                <div key={g.group} className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.33%] pl-6 py-6">
+                <div key={g.group} className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_45%] pl-6 py-6">
                   <div className={cn("h-full rounded-[2rem] border-[1px] bg-surface/30 backdrop-blur-xl p-8 transition-all duration-500 hover:-translate-y-2", neonClass)}>
                     <h3 className={cn("font-display text-3xl font-bold mb-2 tracking-tight", titleColor)}>
                       {g.group}
