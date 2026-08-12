@@ -1,13 +1,15 @@
 import { cn } from '@/lib/utils'
 import { Home, CalendarDays, BookOpen, PenTool, FileText, User } from 'lucide-react'
 
-import { Users } from 'lucide-react'
+import { Users, X } from 'lucide-react'
 
 export type PageId = 'inicio' | 'semanas' | 'material' | 'talleres' | 'paap'
 
 interface SideBarProps {
   active: PageId
   onNavigate: (id: PageId) => void
+  isOpen: boolean
+  onClose: () => void
 }
 
 const NAV_ITEMS = [
@@ -18,9 +20,28 @@ const NAV_ITEMS = [
   { id: 'paap', label: 'PAAP', icon: Users },
 ] as const
 
-export function SideBar({ active, onNavigate }: SideBarProps) {
+export function SideBar({ active, onNavigate, isOpen, onClose }: SideBarProps) {
   return (
-    <aside className="fixed inset-y-0 left-0 z-50 w-72 flex-col border-r border-line bg-surface/80 backdrop-blur hidden md:flex">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-bg/80 backdrop-blur-sm md:hidden" 
+          onClick={onClose}
+        />
+      )}
+      <aside 
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 w-72 flex-col border-r border-line bg-surface/95 backdrop-blur-xl flex transition-transform duration-300 md:translate-x-0",
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        <button 
+          className="md:hidden absolute top-6 right-4 p-2 text-ink-muted hover:text-ink hover:bg-line/40 rounded-lg transition-colors" 
+          onClick={onClose}
+        >
+          <X className="h-5 w-5" />
+        </button>
       <div className="flex flex-col flex-1 px-5 py-8">
         <div className="mb-10">
           <div className="flex items-center gap-2 mb-2">
@@ -76,5 +97,6 @@ export function SideBar({ active, onNavigate }: SideBarProps) {
         </div>
       </div>
     </aside>
+    </>
   )
 }

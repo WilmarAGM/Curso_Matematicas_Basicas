@@ -13,13 +13,16 @@ import { Module3Pemdas } from '@/sections/Module3Pemdas'
 import { Module4Patterns } from '@/sections/Module4Patterns'
 import { Module5LcmGcd } from '@/sections/Module5LcmGcd'
 import { useProgress } from '@/hooks/useProgress'
+import { Menu } from 'lucide-react'
 
 function App() {
   const [page, setPage] = useState<PageId | string>('inicio')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { completed, markComplete } = useProgress()
 
   const navigate = (id: PageId | string) => {
     setPage(id)
+    setIsMobileMenuOpen(false)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -30,11 +33,27 @@ function App() {
       <div className="pointer-events-none absolute top-1/3 -right-40 h-[600px] w-[600px] rounded-full bg-ember/20 blur-[150px]" />
       <div className="pointer-events-none absolute -bottom-40 left-1/4 h-[400px] w-[400px] rounded-full bg-pine/20 blur-[100px]" />
 
-      {/* SideBar for Desktop - For mobile, a hamburger menu would be added here */}
-      <SideBar active={page as PageId} onNavigate={navigate as (id: PageId) => void} />
+      {/* Mobile Header */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-30 h-16 border-b border-line bg-surface/80 backdrop-blur flex items-center justify-between px-4">
+        <div className="flex items-center gap-2">
+          <span className="h-8 w-8 rounded-lg bg-gradient-to-br from-leaf to-pine flex items-center justify-center font-display font-bold text-ink shadow-[0_0_15px_rgba(214,245,35,0.4)]">RM</span>
+          <h1 className="font-display text-sm leading-tight text-ink font-bold">Razonamiento Matemático</h1>
+        </div>
+        <button onClick={() => setIsMobileMenuOpen(true)} className="text-ink-muted hover:text-ink">
+          <Menu className="h-6 w-6" />
+        </button>
+      </div>
+
+      {/* SideBar */}
+      <SideBar 
+        active={page as PageId} 
+        onNavigate={navigate as (id: PageId) => void} 
+        isOpen={isMobileMenuOpen} 
+        onClose={() => setIsMobileMenuOpen(false)} 
+      />
       
-      {/* Main Content Area - padded left by the sidebar width (w-72 = 18rem = 288px) on desktop */}
-      <main className="flex-1 md:ml-72 min-h-screen flex flex-col">
+      {/* Main Content Area */}
+      <main className="flex-1 md:ml-72 min-h-screen flex flex-col pt-16 md:pt-0">
         <div className="flex-1">
           {page === 'inicio' && <Home />}
           {page === 'semanas' && <WeeksGrid onNavigate={navigate} />}
