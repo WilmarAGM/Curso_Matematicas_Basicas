@@ -24,7 +24,12 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen font-body flex">
+    <div className="min-h-screen font-body flex relative overflow-hidden bg-[#0b162c]">
+      {/* Background Neon Blobs for true glassmorphism effect */}
+      <div className="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-leaf/20 blur-[120px]" />
+      <div className="pointer-events-none absolute top-1/3 -right-40 h-[600px] w-[600px] rounded-full bg-ember/20 blur-[150px]" />
+      <div className="pointer-events-none absolute -bottom-40 left-1/4 h-[400px] w-[400px] rounded-full bg-pine/20 blur-[100px]" />
+
       {/* SideBar for Desktop - For mobile, a hamburger menu would be added here */}
       <SideBar active={page as PageId} onNavigate={navigate as (id: PageId) => void} />
       
