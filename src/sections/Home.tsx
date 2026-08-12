@@ -3,6 +3,9 @@ import { GROUP_SCHEDULES } from '@/data/content'
 import useEmblaCarousel from 'embla-carousel-react'
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { QRCodeSVG } from 'qrcode.react'
+
+const SITE_URL = 'https://curso-matematicas-basicas-plum.vercel.app/'
 
 export function Home() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
@@ -24,17 +27,28 @@ export function Home() {
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="mb-12">
-        <p className="font-mono-nums text-sm uppercase tracking-[0.14em] text-pine mb-2">
-          Institución Universitaria Pascual Bravo
-        </p>
-        <h1 className="font-display text-4xl leading-tight text-ink md:text-6xl font-bold">
-          Razonamiento <br/> Matemático y Analítico
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-muted">
-          Desarrolla habilidades lógicas, numéricas y analíticas con este curso avanzado. 
-          Explora los módulos semanales y mantente al tanto de las fechas evaluativas.
-        </p>
+      <header className="mb-12 flex flex-col md:flex-row md:items-start justify-between gap-6">
+        <div>
+          <p className="font-mono-nums text-sm uppercase tracking-[0.14em] text-pine mb-2">
+            Institución Universitaria Pascual Bravo
+          </p>
+          <h1 className="font-display text-4xl leading-tight text-ink md:text-6xl font-bold">
+            Razonamiento <br/> Matemático y Analítico
+          </h1>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-muted">
+            Desarrolla habilidades lógicas, numéricas y analíticas con este curso avanzado. 
+            Explora los módulos semanales y mantente al tanto de las fechas evaluativas.
+          </p>
+        </div>
+
+        <div className="flex shrink-0 flex-col items-center gap-2 rounded-2xl border border-line bg-surface/50 backdrop-blur p-5 shadow-[0_0_15px_rgba(214,245,35,0.05)] border-leaf/20">
+          <div className="bg-white p-2 rounded-xl">
+            <QRCodeSVG value={SITE_URL} size={100} bgColor="#ffffff" fgColor="#000000" />
+          </div>
+          <span className="text-center text-xs font-medium text-ink-muted mt-1">
+            Escanea para acceder<br />al sitio del curso
+          </span>
+        </div>
       </header>
 
       <section aria-labelledby="fechas-heading" className="mt-16">
@@ -65,14 +79,14 @@ export function Home() {
               // Alternate neon colors for cards
               const isGreen = idx % 2 === 0
               const neonClass = isGreen 
-                ? 'shadow-[0_0_15px_rgba(214,245,35,0.2)] border-leaf/40' 
-                : 'shadow-[0_0_15px_rgba(255,180,51,0.2)] border-ember/40'
+                ? 'shadow-[0_0_20px_rgba(214,245,35,0.25)] border-leaf/50 hover:shadow-[0_0_40px_rgba(214,245,35,0.4)]' 
+                : 'shadow-[0_0_20px_rgba(255,180,51,0.25)] border-ember/50 hover:shadow-[0_0_40px_rgba(255,180,51,0.4)]'
               
-              const titleColor = isGreen ? 'text-leaf' : 'text-ember'
+              const titleColor = isGreen ? 'text-leaf drop-shadow-[0_0_8px_rgba(214,245,35,0.6)]' : 'text-ember drop-shadow-[0_0_8px_rgba(255,180,51,0.6)]'
               
               return (
-                <div key={g.group} className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-4">
-                  <div className={cn("h-full rounded-2xl border bg-surface/80 backdrop-blur p-6 transition-all", neonClass)}>
+                <div key={g.group} className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-4 py-4">
+                  <div className={cn("h-full rounded-2xl border bg-surface/80 backdrop-blur-md p-6 transition-all duration-300 hover:-translate-y-1", neonClass)}>
                     <h3 className={cn("font-display text-2xl font-bold mb-1", titleColor)}>
                       {g.group}
                     </h3>

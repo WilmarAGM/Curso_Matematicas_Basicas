@@ -21,10 +21,10 @@ export function SideBar({ active, onNavigate }: SideBarProps) {
       <div className="flex flex-col flex-1 px-5 py-8">
         <div className="mb-10">
           <div className="flex items-center gap-2 mb-2">
-            <span className="h-8 w-8 rounded-lg bg-pine flex items-center justify-center font-display font-bold text-white shadow-[0_0_15px_rgba(32,80,223,0.5)]">
+            <span className="h-8 w-8 rounded-lg bg-gradient-to-br from-leaf to-pine flex items-center justify-center font-display font-bold text-ink shadow-[0_0_15px_rgba(214,245,35,0.4)]">
               RM
             </span>
-            <h1 className="font-display text-lg leading-tight text-ink font-bold">
+            <h1 className="font-display text-lg leading-tight text-ink font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]">
               Razonamiento <br /> Matemático
             </h1>
           </div>
@@ -47,13 +47,13 @@ export function SideBar({ active, onNavigate }: SideBarProps) {
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
                 className={cn(
-                  'flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition-all duration-200',
+                  'flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition-all duration-300',
                   isActive
-                    ? 'bg-pine/10 text-pine font-medium shadow-[inset_4px_0_0_0_rgba(32,80,223,1)]'
+                    ? 'bg-leaf/10 text-leaf font-bold shadow-[inset_4px_0_0_0_rgba(214,245,35,1),0_0_20px_rgba(214,245,35,0.2)] border border-leaf/20'
                     : 'text-ink-muted hover:bg-line/40 hover:text-ink',
                 )}
               >
-                <Icon className={cn('h-5 w-5', isActive ? 'text-pine' : 'text-ink-muted')} />
+                <Icon className={cn('h-5 w-5', isActive ? 'text-leaf drop-shadow-[0_0_8px_rgba(214,245,35,0.8)]' : 'text-ink-muted')} />
                 {item.label}
               </button>
             )
