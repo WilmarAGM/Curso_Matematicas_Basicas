@@ -45,6 +45,42 @@ export const NEWS: NewsItem[] = [
 ]
 // ---- FIN PLACEHOLDER ----
 
+// ---- Fechas evaluativas por grupo (semestre 2026-II) ----
+export interface CorteSchedule {
+  corte: number
+  actividad: string
+  simulacro: string
+  parcial?: string
+}
+
+export interface GroupSchedule {
+  group: string
+  schedule: string
+  cortes: CorteSchedule[]
+}
+
+export const GROUP_SCHEDULES: GroupSchedule[] = [
+  {
+    group: 'Grupo 078',
+    schedule: 'Lunes y miércoles · 4:00 p. m. – 6:00 p. m.',
+    cortes: [
+      { corte: 1, actividad: '31 de agosto', simulacro: '2 de septiembre', parcial: '7 de septiembre' },
+      { corte: 2, actividad: '30 de septiembre', simulacro: '5 de octubre', parcial: '7 de octubre' },
+      { corte: 3, actividad: '9 de noviembre', simulacro: '18 de noviembre', parcial: '23 de noviembre' },
+    ],
+  },
+  {
+    group: 'Grupo 052',
+    schedule: 'Martes y jueves · 6:00 a. m. – 8:00 a. m.',
+    cortes: [
+      { corte: 1, actividad: '1 de septiembre', simulacro: '8 de septiembre', parcial: '10 de septiembre' },
+      { corte: 2, actividad: '29 de septiembre', simulacro: '6 de octubre', parcial: '8 de octubre' },
+      { corte: 3, actividad: '10 de noviembre', simulacro: '19 de noviembre' },
+    ],
+  },
+]
+// ---- FIN fechas evaluativas por grupo ----
+
 export interface SupportMaterial {
   title: string
   description: string

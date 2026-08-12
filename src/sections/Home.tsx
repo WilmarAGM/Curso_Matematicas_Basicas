@@ -1,4 +1,4 @@
-import { NEWS, SUPPORT_MATERIALS, type SectionId } from '@/data/content'
+import { GROUP_SCHEDULES, NEWS, SUPPORT_MATERIALS, type SectionId } from '@/data/content'
 import { FileText, Download } from 'lucide-react'
 import { WEEKS } from '@/data/weeks'
 import { cn } from '@/lib/utils'
@@ -141,6 +141,46 @@ export function Home({ onNavigate, completed }: HomeProps) {
           </div>
         </section>
       </div>
+
+      <section aria-labelledby="fechas-heading" className="mt-10 border-t border-line pt-8">
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 id="fechas-heading" className="font-display text-xl text-ink">
+            Fechas evaluativas por grupo
+          </h2>
+          <span className="text-xs italic text-ink-muted">Semestre 2026-II</span>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          {GROUP_SCHEDULES.map((g) => (
+            <div key={g.group} className="rounded-lg border border-line bg-surface p-5">
+              <h3 className="font-display text-lg text-ink">{g.group}</h3>
+              <p className="mt-0.5 text-sm text-ink-muted">{g.schedule}</p>
+              <div className="mt-4 flex flex-col gap-4">
+                {g.cortes.map((c) => (
+                  <div key={c.corte} className="border-l-2 border-line-strong pl-3">
+                    <p className="font-mono-nums text-xs uppercase tracking-wide text-warm">
+                      Corte {c.corte}
+                    </p>
+                    <ul className="mt-1.5 flex flex-col gap-1 text-sm text-ink-muted">
+                      <li className="flex justify-between gap-3">
+                        <span>Actividad evaluativa</span>
+                        <span className="font-mono-nums text-ink">{c.actividad}</span>
+                      </li>
+                      <li className="flex justify-between gap-3">
+                        <span>Simulacro de parcial</span>
+                        <span className="font-mono-nums text-ink">{c.simulacro}</span>
+                      </li>
+                      <li className="flex justify-between gap-3">
+                        <span>Primer parcial</span>
+                        <span className="font-mono-nums text-ink">{c.parcial ?? 'Por confirmar'}</span>
+                      </li>
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section aria-labelledby="materiales-heading" className="mt-10 border-t border-line pt-8">
         <div className="mb-4 flex items-baseline justify-between">
