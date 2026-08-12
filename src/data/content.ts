@@ -78,6 +78,15 @@ export const GROUP_SCHEDULES: GroupSchedule[] = [
       { corte: 3, actividad: '10 de noviembre', simulacro: '19 de noviembre' },
     ],
   },
+  {
+    group: 'Grupo 811',
+    schedule: 'Viernes · 10:00 a. m. – 2:00 p. m.',
+    cortes: [
+      { corte: 1, actividad: '28 de agosto', simulacro: '4 de septiembre', parcial: '11 de septiembre' },
+      { corte: 2, actividad: '25 de septiembre', simulacro: '2 de octubre', parcial: '9 de octubre' },
+      { corte: 3, actividad: '6 de noviembre', simulacro: '20 de noviembre', parcial: '27 de noviembre' },
+    ],
+  },
 ]
 // ---- FIN fechas evaluativas por grupo ----
 
