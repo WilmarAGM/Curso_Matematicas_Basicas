@@ -1,7 +1,9 @@
 import { cn } from '@/lib/utils'
 import { Home, CalendarDays, BookOpen, PenTool, FileText, User } from 'lucide-react'
 
-export type PageId = 'inicio' | 'semanas' | 'material' | 'talleres'
+import { Users } from 'lucide-react'
+
+export type PageId = 'inicio' | 'semanas' | 'material' | 'talleres' | 'paap'
 
 interface SideBarProps {
   active: PageId
@@ -13,6 +15,7 @@ const NAV_ITEMS = [
   { id: 'semanas', label: 'Semanas', icon: CalendarDays },
   { id: 'material', label: 'Material de apoyo', icon: BookOpen },
   { id: 'talleres', label: 'Talleres', icon: PenTool },
+  { id: 'paap', label: 'PAAP', icon: Users },
 ] as const
 
 export function SideBar({ active, onNavigate }: SideBarProps) {

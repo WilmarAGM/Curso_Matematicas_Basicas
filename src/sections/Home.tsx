@@ -1,26 +1,17 @@
-import { useEffect } from 'react'
+// Removed unused useEffect
 import { GROUP_SCHEDULES } from '@/data/content'
 import useEmblaCarousel from 'embla-carousel-react'
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import Autoplay from 'embla-carousel-autoplay'
 import { QRCodeSVG } from 'qrcode.react'
 
 const SITE_URL = 'https://curso-matematicas-basicas-plum.vercel.app/'
 
 export function Home() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
-
-  useEffect(() => {
-    if (!emblaApi) return
-    
-    // Auto-play every 60 seconds (60000 ms) as requested, but usually 5-10s is better for testing.
-    // Setting to 60s as requested by user ("cambie cada minuto").
-    const interval = setInterval(() => {
-      emblaApi.scrollNext()
-    }, 60000)
-
-    return () => clearInterval(interval)
-  }, [emblaApi])
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [
+    Autoplay({ delay: 5000, stopOnInteraction: false }),
+  ])
 
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev()
   const scrollNext = () => emblaApi && emblaApi.scrollNext()
@@ -79,15 +70,15 @@ export function Home() {
               // Alternate neon colors for cards
               const isGreen = idx % 2 === 0
               const neonClass = isGreen 
-                ? 'shadow-[0_0_20px_rgba(214,245,35,0.25)] border-leaf/50 hover:shadow-[0_0_40px_rgba(214,245,35,0.4)]' 
-                : 'shadow-[0_0_20px_rgba(255,180,51,0.25)] border-ember/50 hover:shadow-[0_0_40px_rgba(255,180,51,0.4)]'
+                ? 'shadow-[0_0_20px_rgba(214,245,35,0.15),inset_0_0_20px_rgba(214,245,35,0.05)] border-leaf/40 hover:shadow-[0_0_40px_rgba(214,245,35,0.3),inset_0_0_20px_rgba(214,245,35,0.1)] hover:border-leaf/70' 
+                : 'shadow-[0_0_20px_rgba(255,180,51,0.15),inset_0_0_20px_rgba(255,180,51,0.05)] border-ember/40 hover:shadow-[0_0_40px_rgba(255,180,51,0.3),inset_0_0_20px_rgba(255,180,51,0.1)] hover:border-ember/70'
               
-              const titleColor = isGreen ? 'text-leaf drop-shadow-[0_0_8px_rgba(214,245,35,0.6)]' : 'text-ember drop-shadow-[0_0_8px_rgba(255,180,51,0.6)]'
+              const titleColor = isGreen ? 'text-leaf drop-shadow-[0_0_10px_rgba(214,245,35,0.8)]' : 'text-ember drop-shadow-[0_0_10px_rgba(255,180,51,0.8)]'
               
               return (
-                <div key={g.group} className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-4 py-4">
-                  <div className={cn("h-full rounded-2xl border bg-surface/80 backdrop-blur-md p-6 transition-all duration-300 hover:-translate-y-1", neonClass)}>
-                    <h3 className={cn("font-display text-2xl font-bold mb-1", titleColor)}>
+                <div key={g.group} className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.33%] pl-6 py-6">
+                  <div className={cn("h-full rounded-[2rem] border-[1px] bg-surface/30 backdrop-blur-xl p-8 transition-all duration-500 hover:-translate-y-2", neonClass)}>
+                    <h3 className={cn("font-display text-3xl font-bold mb-2 tracking-tight", titleColor)}>
                       {g.group}
                     </h3>
                     <p className="text-sm text-ink-muted mb-6">{g.schedule}</p>
