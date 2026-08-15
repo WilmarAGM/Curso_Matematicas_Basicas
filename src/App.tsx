@@ -4,6 +4,7 @@ import { Home } from '@/sections/Home'
 import { WeeksGrid } from '@/sections/WeeksGrid'
 import { SupportMaterial } from '@/sections/SupportMaterial'
 import { Workshops } from '@/sections/Workshops'
+import { Workshop1 } from '@/sections/Workshop1'
 import { Paap } from '@/sections/Paap'
 import { WeekHub } from '@/sections/WeekHub'
 import { History } from '@/sections/History'
@@ -58,7 +59,8 @@ function App() {
           {page === 'inicio' && <Home />}
           {page === 'semanas' && <WeeksGrid onNavigate={navigate} />}
           {page === 'material' && <SupportMaterial />}
-          {page === 'talleres' && <Workshops />}
+          {page === 'talleres' && <Workshops onNavigate={navigate} />}
+          {page === 'taller1' && <Workshop1 onNavigate={navigate} />}
           {page === 'paap' && <Paap />}
           
           {/* Week Content */}

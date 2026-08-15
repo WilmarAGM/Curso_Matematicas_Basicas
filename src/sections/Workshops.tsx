@@ -1,4 +1,10 @@
-export function Workshops() {
+import { Card } from '@/components/ui/card'
+
+interface WorkshopsProps {
+  onNavigate: (id: string) => void
+}
+
+export function Workshops({ onNavigate }: WorkshopsProps) {
   return (
     <div className="mx-auto max-w-6xl px-5 py-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <header className="border-b border-line pb-8 mb-10">
@@ -10,8 +16,24 @@ export function Workshops() {
         </p>
       </header>
 
-      <div className="rounded-xl border border-line bg-surface/30 border-dashed p-10 text-center">
-        <p className="text-ink-muted">No hay talleres disponibles en este momento.</p>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Card
+          role="button"
+          onClick={() => onNavigate('taller1')}
+          className="group flex flex-col items-start gap-2 p-5 text-left cursor-pointer transition-all active:translate-y-1 active:shadow-none hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(32,80,223,0.15)]"
+        >
+          <span className="font-mono-nums text-xs uppercase tracking-wide text-ink-muted">Semana 1</span>
+          <span className="font-display text-lg text-ink">
+            Taller 1 — Operaciones Combinadas, Secuencias y M.C.D./M.C.M.
+          </span>
+          <span className="text-sm leading-relaxed text-ink-muted">
+            20 ejercicios interactivos con verificación instantánea y solución paso a paso.
+          </span>
+          <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted">
+            <span className="h-2 w-2 rounded-full bg-warm" />
+            Empezar taller
+          </span>
+        </Card>
       </div>
     </div>
   )
