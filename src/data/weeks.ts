@@ -40,10 +40,11 @@ export const WEEKS: Week[] = [
   {
     number: 4,
     title: 'Expresiones algebraicas',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
     summary:
       'Expresiones algebraicas, adición, sustracción y multiplicación, productos notables. Ingreso del primer 30 %.',
+    hubId: 'semana4',
   },
   {
     number: 5,

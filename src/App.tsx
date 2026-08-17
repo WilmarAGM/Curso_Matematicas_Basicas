@@ -9,6 +9,7 @@ import { Paap } from '@/sections/Paap'
 import { WeekHub } from '@/sections/WeekHub'
 import { WeekHub2 } from '@/sections/WeekHub2'
 import { WeekHub3 } from '@/sections/WeekHub3'
+import { WeekHub4 } from '@/sections/WeekHub4'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -25,6 +26,11 @@ import { Module12FracWordProblems } from '@/sections/Module12FracWordProblems'
 import { Module13Power } from '@/sections/Module13Power'
 import { Module14PowerWordProblems } from '@/sections/Module14PowerWordProblems'
 import { Module15Radical } from '@/sections/Module15Radical'
+import { Module16AlgebraExpr } from '@/sections/Module16AlgebraExpr'
+import { Module17AlgebraProps } from '@/sections/Module17AlgebraProps'
+import { Module18PolyOps } from '@/sections/Module18PolyOps'
+import { Module19NotableProducts } from '@/sections/Module19NotableProducts'
+import { Module20AlgebraApplications } from '@/sections/Module20AlgebraApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 
@@ -128,6 +134,23 @@ function App() {
           )}
           {page === 'radicacion' && (
             <Module15Radical onNavigate={navigate as any} onDone={() => markComplete('radicacion')} />
+          )}
+
+          {page === 'semana4' && <WeekHub4 onNavigate={navigate as any} completed={completed} />}
+          {page === 'expresionesAlgebraicas' && (
+            <Module16AlgebraExpr onNavigate={navigate as any} onDone={() => markComplete('expresionesAlgebraicas')} />
+          )}
+          {page === 'propiedadesAlgebra' && (
+            <Module17AlgebraProps onNavigate={navigate as any} onDone={() => markComplete('propiedadesAlgebra')} />
+          )}
+          {page === 'operacionesPolinomios' && (
+            <Module18PolyOps onNavigate={navigate as any} onDone={() => markComplete('operacionesPolinomios')} />
+          )}
+          {page === 'productosNotables' && (
+            <Module19NotableProducts onNavigate={navigate as any} onDone={() => markComplete('productosNotables')} />
+          )}
+          {page === 'aplicacionesAlgebra' && (
+            <Module20AlgebraApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesAlgebra')} />
           )}
         </div>
 

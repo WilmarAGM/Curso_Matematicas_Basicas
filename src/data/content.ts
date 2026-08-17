@@ -24,6 +24,12 @@ export type SectionId =
   | 'potenciacion'
   | 'problemasPotenciacion'
   | 'radicacion'
+  | 'semana4'
+  | 'expresionesAlgebraicas'
+  | 'propiedadesAlgebra'
+  | 'operacionesPolinomios'
+  | 'productosNotables'
+  | 'aplicacionesAlgebra'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -47,6 +53,14 @@ export const MODULES_SEMANA3: { id: SectionId; short: string; title: string }[] 
   { id: 'potenciacion', short: '03', title: 'Potenciación' },
   { id: 'problemasPotenciacion', short: '04', title: 'Problemas de Potenciación' },
   { id: 'radicacion', short: '05', title: 'Radicación' },
+]
+
+export const MODULES_SEMANA4: { id: SectionId; short: string; title: string }[] = [
+  { id: 'expresionesAlgebraicas', short: '01', title: 'Expresiones Algebraicas' },
+  { id: 'propiedadesAlgebra', short: '02', title: 'Propiedades de las Expresiones Algebraicas' },
+  { id: 'operacionesPolinomios', short: '03', title: 'Operaciones con Polinomios' },
+  { id: 'productosNotables', short: '04', title: 'Productos Notables' },
+  { id: 'aplicacionesAlgebra', short: '05', title: 'Aplicaciones con Expresiones Algebraicas' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -623,5 +637,222 @@ export const RADICAL_WORD_PROBLEMS: WordProblem[] = [
     options: ['10', '20', '15', '40'],
     answerIndex: 0,
     solution: '∛(8x) = ∛8 · ∛x = 2 · 5 = 10.',
+  },
+]
+
+// =====================================================================
+// SEMANA 4 — Expresiones algebraicas, propiedades, operaciones con
+// polinomios y productos notables (basado en Guia_Algebra.pdf, pp. 4-25)
+// =====================================================================
+
+// ---- Módulo 1 (Semana 4): Expresiones algebraicas ----
+export type AlgebraKind = 'monomio' | 'binomio' | 'trinomio' | 'polinomio'
+
+export interface AlgebraClassifyItem {
+  display: string
+  kind: AlgebraKind
+  explain: string
+}
+
+export const ALGEBRA_CLASSIFY_ITEMS: AlgebraClassifyItem[] = [
+  { display: '5', kind: 'monomio', explain: 'Un solo término, sin variable (grado 0): es un monomio.' },
+  { display: '4x³', kind: 'monomio', explain: 'Un solo término (ax^k): es un monomio de grado 3.' },
+  { display: '3x + 4', kind: 'binomio', explain: 'Dos términos: es un binomio de grado 1.' },
+  { display: '7x² − 1', kind: 'binomio', explain: 'Dos términos: es un binomio de grado 2.' },
+  { display: '2x² − 3x + 4', kind: 'trinomio', explain: 'Tres términos: es un trinomio de grado 2.' },
+  { display: 'x⁴ − 2x³ + 4x² − 3x + 1', kind: 'polinomio', explain: 'Cinco términos: se le llama polinomio, de grado 4 (el mayor exponente).' },
+]
+
+export const ALGEBRA_KIND_LABELS: Record<AlgebraKind, string> = {
+  monomio: 'Monomio',
+  binomio: 'Binomio',
+  trinomio: 'Trinomio',
+  polinomio: 'Polinomio',
+}
+
+export const ALGEBRA_INTRO_PROBLEMS: WordProblem[] = [
+  {
+    prompt: 'Un rectángulo tiene un largo que es 3 unidades más que el doble de su ancho. Expresa el perímetro del rectángulo en términos del ancho x.',
+    options: ['6x + 6', '6x + 7', '8x + 6', '8x + 8'],
+    answerIndex: 0,
+    solution: 'Largo = 2x + 3. P = 2(largo + ancho) = 2[x + (2x + 3)] = 2(3x + 3) = 6x + 6.',
+  },
+  {
+    prompt: 'Un taxi cobra una tarifa base de $2.50 más $0.75 por kilómetro recorrido. Expresa el costo en términos de los kilómetros x. Si recorrieron 12.5 km, ¿cuánto cobra?',
+    options: ['2.50 + 0.75x y $11.9 aprox.', '2.50 + 0.25x y $11.9 aprox.', '2.50 + 0.75x y $12.9 aprox.', '2.50 + 0.75x y $13.9 aprox.'],
+    answerIndex: 0,
+    solution: 'Costo total = 2.50 + 0.75x. Con x = 12.5: 2.50 + 0.75(12.5) = $11.9 aprox.',
+  },
+  {
+    prompt: 'Un triángulo isósceles tiene un perímetro de 20 cm. Si la base es 2 cm más corta que uno de los lados iguales x, expresa la base y el perímetro en términos de x.',
+    options: ['x − 2 y 3x − 2', 'x + 2 y 3x − 2', 'x − 2 y 3x + 2', 'Ninguna de las anteriores'],
+    answerIndex: 0,
+    solution: 'Base = x − 2. Perímetro = x + x + (x − 2) = 3x − 2.',
+  },
+  {
+    prompt: 'Un restaurante vende hamburguesas a $8 cada una, con costos fijos diarios de $200 y costo de producción de $3 por hamburguesa. Expresa la ganancia diaria G(x) en función de x hamburguesas vendidas.',
+    options: ['G(x) = 5x − 200', 'G(x) = 8x − 200', 'G(x) = 5x + 200', 'G(x) = 8x + 200'],
+    answerIndex: 0,
+    solution: 'Ingresos = 8x, Costos = 200 + 3x. G(x) = 8x − (200 + 3x) = 5x − 200.',
+  },
+]
+
+// ---- Módulo 2 (Semana 4): Propiedades de las expresiones algebraicas ----
+export const ALGEBRA_PROPERTY_LIST = [
+  { name: 'Asociativa', example: '5x + (6y + 7) = (5x + 6y) + 7' },
+  { name: 'Conmutativa', example: '5x · 6y = 6y · 5x' },
+  { name: 'Elemento Neutro', example: '5x + 0 = 5x' },
+  { name: 'Inverso', example: '5x + (−5x) = 0' },
+  { name: 'Distributiva', example: '7 · (5x + 6y) = 35x + 42y' },
+]
+
+export const ALGEBRA_PROPERTY_QUIZ: PropertyQuestion[] = [
+  { expression: '5x + 6y = 6y + 5x', answer: 'Conmutativa' },
+  { expression: '5x · (6y · 7) = (5x · 6y) · 7', answer: 'Asociativa' },
+  { expression: '5x · 1 = 5x', answer: 'Elemento Neutro' },
+  { expression: '5x · (1/5x) = 1, si x ≠ 0', answer: 'Inverso' },
+  { expression: '7 · (5x + 6y) = 35x + 42y', answer: 'Distributiva' },
+  { expression: '5x + (6y + 7) = (5x + 6y) + 7', answer: 'Asociativa' },
+]
+
+// ---- Módulo 3 (Semana 4): Operaciones con polinomios ----
+export const POLY_ADD_STEPS = [
+  { label: 'Expresión original', expr: '(x³ − 6x² + 2x + 4) + (6x² + 2x + 4)' },
+  { label: 'Paso 1 — Se agrupan los términos semejantes', expr: '(x³) + (−6x² + 6x²) + (2x + 2x) + (4 + 4)' },
+  { label: 'Paso 2 — Resultado', expr: 'x³ + 4x + 8' },
+]
+
+export const POLY_SUB_STEPS = [
+  { label: 'Expresión original', expr: '(x³ − 6x² + 2x + 4) − (6x² + 2x + 4)' },
+  { label: 'Paso 1 — Se cambia el signo de Q(x) y se agrupa', expr: '(x³) + (−6x² − 6x²) + (2x − 2x) + (4 − 4)' },
+  { label: 'Paso 2 — Resultado', expr: 'x³ − 12x²' },
+]
+
+export const POLY_PRODUCT_STEPS = [
+  { label: 'Expresión original', expr: '(x³ − 6x² + 2x + 4) · (6x² + 2x + 4)' },
+  { label: 'Paso 1 — Se multiplica cada término de P(x) por Q(x)', expr: '6x⁵ + 2x⁴ + 4x³ − 36x⁴ − 12x³ − 24x² + 12x³ + 4x² + 8x + 24x² + 8x + 16' },
+  { label: 'Paso 2 — Se agrupan los términos semejantes', expr: '6x⁵ − 34x⁴ + 4x³ + 4x² + 16x + 16' },
+]
+
+export const POLY_WORD_PROBLEMS: WordProblem[] = [
+  {
+    prompt: 'Simplifica la expresión: (3x² − 2x + 1) + (2x² + 5x − 3) − (x² − 3x + 2)',
+    options: ['4x² + 6x − 4', '4x² − 6x − 4', '4x² + 6x + 4', 'Ninguna de las anteriores'],
+    answerIndex: 0,
+    solution: 'Agrupando términos semejantes: (3x² + 2x² − x²) + (−2x + 5x + 3x) + (1 − 3 − 2) = 4x² + 6x − 4.',
+  },
+  {
+    prompt: 'Divide (6x³ − 15x² + 9x − 12) ÷ (2x − 3) para calcular el cociente y el residuo.',
+    options: ['Cociente: 3x² − 3x, Residuo: −12', 'Cociente: 3x² + 3x, Residuo: 12', 'Cociente: 6x² − 3x, Residuo: −12', 'Cociente: 3x² − 3x, Residuo: −14'],
+    answerIndex: 0,
+    solution: 'Usando división larga: cociente 3x² − 3x, residuo −12.',
+  },
+  {
+    prompt: 'Simplifica: (x² + 2x − 3) − (2x² − 5x + 1) + (3x² + 4x − 2)',
+    options: ['6x² + x − 4', '6x² + x + 4', '6x² − x + 4', '6x² + x + 4'],
+    answerIndex: 0,
+    solution: 'Agrupando: (x² − 2x² + 3x²) + (2x + 5x + 4x) + (−3 − 1 − 2) = 6x² + x − 4.',
+  },
+  {
+    prompt: 'Una empresa tiene ingresos I(x) = 2x² + 500x y costos C(x) = x² + 300x + 10000. Encuentra la función de beneficio B(x) = I(x) − C(x).',
+    options: ['B(x) = x² + 200x − 10000', 'B(x) = x² − 200x − 10000', 'B(x) = x² + 200x + 10000', 'B(x) = x² − 200x + 10000'],
+    answerIndex: 0,
+    solution: 'B(x) = (2x² + 500x) − (x² + 300x + 10000) = x² + 200x − 10000.',
+  },
+  {
+    prompt: 'La producción diaria (en cientos de unidades) es P(t) = −t² + 6t + 8 y el costo es C(t) = 2t² + 5t + 100. Expresa el beneficio B(t) = P(t) − C(t).',
+    options: ['B(t) = −3t² + t − 92', 'B(t) = 3t² + t − 92', 'B(t) = −3t² − t − 92', 'B(t) = −3t² + t + 92'],
+    answerIndex: 0,
+    solution: 'B(t) = (−t² + 6t + 8) − (2t² + 5t + 100) = −3t² + t − 92.',
+  },
+]
+
+// ---- Módulo 4 (Semana 4): Productos notables ----
+export const NOTABLE_PRODUCTS_LIST = [
+  { name: 'Producto de dos binomios', example: '(x+a)(x+b) = x² + (a+b)x + ab' },
+  { name: 'Cuadrado de un binomio', example: '(a ± b)² = a² ± 2ab + b²' },
+  { name: 'Suma por diferencia', example: '(a + b)(a − b) = a² − b²' },
+  { name: 'Cubo de un binomio', example: '(a ± b)³ = a³ ± 3a²b + 3ab² ± b³' },
+  { name: 'Trinomio cuadrado', example: '(x + y + c)² = x² + 2xy + y² + 2yc + 2xc + c²' },
+  { name: 'Suma de cubos', example: 'a³ + b³ = (a + b)(a² − ab + b²)' },
+  { name: 'Diferencia de cubos', example: 'a³ − b³ = (a − b)(a² + ab + b²)' },
+]
+
+export const NOTABLE_PRODUCTS_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Desarrolla y selecciona la opción correcta: (x + 5)²',
+    options: ['x² + 10x + 25', 'x² − 10x + 25', 'x² + 10x − 25', 'x² − 10x − 25'],
+    answerIndex: 0,
+    solution: '(a+b)² = a² + 2ab + b². Con a=x, b=5: x² + 2(x)(5) + 5² = x² + 10x + 25.',
+  },
+  {
+    prompt: 'Expande y elige la opción correcta: (2x − 1)³',
+    options: ['8x³ − 12x² + 6x − 1', '8x³ + 12x² + 6x − 1', '8x³ − 12x² − 6x − 1', '8x³ + 12x² + 6x + 1'],
+    answerIndex: 0,
+    solution: '(a−b)³ = a³ − 3a²b + 3ab² − b³. Con a=2x, b=1: 8x³ − 12x² + 6x − 1.',
+  },
+  {
+    prompt: 'Calcula y elige la opción correcta: (√x + √y)(√x − √y)',
+    options: ['x − y', 'x + y', 'x² − y²', 'x² + y²'],
+    answerIndex: 0,
+    solution: 'Es suma por diferencia: a² − b² = (√x)² − (√y)² = x − y.',
+  },
+  {
+    prompt: 'Calcula y elige la opción correcta: (3x − 2y)(3x + 2y)',
+    options: ['9x² − 4y²', '9x² + 4y²', '9x² − 6xy + 4y²', '9x² − 6xy − 4y²'],
+    answerIndex: 0,
+    solution: 'Suma por diferencia: (3x)² − (2y)² = 9x² − 4y².',
+  },
+  {
+    prompt: 'Desarrolla y elige la opción correcta: (x + y + z)²',
+    options: ['x² + y² + z² + 2xy + 2yz + 2xz', 'x² − y² + z² + 2xy + 2yz + 2xz', 'x² + y² − z² + 2xy + 2yz + 2xz', 'x² + y² + z² − 2xy + 2yz + 2xz'],
+    answerIndex: 0,
+    solution: 'Trinomio cuadrado: cada término al cuadrado más el doble producto de cada par: x² + y² + z² + 2xy + 2yz + 2xz.',
+  },
+  {
+    prompt: 'La diferencia entre el cuadrado de un número y el cuadrado del número anterior es 15. Plantea x² − (x−1)² = 15 y resuelve.',
+    options: ['x = 8', 'x = 7', 'x = 6', 'x = 5'],
+    answerIndex: 0,
+    solution: 'x² − (x² − 2x + 1) = 15 → 2x − 1 = 15 → 2x = 16 → x = 8.',
+  },
+]
+
+// ---- Módulo 5 (Semana 4): Aplicaciones con expresiones algebraicas ----
+export const ALGEBRA_APPLICATION_PROBLEMS: WordProblem[] = [
+  {
+    prompt: 'Un vendedor recibe un salario base de $1000 al mes, más una comisión del 5% sobre las ventas x. Expresa el salario mensual S(x).',
+    options: ['S(x) = 1000 + 0.05x', 'S(x) = 1000 − 0.05x', 'S(x) = 1000 + 0.5x', 'S(x) = 1000 − 0.5x'],
+    answerIndex: 0,
+    solution: 'Salario = salario base + comisión = 1000 + 0.05x.',
+  },
+  {
+    prompt: 'La suma de tres números consecutivos es 51. Expresa el mayor de estos números en términos del menor x y halla el primer número.',
+    options: ['x + 2, 16', 'x + 3, 15', 'x + 2, 15', 'x + 3, 16'],
+    answerIndex: 0,
+    solution: 'x + (x+1) + (x+2) = 51 → 3x + 3 = 51 → x = 16. El mayor es x + 2, y el primero (menor) es 16.',
+  },
+  {
+    prompt: 'La edad de María es el triple de la edad de su hijo más 5 años. Expresa la edad de María en términos de la edad del hijo x. Si el hijo tiene 15 años, ¿cuál es la edad de María?',
+    options: ['Edad de María = 3x + 5 y 50 años', 'Edad de María = 3x + 5 y 45 años', 'Edad de María = 3(x + 5) y 50 años', 'Edad de María = 3x − 5 y 45 años'],
+    answerIndex: 0,
+    solution: 'Edad de María = 3x + 5. Con x=15: 3(15) + 5 = 50 años.',
+  },
+  {
+    prompt: 'Una compañía de taxis cobra una tarifa base de $5 más $0.75 por kilómetro recorrido x. Expresa el costo de un viaje en función de los kilómetros recorridos.',
+    options: ['C(x) = 5 + 0.75x', 'C(x) = 5 + 5(0.75x)', 'C(x) = 5 − 0.75x', 'C(x) = 5 + 0.25x'],
+    answerIndex: 0,
+    solution: 'Costo total = tarifa base + tarifa por km = 5 + 0.75x.',
+  },
+  {
+    prompt: 'Una piscina rectangular tiene un largo que es 5 metros más que el doble de su ancho x. Expresa el perímetro de la piscina en términos de su ancho.',
+    options: ['P(x) = 6x + 10', 'P(x) = 8x + 10', 'P(x) = 6x + 12', 'P(x) = 8x + 12'],
+    answerIndex: 0,
+    solution: 'Largo = 2x + 5. P = 2(largo + ancho) = 2[(2x+5) + x] = 2(3x + 5) = 6x + 10.',
+  },
+  {
+    prompt: 'Una fábrica produce x unidades al día. El costo de producción por unidad disminuye en $0.05 por cada 100 unidades producidas, partiendo de un costo inicial de $10 por unidad. Expresa el costo total de producción en función de x.',
+    options: ['C(x) = 10x − 0.0005x²', 'C(x) = 10x − 0.005x²', 'C(x) = 10x + 0.0005x²', 'C(x) = 10x − 0.05x²'],
+    answerIndex: 0,
+    solution: 'El costo por unidad es 10 − 0.05(x/100) = 10 − 0.0005x. Costo total = x·(10 − 0.0005x) = 10x − 0.0005x².',
   },
 ]
