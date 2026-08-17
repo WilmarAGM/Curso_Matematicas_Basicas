@@ -22,10 +22,11 @@ export const WEEKS: Week[] = [
   {
     number: 2,
     title: 'Racionales, irracionales y fracciones',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones aritméticas',
     summary:
       'Conjuntos numéricos (racionales, irracionales y reales), fracciones equivalentes, propiedades de las fracciones, tipos de fracciones y sus operaciones.',
+    hubId: 'semana2',
   },
   {
     number: 3,

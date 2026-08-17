@@ -12,6 +12,12 @@ export type SectionId =
   | 'pemdas'
   | 'patrones'
   | 'mcmMcd'
+  | 'semana2'
+  | 'equivalentes'
+  | 'propiedadesFracciones'
+  | 'tiposFracciones'
+  | 'sumaResta'
+  | 'producto'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -19,6 +25,14 @@ export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'pemdas', short: '03', title: 'Jerarquía de Operaciones' },
   { id: 'patrones', short: '04', title: 'Patrones Numéricos' },
   { id: 'mcmMcd', short: '05', title: 'MCM y MCD' },
+]
+
+export const MODULES_SEMANA2: { id: SectionId; short: string; title: string }[] = [
+  { id: 'equivalentes', short: '01', title: 'Fracciones Equivalentes' },
+  { id: 'propiedadesFracciones', short: '02', title: 'Propiedades de las Fracciones' },
+  { id: 'tiposFracciones', short: '03', title: 'Tipos de Fracciones' },
+  { id: 'sumaResta', short: '04', title: 'Suma y Resta de Fraccionarios' },
+  { id: 'producto', short: '05', title: 'Producto de Fraccionarios' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -294,3 +308,158 @@ export const MACHINE_PROBLEM = {
   lcm: 72,
   resultTime: '9:12 AM',
 }
+
+// =====================================================================
+// SEMANA 2 — Fraccionarios (basado en U1_Guia_ARITMETICA.pdf, pp. 17-24)
+// =====================================================================
+
+export function gcd(a: number, b: number): number {
+  let x = Math.abs(a)
+  let y = Math.abs(b)
+  while (y) [x, y] = [y, x % y]
+  return x
+}
+
+export function simplifyFraction(num: number, den: number): [number, number] {
+  const d = gcd(num, den) || 1
+  const sign = den < 0 ? -1 : 1
+  return [(sign * num) / d, (sign * den) / d]
+}
+
+// ---- Módulo 1 (Semana 2): Fracciones equivalentes ----
+export interface SimplifyItem {
+  num: number
+  den: number
+  ansNum: number
+  ansDen: number
+}
+
+export const SIMPLIFY_ITEMS: SimplifyItem[] = [
+  { num: 98, den: 147, ansNum: 2, ansDen: 3 },
+  { num: 273, den: 637, ansNum: 3, ansDen: 7 },
+  { num: 332, den: 415, ansNum: 4, ansDen: 5 },
+  { num: 285, den: 513, ansNum: 5, ansDen: 9 },
+  { num: 252, den: 441, ansNum: 4, ansDen: 7 },
+  { num: 623, den: 979, ansNum: 7, ansDen: 11 },
+  { num: 370, den: 444, ansNum: 5, ansDen: 6 },
+  { num: 2002, den: 5005, ansNum: 2, ansDen: 5 },
+]
+
+// ---- Módulo 2 (Semana 2): Propiedades de las fracciones ----
+export interface FracPropertyQuestion {
+  expression: string
+  answer: 'Igualdad' | 'Fracción negativa' | 'Multiplicación' | 'Simplificación' | 'Suma y resta' | 'División'
+}
+
+export const FRAC_PROPERTY_LIST = [
+  { name: 'Igualdad', example: 'a/b = c/d, si a·d = b·c' },
+  { name: 'Fracción negativa', example: 'a/(−b) = (−a)/b = −(a/b)' },
+  { name: 'Multiplicación', example: '(a/b) · (c/d) = (a·c)/(b·d)' },
+  { name: 'Simplificación', example: '(a·d)/(b·d) = a/b, con b∧d ≠ 0' },
+  { name: 'Suma y resta', example: '(a/b) ± (c/d) = (a·d ± b·c)/(b·d)' },
+  { name: 'División', example: '(a/b) ÷ (c/d) = (a·d)/(b·c)' },
+]
+
+export const FRAC_PROPERTY_QUIZ: FracPropertyQuestion[] = [
+  { expression: '5/3 = 5/3, dado 5·3 = 3·5', answer: 'Igualdad' },
+  { expression: '5/(−3) = (−5)/3 = −5/3', answer: 'Fracción negativa' },
+  { expression: '(5/3) · (2/7) = 10/21', answer: 'Multiplicación' },
+  { expression: '(5a)/(5b) = a/b', answer: 'Simplificación' },
+  { expression: '(7/5) + (3/7) = (7·7 + 5·3)/(5·7)', answer: 'Suma y resta' },
+  { expression: '(5/3) ÷ (2/7) = (5·7)/(3·2)', answer: 'División' },
+]
+
+// ---- Módulo 3 (Semana 2): Tipos de fracciones ----
+export type FractionKind = 'propia' | 'impropia' | 'mixta'
+
+export interface FractionClassifyItem {
+  display: string
+  kind: FractionKind
+  explain: string
+}
+
+export const FRACTION_CLASSIFY_ITEMS: FractionClassifyItem[] = [
+  { display: '2/5', kind: 'propia', explain: 'El numerador (2) es menor que el denominador (5): su valor está entre 0 y 1.' },
+  { display: '3/7', kind: 'propia', explain: 'El numerador (3) es menor que el denominador (7): es una fracción propia.' },
+  { display: '9/11', kind: 'propia', explain: 'El numerador (9) es menor que el denominador (11): es propia.' },
+  { display: '5/2', kind: 'impropia', explain: 'El numerador (5) es mayor que el denominador (2): su valor es mayor que 1.' },
+  { display: '11/9', kind: 'impropia', explain: 'El numerador (11) es mayor que el denominador (9): es impropia.' },
+  { display: '5/5', kind: 'impropia', explain: 'El numerador es igual al denominador: por definición también es impropia.' },
+  { display: '3 2/5', kind: 'mixta', explain: 'Tiene una parte entera (3) y una parte fraccionaria (2/5): es una fracción mixta.' },
+  { display: '1 3/7', kind: 'mixta', explain: 'Combina un entero (1) con una fracción propia (3/7): es mixta.' },
+  { display: '5 9/11', kind: 'mixta', explain: 'Parte entera (5) más parte fraccionaria (9/11): es mixta.' },
+]
+
+export const FRACTION_KIND_LABELS: Record<FractionKind, string> = {
+  propia: 'Propia',
+  impropia: 'Impropia',
+  mixta: 'Mixta',
+}
+
+// ---- Conversión mixta → impropia (Módulo 3) ----
+export interface MixedConvertItem {
+  whole: number
+  num: number
+  den: number
+  ansNum: number
+}
+
+export const MIXED_CONVERT_ITEMS: MixedConvertItem[] = [
+  { whole: 3, num: 2, den: 5, ansNum: 17 },
+  { whole: 1, num: 3, den: 7, ansNum: 10 },
+  { whole: 5, num: 9, den: 11, ansNum: 64 },
+]
+
+// ---- Módulo 4 (Semana 2): Suma y resta de fraccionarios ----
+export const HOMOGENEAS_STEPS = [
+  { label: 'Expresión original', expr: '11/15 + 16/15' },
+  { label: 'Paso 1 — Mismo denominador: sumamos numeradores', expr: '(11 + 16)/15' },
+  { label: 'Paso 2 — Resultado', expr: '27/15' },
+  { label: 'Paso 3 — Simplificamos', expr: '9/5' },
+]
+
+export interface FracPractice {
+  label: string
+  aNum: number
+  aDen: number
+  bNum: number
+  bDen: number
+  op: '+' | '-'
+  ansNum: number
+  ansDen: number
+}
+
+export const HOMOGENEAS_PRACTICE: FracPractice[] = [
+  { label: '3/10 + 4/10', aNum: 3, aDen: 10, bNum: 4, bDen: 10, op: '+', ansNum: 7, ansDen: 10 },
+  { label: '10/15 − 7/15', aNum: 10, aDen: 15, bNum: 7, bDen: 15, op: '-', ansNum: 3, ansDen: 15 },
+]
+
+export const HETEROGENEAS_STEPS = [
+  { label: 'Expresión original', expr: '7/12 + 1/6 − 5/24' },
+  { label: 'Paso 1 — mcm(12, 6, 24) = 24', expr: '(2·7 + 4·1 − 1·5)/24' },
+  { label: 'Paso 2 — Resolvemos el numerador', expr: '(14 + 4 − 5)/24' },
+  { label: 'Paso 3 — Resultado', expr: '13/24' },
+]
+
+export const HETEROGENEAS_PRACTICE: FracPractice[] = [
+  { label: '5/3 + 4/5', aNum: 5, aDen: 3, bNum: 4, bDen: 5, op: '+', ansNum: 37, ansDen: 15 },
+  { label: '3/4 − 7/5', aNum: 3, aDen: 4, bNum: 7, bDen: 5, op: '-', ansNum: -13, ansDen: 20 },
+]
+
+// ---- Módulo 5 (Semana 2): Producto de fraccionarios ----
+export interface ProductPractice {
+  aNum: number
+  aDen: number
+  bNum: number
+  bDen: number
+  ansNum: number
+  ansDen: number
+}
+
+export const PRODUCT_WORKED = { aNum: 7, aDen: 12, bNum: 5, bDen: 6, ansNum: 35, ansDen: 72 }
+
+export const PRODUCT_PRACTICE: ProductPractice[] = [
+  { aNum: 5, aDen: 3, bNum: 2, bDen: 7, ansNum: 10, ansDen: 21 },
+  { aNum: 2, aDen: 5, bNum: 3, bDen: 4, ansNum: 6, ansDen: 20 },
+  { aNum: 3, aDen: 8, bNum: 4, bDen: 9, ansNum: 12, ansDen: 72 },
+]

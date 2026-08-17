@@ -7,12 +7,18 @@ import { Workshops } from '@/sections/Workshops'
 import { Workshop1 } from '@/sections/Workshop1'
 import { Paap } from '@/sections/Paap'
 import { WeekHub } from '@/sections/WeekHub'
+import { WeekHub2 } from '@/sections/WeekHub2'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
 import { Module3Pemdas } from '@/sections/Module3Pemdas'
 import { Module4Patterns } from '@/sections/Module4Patterns'
 import { Module5LcmGcd } from '@/sections/Module5LcmGcd'
+import { Module6FracEquiv } from '@/sections/Module6FracEquiv'
+import { Module7FracProps } from '@/sections/Module7FracProps'
+import { Module8FracTypes } from '@/sections/Module8FracTypes'
+import { Module9FracSumRes } from '@/sections/Module9FracSumRes'
+import { Module10FracProduct } from '@/sections/Module10FracProduct'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 
@@ -82,6 +88,23 @@ function App() {
           )}
           {page === 'mcmMcd' && (
             <Module5LcmGcd onNavigate={navigate as any} onDone={() => markComplete('mcmMcd')} />
+          )}
+
+          {page === 'semana2' && <WeekHub2 onNavigate={navigate as any} completed={completed} />}
+          {page === 'equivalentes' && (
+            <Module6FracEquiv onNavigate={navigate as any} onDone={() => markComplete('equivalentes')} />
+          )}
+          {page === 'propiedadesFracciones' && (
+            <Module7FracProps onNavigate={navigate as any} onDone={() => markComplete('propiedadesFracciones')} />
+          )}
+          {page === 'tiposFracciones' && (
+            <Module8FracTypes onNavigate={navigate as any} onDone={() => markComplete('tiposFracciones')} />
+          )}
+          {page === 'sumaResta' && (
+            <Module9FracSumRes onNavigate={navigate as any} onDone={() => markComplete('sumaResta')} />
+          )}
+          {page === 'producto' && (
+            <Module10FracProduct onNavigate={navigate as any} onDone={() => markComplete('producto')} />
           )}
         </div>
 

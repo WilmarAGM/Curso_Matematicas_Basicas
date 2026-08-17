@@ -8,12 +8,30 @@ interface ModuleShellProps {
   intro: ReactNode
   children: ReactNode
   onNavigate: (id: SectionId) => void
+  /** Lista de módulos de la semana a la que pertenece este módulo (por defecto, Semana 1). */
+  modules?: { id: SectionId; short: string; title: string }[]
+  /** Id del hub al que se vuelve tras el último módulo o desde "Volver a Semana X". */
+  hubId?: SectionId
+  hubLabel?: string
+  /** Destino y etiqueta cuando no hay módulo previo (por defecto, Historia de la Semana 1). */
+  prevFallback?: { id: SectionId; label: string }
 }
 
-export function ModuleShell({ id, eyebrow, title, intro, children, onNavigate }: ModuleShellProps) {
-  const idx = MODULES.findIndex((m) => m.id === id)
-  const prev = MODULES[idx - 1]
-  const next = MODULES[idx + 1]
+export function ModuleShell({
+  id,
+  eyebrow,
+  title,
+  intro,
+  children,
+  onNavigate,
+  modules = MODULES,
+  hubId = 'semana1',
+  hubLabel = 'Semana 1',
+  prevFallback = { id: 'historia', label: 'Historia de los Números' },
+}: ModuleShellProps) {
+  const idx = modules.findIndex((m) => m.id === id)
+  const prev = modules[idx - 1]
+  const next = modules[idx + 1]
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
@@ -33,10 +51,10 @@ export function ModuleShell({ id, eyebrow, title, intro, children, onNavigate }:
           </button>
         ) : (
           <button
-            onClick={() => onNavigate('historia')}
+            onClick={() => onNavigate(prevFallback.id)}
             className="text-sm text-ink-muted transition hover:text-ink"
           >
-            ← Historia de los Números
+            ← {prevFallback.label}
           </button>
         )}
         {next ? (
@@ -48,10 +66,10 @@ export function ModuleShell({ id, eyebrow, title, intro, children, onNavigate }:
           </button>
         ) : (
           <button
-            onClick={() => onNavigate('semana1')}
+            onClick={() => onNavigate(hubId)}
             className="rounded bg-pine px-4 py-2 text-sm font-medium text-pine-foreground transition hover:opacity-90"
           >
-            Volver a Semana 1 →
+            Volver a {hubLabel} →
           </button>
         )}
       </div>
