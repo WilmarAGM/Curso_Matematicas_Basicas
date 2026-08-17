@@ -34,6 +34,24 @@ export function Workshops({ onNavigate }: WorkshopsProps) {
             Empezar taller
           </span>
         </Card>
+
+        <Card
+          role="button"
+          onClick={() => onNavigate('taller2')}
+          className="group flex flex-col items-start gap-2 p-5 text-left cursor-pointer transition-all active:translate-y-1 active:shadow-none hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(32,80,223,0.15)]"
+        >
+          <span className="font-mono-nums text-xs uppercase tracking-wide text-ink-muted">Semana 2</span>
+          <span className="font-display text-lg text-ink">
+            Taller 2 — Fraccionarios: Equivalencia, Propiedades y Operaciones
+          </span>
+          <span className="text-sm leading-relaxed text-ink-muted">
+            28 ejercicios de nivel alto con verificación instantánea y solución paso a paso.
+          </span>
+          <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted">
+            <span className="h-2 w-2 rounded-full bg-warm" />
+            Empezar taller
+          </span>
+        </Card>
       </div>
     </div>
   )
