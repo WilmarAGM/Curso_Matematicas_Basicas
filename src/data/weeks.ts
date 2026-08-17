@@ -31,10 +31,11 @@ export const WEEKS: Week[] = [
   {
     number: 3,
     title: 'Operaciones y radicación',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones aritméticas',
     summary:
       'Operaciones entre conjuntos numéricos, operaciones y aplicaciones con fracciones, potenciación y radicación.',
+    hubId: 'semana3',
   },
   {
     number: 4,

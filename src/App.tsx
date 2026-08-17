@@ -8,6 +8,7 @@ import { Workshop1 } from '@/sections/Workshop1'
 import { Paap } from '@/sections/Paap'
 import { WeekHub } from '@/sections/WeekHub'
 import { WeekHub2 } from '@/sections/WeekHub2'
+import { WeekHub3 } from '@/sections/WeekHub3'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -19,6 +20,11 @@ import { Module7FracProps } from '@/sections/Module7FracProps'
 import { Module8FracTypes } from '@/sections/Module8FracTypes'
 import { Module9FracSumRes } from '@/sections/Module9FracSumRes'
 import { Module10FracProduct } from '@/sections/Module10FracProduct'
+import { Module11FracDivision } from '@/sections/Module11FracDivision'
+import { Module12FracWordProblems } from '@/sections/Module12FracWordProblems'
+import { Module13Power } from '@/sections/Module13Power'
+import { Module14PowerWordProblems } from '@/sections/Module14PowerWordProblems'
+import { Module15Radical } from '@/sections/Module15Radical'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 
@@ -105,6 +111,23 @@ function App() {
           )}
           {page === 'producto' && (
             <Module10FracProduct onNavigate={navigate as any} onDone={() => markComplete('producto')} />
+          )}
+
+          {page === 'semana3' && <WeekHub3 onNavigate={navigate as any} completed={completed} />}
+          {page === 'division' && (
+            <Module11FracDivision onNavigate={navigate as any} onDone={() => markComplete('division')} />
+          )}
+          {page === 'aplicacionFracciones' && (
+            <Module12FracWordProblems onNavigate={navigate as any} onDone={() => markComplete('aplicacionFracciones')} />
+          )}
+          {page === 'potenciacion' && (
+            <Module13Power onNavigate={navigate as any} onDone={() => markComplete('potenciacion')} />
+          )}
+          {page === 'problemasPotenciacion' && (
+            <Module14PowerWordProblems onNavigate={navigate as any} onDone={() => markComplete('problemasPotenciacion')} />
+          )}
+          {page === 'radicacion' && (
+            <Module15Radical onNavigate={navigate as any} onDone={() => markComplete('radicacion')} />
           )}
         </div>
 

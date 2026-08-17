@@ -18,6 +18,12 @@ export type SectionId =
   | 'tiposFracciones'
   | 'sumaResta'
   | 'producto'
+  | 'semana3'
+  | 'division'
+  | 'aplicacionFracciones'
+  | 'potenciacion'
+  | 'problemasPotenciacion'
+  | 'radicacion'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -33,6 +39,14 @@ export const MODULES_SEMANA2: { id: SectionId; short: string; title: string }[] 
   { id: 'tiposFracciones', short: '03', title: 'Tipos de Fracciones' },
   { id: 'sumaResta', short: '04', title: 'Suma y Resta de Fraccionarios' },
   { id: 'producto', short: '05', title: 'Producto de Fraccionarios' },
+]
+
+export const MODULES_SEMANA3: { id: SectionId; short: string; title: string }[] = [
+  { id: 'division', short: '01', title: 'División de Fraccionarios' },
+  { id: 'aplicacionFracciones', short: '02', title: 'Problemas con Fraccionarios' },
+  { id: 'potenciacion', short: '03', title: 'Potenciación' },
+  { id: 'problemasPotenciacion', short: '04', title: 'Problemas de Potenciación' },
+  { id: 'radicacion', short: '05', title: 'Radicación' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -462,4 +476,152 @@ export const PRODUCT_PRACTICE: ProductPractice[] = [
   { aNum: 5, aDen: 3, bNum: 2, bDen: 7, ansNum: 10, ansDen: 21 },
   { aNum: 2, aDen: 5, bNum: 3, bDen: 4, ansNum: 6, ansDen: 20 },
   { aNum: 3, aDen: 8, bNum: 4, bDen: 9, ansNum: 12, ansDen: 72 },
+]
+
+// =====================================================================
+// SEMANA 3 — División de fraccionarios, aplicaciones, potenciación
+// y radicación (basado en U1_Guia_ARITMETICA.pdf, pp. 25-37)
+// =====================================================================
+
+// ---- Módulo 1 (Semana 3): División de fraccionarios ----
+export const DIVISION_WORKED = { aNum: 7, aDen: 12, bNum: 5, bDen: 6, ansNum: 7, ansDen: 10 }
+
+export const DIVISION_PRACTICE: ProductPractice[] = [
+  { aNum: 2, aDen: 3, bNum: 5, bDen: 4, ansNum: 8, ansDen: 15 },
+  { aNum: 5, aDen: 6, bNum: 2, bDen: 3, ansNum: 15, ansDen: 12 },
+  { aNum: 3, aDen: 5, bNum: 7, bDen: 2, ansNum: 6, ansDen: 35 },
+]
+
+// ---- Módulo 2 (Semana 3): Problemas de aplicación con fraccionarios ----
+export interface WordProblem {
+  prompt: string
+  options: string[]
+  answerIndex: number
+  solution: string
+}
+
+export const FRACTION_WORD_PROBLEMS: WordProblem[] = [
+  {
+    prompt:
+      'En una fábrica de chocolates, 3/5 de la producción total se destina a barras de chocolate negro. De estas barras, 2/7 se envasan en cajas de 100 gramos. Si la fábrica produce 10 000 kg de chocolate al día, ¿cuántas cajas de 100 gramos de chocolate negro se pueden llenar diariamente?',
+    options: ['1714', '17143', '8571', '857'],
+    answerIndex: 1,
+    solution:
+      '3/5 · 10 000 = 6000 kg de chocolate negro. 2/7 · 6000 ≈ 1714.29 kg = 1 714 290 g. 1 714 290 ÷ 100 ≈ 17 143 cajas.',
+  },
+  {
+    prompt:
+      'Un tanque de agua se llena en 3 horas cuando se usan simultáneamente tres llaves. La primera llave puede llenar 2/5 del tanque en una hora, la segunda puede llenar 1/4 del tanque en una hora. ¿Qué fracción del tanque llena la tercera llave en una hora?',
+    options: ['1/12', '1/6', '7/60', '7/20'],
+    answerIndex: 3,
+    solution: '2/5 + 1/4 = 13/20 del tanque entre las dos llaves. La tercera llena 1 − 13/20 = 7/20.',
+  },
+  {
+    prompt:
+      'Un tanque de leche está lleno hasta los tres décimos de su capacidad; luego se le echan 120 galones y queda lleno hasta siete décimos de su capacidad. ¿Cuántos galones llena el tanque si está vacío?',
+    options: ['120 galones', '240 galones', '300 galones', '420 galones'],
+    answerIndex: 2,
+    solution: '120 galones equivalen a 7/10 − 3/10 = 4/10 de la capacidad. Por tanto, la capacidad total es 120 ÷ (4/10) = 300 galones.',
+  },
+  {
+    prompt: 'Elena va de compras con $18 000. Se gasta 3/5 de esa cantidad. ¿Cuánto le queda?',
+    options: ['$10 800', '$7 200', '$5 400', '$12 600'],
+    answerIndex: 1,
+    solution: 'Le queda 2/5 de $18 000 = $7 200.',
+  },
+  {
+    prompt: 'Un hombre vende 1/3 de su finca, alquila 1/8 y el resto lo cultiva. ¿Qué porción de la finca cultiva?',
+    options: ['11/24', '13/24', '5/24', '17/24'],
+    answerIndex: 1,
+    solution: '1/3 + 1/8 = 11/24 vendida o alquilada. Cultiva 1 − 11/24 = 13/24.',
+  },
+]
+
+// ---- Módulo 3 (Semana 3): Propiedades de la potenciación ----
+export interface PowerPropertyQuestion {
+  expression: string
+  answer: string
+}
+
+export const POWER_PROPERTY_LIST = [
+  { name: 'Producto de potencias', example: 'aᵐ · aⁿ = aᵐ⁺ⁿ,  3² · 3⁵ = 3⁷' },
+  { name: 'Cociente de potencias', example: 'aᵐ / aⁿ = aᵐ⁻ⁿ,  3⁵ / 3³ = 3²' },
+  { name: 'Exponente cero', example: 'a⁰ = 1,  5⁰ = 1' },
+  { name: 'Potencia de potencia', example: '(aᵐ)ⁿ = aᵐ·ⁿ,  (3²)⁵ = 3¹⁰' },
+  { name: 'Potencia de un producto', example: '(a·b)ⁿ = aⁿ·bⁿ,  (3·4)² = 3²·4²' },
+  { name: 'Potencia de un cociente', example: '(a/b)ⁿ = aⁿ/bⁿ,  (3/4)² = 3²/4²' },
+  { name: 'Potencia negativa de una fracción', example: '(a/b)⁻ⁿ = (b/a)ⁿ,  (3/4)⁻² = (4/3)²' },
+  { name: 'Cambio de exponente negativo', example: 'a⁻ⁿ/b⁻ᵐ = bᵐ/aⁿ,  3⁻²/4⁻⁵ = 4⁵/3²' },
+]
+
+export const POWER_PROPERTY_QUIZ: PowerPropertyQuestion[] = [
+  { expression: '3² · 3⁵ = 3⁷', answer: 'Producto de potencias' },
+  { expression: '3⁵ / 3³ = 3²', answer: 'Cociente de potencias' },
+  { expression: '5⁰ = 1', answer: 'Exponente cero' },
+  { expression: '(3²)⁵ = 3¹⁰', answer: 'Potencia de potencia' },
+  { expression: '(3 · 4)² = 3² · 4²', answer: 'Potencia de un producto' },
+  { expression: '(3/4)² = 3²/4²', answer: 'Potencia de un cociente' },
+]
+
+// ---- Módulo 4 (Semana 3): Problemas de razonamiento con potenciación ----
+export const POWER_WORD_PROBLEMS: WordProblem[] = [
+  {
+    prompt: 'Una bacteria se reproduce por bipartición cada hora. Si inicialmente hay 100 bacterias, ¿cuántas habrá después de 5 horas?',
+    options: ['3200', '1600', '3600', '6400'],
+    answerIndex: 0,
+    solution: 'La población se duplica cada hora: 100 · 2⁵ = 100 · 32 = 3200.',
+  },
+  {
+    prompt: 'Un cubo tiene una arista de 3 cm. Si se triplica la longitud de la arista, ¿en qué factor aumentará su volumen?',
+    options: ['9', '18', '27', '81'],
+    answerIndex: 2,
+    solution: 'Volumen inicial = 3³ = 27 cm³. Nuevo volumen = 9³ = 729 cm³. Factor = 729/27 = 27.',
+  },
+  {
+    prompt: 'En una progresión geométrica, el primer término es 2 y el cuarto término es 54. ¿Cuál es la razón de la progresión?',
+    options: ['3', '2', '1.5', '2.5'],
+    answerIndex: 0,
+    solution: '54 = 2·r³ → 27 = r³ → r = ∛27 = 3.',
+  },
+  {
+    prompt: 'Un capital de $10 000 se invierte a una tasa de interés compuesto del 8% anual. ¿Cuánto dinero habrá después de 3 años?',
+    options: ['$12 597,12', '$12 800', '$13 000', '$12 400'],
+    answerIndex: 0,
+    solution: 'VF = 10 000(1 + 0.08)³ = 10 000 · 1.259712 = $12 597,12.',
+  },
+]
+
+// ---- Módulo 5 (Semana 3): Radicación ----
+export interface RadicalItem {
+  display: string
+  ansNum: number
+  ansDen: number
+  explain: string
+}
+
+export const RADICAL_EXAMPLES: RadicalItem[] = [
+  { display: '√125 = √(5²·5)', ansNum: 5, ansDen: 1, explain: '√125 = 5√5 (aquí se pide solo el coeficiente entero: 5).' },
+  { display: '∛125 = ∛5³', ansNum: 5, ansDen: 1, explain: '∛125 = ∛5³ = 5.' },
+  { display: '⁵√(−32) = ⁵√(−2⁵)', ansNum: -2, ansDen: 1, explain: 'Con índice impar, la raíz de un negativo es negativa: ⁵√(−32) = −2.' },
+]
+
+export const RADICAL_WORD_PROBLEMS: WordProblem[] = [
+  {
+    prompt: 'El volumen de una esfera es 288π cm³. ¿Cuál es su radio? (V = 4/3 · π · r³)',
+    options: ['4 cm', '6 cm', '8 cm', '12 cm'],
+    answerIndex: 1,
+    solution: '288 = (4/3)r³ → r³ = 216 → r = ∛216 = 6 cm.',
+  },
+  {
+    prompt: 'Un cuadrado tiene un área de 169 cm². ¿Cuál es la longitud de su lado? (Área = L²)',
+    options: ['12', '13', '14', '15'],
+    answerIndex: 1,
+    solution: '169 = L² → L = √169 = 13.',
+  },
+  {
+    prompt: 'Si ∛x = 5, ¿cuál es el valor de ∛(8x)?',
+    options: ['10', '20', '15', '40'],
+    answerIndex: 0,
+    solution: '∛(8x) = ∛8 · ∛x = 2 · 5 = 10.',
+  },
 ]
