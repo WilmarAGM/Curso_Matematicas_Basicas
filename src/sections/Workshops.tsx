@@ -52,6 +52,42 @@ export function Workshops({ onNavigate }: WorkshopsProps) {
             Empezar taller
           </span>
         </Card>
+
+        <Card
+          role="button"
+          onClick={() => onNavigate('taller3')}
+          className="group flex flex-col items-start gap-2 p-5 text-left cursor-pointer transition-all active:translate-y-1 active:shadow-none hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(32,80,223,0.15)]"
+        >
+          <span className="font-mono-nums text-xs uppercase tracking-wide text-ink-muted">Semana 3</span>
+          <span className="font-display text-lg text-ink">
+            Taller 3 — División, Operaciones Combinadas, Potenciación y Radicación
+          </span>
+          <span className="text-sm leading-relaxed text-ink-muted">
+            31 ejercicios de nivel alto con verificación instantánea y solución paso a paso.
+          </span>
+          <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted">
+            <span className="h-2 w-2 rounded-full bg-warm" />
+            Empezar taller
+          </span>
+        </Card>
+
+        <Card
+          role="button"
+          onClick={() => onNavigate('taller4')}
+          className="group flex flex-col items-start gap-2 p-5 text-left cursor-pointer transition-all active:translate-y-1 active:shadow-none hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(32,80,223,0.15)]"
+        >
+          <span className="font-mono-nums text-xs uppercase tracking-wide text-ink-muted">Semana 4</span>
+          <span className="font-display text-lg text-ink">
+            Taller 4 — Expresiones Algebraicas, Polinomios y Productos Notables
+          </span>
+          <span className="text-sm leading-relaxed text-ink-muted">
+            27 ejercicios de nivel alto con verificación instantánea y solución paso a paso.
+          </span>
+          <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted">
+            <span className="h-2 w-2 rounded-full bg-warm" />
+            Empezar taller
+          </span>
+        </Card>
       </div>
     </div>
   )
