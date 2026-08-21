@@ -77,7 +77,7 @@ function App() {
       />
       
       {/* Main Content Area */}
-      <main className="flex-1 md:ml-72 min-h-screen flex flex-col pt-16 md:pt-0">
+      <main className="flex-1 min-w-0 md:ml-72 min-h-screen flex flex-col pt-16 md:pt-0">
         <div className="flex-1">
           {page === 'inicio' && <Home />}
           {page === 'semanas' && <WeeksGrid onNavigate={navigate} />}
