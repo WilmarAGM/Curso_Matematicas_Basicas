@@ -34,8 +34,8 @@ export function Home() {
         </div>
 
         <div className="flex shrink-0 flex-col items-center gap-2 rounded-2xl border border-line bg-surface/50 backdrop-blur p-5 shadow-[0_0_15px_rgba(214,245,35,0.05)] border-leaf/20">
-          <div className="bg-white p-2 rounded-xl">
-            <QRCodeSVG value={SITE_URL} size={100} bgColor="#ffffff" fgColor="#000000" />
+          <div className="flex items-center justify-center bg-white p-2 rounded-xl">
+            <QRCodeSVG value={SITE_URL} size={100} bgColor="#ffffff" fgColor="#000000" className="block" />
           </div>
           <span className="text-center text-xs font-medium text-ink-muted mt-1">
             Escanea para acceder<br />al sitio del curso

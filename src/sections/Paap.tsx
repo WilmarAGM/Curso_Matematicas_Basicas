@@ -47,8 +47,8 @@ export function Paap() {
             Escanea el código QR para consultar la programación, horarios y docentes disponibles.
           </p>
           
-          <div className="bg-white p-4 rounded-2xl shadow-xl transition-transform hover:scale-105 duration-300">
-            <QRCodeSVG value={PAAP_URL} size={200} bgColor="#ffffff" fgColor="#000000" />
+          <div className="flex items-center justify-center bg-white p-4 rounded-2xl shadow-xl transition-transform hover:scale-105 duration-300">
+            <QRCodeSVG value={PAAP_URL} size={200} bgColor="#ffffff" fgColor="#000000" className="block" />
           </div>
           
           <p className="mt-8 font-display font-bold text-ink uppercase tracking-wider text-sm text-center">

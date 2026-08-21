@@ -9,7 +9,7 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: false,
-      includeAssets: ["favicon.svg", "apple-touch-icon.png"],
+      includeAssets: ["favicon-64.png", "apple-touch-icon.png"],
       manifest: {
         name: "Razonamiento Matemático y Analítico",
         short_name: "MO Curso",
