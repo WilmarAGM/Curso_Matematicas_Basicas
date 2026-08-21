@@ -5,6 +5,7 @@ import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Autoplay from 'embla-carousel-autoplay'
 import { QRCodeSVG } from 'qrcode.react'
+import { InstallButton } from '@/components/app/InstallButton'
 
 const SITE_URL = 'https://curso-matematicas-basicas-plum.vercel.app/'
 
@@ -39,6 +40,7 @@ export function Home() {
           <span className="text-center text-xs font-medium text-ink-muted mt-1">
             Escanea para acceder<br />al sitio del curso
           </span>
+          <InstallButton className="mt-1" />
         </div>
       </header>
 

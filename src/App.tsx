@@ -36,6 +36,8 @@ import { Module19NotableProducts } from '@/sections/Module19NotableProducts'
 import { Module20AlgebraApplications } from '@/sections/Module20AlgebraApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
+import { Toaster } from '@/components/ui/sonner'
+import { PwaUpdatePrompt } from '@/components/app/PwaUpdatePrompt'
 
 function App() {
   const [page, setPage] = useState<PageId | string>('inicio')
@@ -164,6 +166,9 @@ function App() {
           Razonamiento Matemático y Analítico · Institución Universitaria Pascual Bravo · Semestre 2026-II
         </footer>
       </main>
+
+      <Toaster />
+      <PwaUpdatePrompt />
     </div>
   )
 }
