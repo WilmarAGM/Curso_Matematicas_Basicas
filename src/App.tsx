@@ -15,6 +15,7 @@ import { WeekHub3 } from '@/sections/WeekHub3'
 import { WeekHub4 } from '@/sections/WeekHub4'
 import { WeekHub5 } from '@/sections/WeekHub5'
 import { WeekHub6 } from '@/sections/WeekHub6'
+import { WeekHub7 } from '@/sections/WeekHub7'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -46,6 +47,11 @@ import { Module27DiffSquares } from '@/sections/Module27DiffSquares'
 import { Module28TcpAdicionSustraccion } from '@/sections/Module28TcpAdicionSustraccion'
 import { Module29RepasoFactorizacion } from '@/sections/Module29RepasoFactorizacion'
 import { Module30GeometricApplications } from '@/sections/Module30GeometricApplications'
+import { Module31ResidueTheorem } from '@/sections/Module31ResidueTheorem'
+import { Module32FactorTheorem } from '@/sections/Module32FactorTheorem'
+import { Module33RationalOps } from '@/sections/Module33RationalOps'
+import { Module34Rationalization } from '@/sections/Module34Rationalization'
+import { Module35FactorRationalApplications } from '@/sections/Module35FactorRationalApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -205,6 +211,23 @@ function App() {
           )}
           {page === 'aplicacionesGeometricas' && (
             <Module30GeometricApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesGeometricas')} />
+          )}
+
+          {page === 'semana7' && <WeekHub7 onNavigate={navigate as any} completed={completed} />}
+          {page === 'teoremaResiduo' && (
+            <Module31ResidueTheorem onNavigate={navigate as any} onDone={() => markComplete('teoremaResiduo')} />
+          )}
+          {page === 'teoremaFactor' && (
+            <Module32FactorTheorem onNavigate={navigate as any} onDone={() => markComplete('teoremaFactor')} />
+          )}
+          {page === 'operacionesRacionales' && (
+            <Module33RationalOps onNavigate={navigate as any} onDone={() => markComplete('operacionesRacionales')} />
+          )}
+          {page === 'racionalizacion' && (
+            <Module34Rationalization onNavigate={navigate as any} onDone={() => markComplete('racionalizacion')} />
+          )}
+          {page === 'aplicacionesFactorRacional' && (
+            <Module35FactorRationalApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesFactorRacional')} />
           )}
         </div>
 

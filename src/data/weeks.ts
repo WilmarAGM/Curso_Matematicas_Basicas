@@ -67,10 +67,11 @@ export const WEEKS: Week[] = [
   {
     number: 7,
     title: 'Racionales y racionalización',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
     summary:
-      'Ceros de polinomios y teorema del factor, expresiones racionales, operaciones con racionales y racionalización.',
+      'Teorema del residuo y del factor, operaciones con expresiones racionales y racionalización de numeradores y denominadores.',
+    hubId: 'semana7',
   },
   {
     number: 8,

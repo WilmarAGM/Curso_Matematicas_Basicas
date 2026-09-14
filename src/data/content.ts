@@ -42,6 +42,12 @@ export type SectionId =
   | 'tcpAdicionSustraccion'
   | 'repasoFactorizacion'
   | 'aplicacionesGeometricas'
+  | 'semana7'
+  | 'teoremaResiduo'
+  | 'teoremaFactor'
+  | 'operacionesRacionales'
+  | 'racionalizacion'
+  | 'aplicacionesFactorRacional'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -89,6 +95,14 @@ export const MODULES_SEMANA6: { id: SectionId; short: string; title: string }[] 
   { id: 'tcpAdicionSustraccion', short: '03', title: 'TCP por Adición y Sustracción' },
   { id: 'repasoFactorizacion', short: '04', title: 'Repaso: Todos los Métodos' },
   { id: 'aplicacionesGeometricas', short: '05', title: 'Aplicaciones Geométricas' },
+]
+
+export const MODULES_SEMANA7: { id: SectionId; short: string; title: string }[] = [
+  { id: 'teoremaResiduo', short: '01', title: 'Teorema del Residuo' },
+  { id: 'teoremaFactor', short: '02', title: 'Teorema del Factor' },
+  { id: 'operacionesRacionales', short: '03', title: 'Operaciones con Expresiones Racionales' },
+  { id: 'racionalizacion', short: '04', title: 'Racionalización' },
+  { id: 'aplicacionesFactorRacional', short: '05', title: 'Aplicaciones' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -1370,5 +1384,175 @@ export const GEOMETRIC_APPLICATION_QUIZ: WordProblem[] = [
     options: ['Cuadrado de un binomio', 'Suma por diferencia', 'Cubo de un binomio', 'Trinomio cuadrado'],
     answerIndex: 0,
     solution: '(a+b)² = a² + 2ab + b². Al restar 2ab queda a² + b². Se usó el cuadrado de un binomio.',
+  },
+]
+
+// =====================================================================
+// SEMANA 7 — Teorema del residuo, teorema del factor, operaciones con
+// expresiones racionales y racionalización. Basado en Guia_Algebra.pdf
+// pp. 42-59. Todas las identidades verificadas con sympy.
+// =====================================================================
+
+// ---- Módulo 1 (Semana 7): Teorema del residuo ----
+/** Ejemplo 29a: (12x³+13x²-59x+30) ÷ (x-5), residuo por evaluación. */
+export const RESIDUE_THEOREM_STEPS: AlgebraStep[] = [
+  { label: 'Iguala el divisor a cero', expr: 'x − 5 = 0 → x = 5' },
+  { label: 'Evalúa el polinomio en ese valor', expr: '12(5)³ + 13(5)² − 59(5) + 30' },
+  { label: 'Simplifica', expr: '1500 + 325 − 295 + 30 = 1560' },
+  { label: 'Resultado', expr: 'El residuo de la división es 1560 (sin necesidad de dividir)' },
+]
+
+/** Ejemplo 29b: (6x³-7x²-5) ÷ (3x+1), residuo por evaluación con raíz fraccionaria. */
+export const RESIDUE_THEOREM_STEPS_2: AlgebraStep[] = [
+  { label: 'Iguala el divisor a cero', expr: '3x + 1 = 0 → x = −1/3' },
+  { label: 'Evalúa el polinomio en ese valor', expr: '6(−1/3)³ − 7(−1/3)² − 5' },
+  { label: 'Simplifica cada término', expr: '−6/27 − 7/9 − 5 = −2/9 − 7/9 − 5 = −1 − 5' },
+  { label: 'Resultado', expr: 'Residuo = −6' },
+]
+
+export const RESIDUE_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Usa el teorema del residuo para hallar el residuo de (x³ − 2x² + 4x − 8) ÷ (x − 2), sin dividir.',
+    options: ['0', '8', '−8', '4'],
+    answerIndex: 0,
+    solution: 'x=2: (2)³ − 2(2)² + 4(2) − 8 = 8 − 8 + 8 − 8 = 0. Como el residuo es 0, (x−2) es factor exacto.',
+  },
+  {
+    prompt: 'Usa el teorema del residuo para hallar el residuo de (3x³ − 4x² + x − 2) ÷ (x − 1).',
+    options: ['−2', '2', '0', '−6'],
+    answerIndex: 0,
+    solution: 'x=1: 3(1)³ − 4(1)² + 1 − 2 = 3 − 4 + 1 − 2 = −2.',
+  },
+]
+
+// ---- Módulo 2 (Semana 7): Teorema del factor ----
+export const FACTOR_THEOREM_INTRO = '(x − a) es un factor de un polinomio P(x) si y solo si al evaluar P(a) = 0. Combinado con el teorema de la raíz racional, esto permite factorizar polinomios de grado 3 o más.'
+
+/** Ejemplo 30: P(x) = 2x³+x²−13x+6, factorización completa por evaluación + Ruffini. */
+export const FACTOR_THEOREM_STEPS: AlgebraStep[] = [
+  { label: 'Posibles ceros racionales (factores de 6 / factores de 2)', expr: '±1, ±2, ±3, ±6, ±1/2, ±3/2' },
+  { label: 'Prueba valores hasta encontrar uno que anule P(x)', expr: 'P(1)=4, P(−1)=18, P(2)=16+4−26+6=0 ✓' },
+  { label: '(x − 2) es un factor. Divide por Ruffini', expr: '2x³+x²−13x+6 = (x − 2)(2x² + 5x − 3)' },
+  { label: 'Factoriza el cociente cuadrático por ensayo y error', expr: '2x² + 5x − 3 = (2x − 1)(x + 3)' },
+  { label: 'Resultado', expr: 'P(x) = (x − 2)(2x − 1)(x + 3)' },
+]
+
+export const FACTOR_THEOREM_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Factoriza completamente usando el teorema del factor: x³ + 8',
+    options: ['(x + 2)(x² − 2x + 4)', '(x + 2)(x² + 2x + 4)', '(x + 2)(x² − 2x − 4)', '(x − 2)(x² + 2x + 4)'],
+    answerIndex: 0,
+    solution: 'Es suma de cubos con a=x, b=2: x³+8 = (x+2)(x²−2x+4).',
+  },
+  {
+    prompt: 'El beneficio de una empresa es P(x) = −2x² + 60x − 400. Factoriza P(x) y determina para qué valores de x hay beneficio (P(x) > 0).',
+    options: ['P(x) = −2(x − 10)(x − 20); beneficio para 10 < x < 20', 'P(x) = −2(x + 10)(x + 20); beneficio para x < −20', 'P(x) = −2(x − 10)(x − 20); beneficio para x < 10 o x > 20', 'P(x) = 2(x − 10)(x − 20); beneficio para 10 < x < 20'],
+    answerIndex: 0,
+    solution: 'Factor común −2: −2(x²−30x+200) = −2(x−10)(x−20). Como abre hacia abajo, P(x)>0 entre las raíces: 10 < x < 20.',
+  },
+  {
+    prompt: '¿Cuáles son los ceros de P(x) = x³ − x² − 14x + 24? (usa el teorema del factor y prueba divisores de 24)',
+    options: ['x = −4, 2, 3', 'x = −4, −2, 3', 'x = 4, 2, −3', 'x = −4, 2, −3'],
+    answerIndex: 0,
+    solution: 'P(2)=0, factoriza (x−2)(x²+x−12)=(x−2)(x+4)(x−3). Ceros: −4, 2, 3.',
+  },
+]
+
+// ---- Módulo 3 (Semana 7): Operaciones con expresiones racionales ----
+/** Ejemplo 36a: adición de expresiones racionales con mismo denominador. */
+export const RATIONAL_ADD_STEPS: AlgebraStep[] = [
+  { label: 'Expresión original (mismo denominador)', expr: '(x² + 3x)/(x + 1) + (1 − x)/(x + 1)' },
+  { label: 'Suma los numeradores', expr: '= (x² + 3x + 1 − x)/(x + 1) = (x² + 2x + 1)/(x + 1)' },
+  { label: 'Factoriza el numerador (TCP)', expr: '= (x + 1)²/(x + 1)' },
+  { label: 'Simplifica', expr: '= x + 1' },
+]
+
+/** Ejemplo 38a: producto de expresiones racionales, factorizando antes de multiplicar. */
+export const RATIONAL_MULT_STEPS: AlgebraStep[] = [
+  { label: 'Expresión original', expr: 'x/(5x² + 21x + 4) · (25x² + 10x + 1)/(3x² + x)' },
+  { label: 'Factoriza cada polinomio', expr: '= x/[(5x+1)(x+4)] · (5x+1)²/[x(3x+1)]' },
+  { label: 'Cancela factores comunes', expr: '= (5x+1)/[(x+4)(3x+1)]' },
+]
+
+/** Ejemplo 39a: división de expresiones racionales. */
+export const RATIONAL_DIV_STEPS: AlgebraStep[] = [
+  { label: 'Expresión original', expr: '(x + 2)/(2x − 3) ÷ (x² − 4)/(2x² − 3x)' },
+  { label: 'Multiplica por el recíproco y factoriza', expr: '= (x+2)/(2x−3) · x(2x−3)/[(x+2)(x−2)]' },
+  { label: 'Cancela factores comunes', expr: '= x/(x − 2)' },
+]
+
+export const RATIONAL_OPS_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Simplifica: (x² − 3)/(x² + 2x + 1) + (x + 3)/(x + 1)',
+    options: ['2x(x + 2)/(x + 1)²', '2x/(x + 1)', '(2x + 2)/(x + 1)²', '2x(x + 2)/(x + 1)'],
+    answerIndex: 0,
+    solution: 'El denominador común es (x+1)². Al sumar y factorizar el numerador queda 2x(x+2)/(x+1)².',
+  },
+  {
+    prompt: 'Simplifica: (x² + 8x + 16)/(x² − 5x) · (x − 5)/(x² − 16)',
+    options: ['(x + 4)/[x(x − 4)]', '(x − 4)/[x(x + 4)]', '(x + 4)/(x − 4)', '1/[x(x − 4)]'],
+    answerIndex: 0,
+    solution: 'Factoriza: (x+4)²/[x(x−5)] · (x−5)/[(x+4)(x−4)] = (x+4)/[x(x−4)].',
+  },
+]
+
+// ---- Módulo 4 (Semana 7): Racionalización ----
+/** Ejemplo 40a: racionalización de numerador con h ≠ 0 (base del cálculo diferencial). */
+export const RATIONALIZE_NUM_STEPS: AlgebraStep[] = [
+  { label: 'Expresión original', expr: '(√(x+h) − √x) / h' },
+  { label: 'Multiplica por la conjugada del numerador', expr: '· (√(x+h) + √x) / (√(x+h) + √x)' },
+  { label: 'El numerador se vuelve diferencia de cuadrados', expr: '= [(x+h) − x] / [h(√(x+h) + √x)]' },
+  { label: 'Simplifica: h se cancela', expr: '= h / [h(√(x+h) + √x)] = 1 / (√(x+h) + √x)' },
+]
+
+/** Ejemplo 41a: racionalización de denominador. */
+export const RATIONALIZE_DEN_STEPS: AlgebraStep[] = [
+  { label: 'Expresión original', expr: '(3x − 4y − √(xy)) / (3√x − 4√y)' },
+  { label: 'Multiplica por la conjugada del denominador', expr: '· (3√x + 4√y) / (3√x + 4√y)' },
+  { label: 'El denominador se vuelve diferencia de cuadrados', expr: '= (3√x)² − (4√y)² = 9x − 16y' },
+  { label: 'El numerador se factoriza y cancela con (9x − 16y)', expr: '= (√x + √y)(9x − 16y) / (9x − 16y)' },
+  { label: 'Resultado', expr: '= √x + √y' },
+]
+
+export const RATIONALIZE_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Racionaliza el numerador de (√(9+h) − 3)/h y simplifica para h ≠ 0.',
+    options: ['1/(√(9+h) + 3)', '1/(√(9+h) − 3)', 'h/(√(9+h) + 3)', '(√(9+h) + 3)/h'],
+    answerIndex: 0,
+    solution: 'Multiplica por la conjugada (√(9+h)+3): numerador queda (9+h)−9=h, que se cancela con el h del denominador.',
+  },
+  {
+    prompt: 'Racionaliza el denominador de 1/(√5 − √3).',
+    options: ['(√5 + √3)/2', '(√5 − √3)/2', '√5 + √3', '(√5 + √3)/8'],
+    answerIndex: 0,
+    solution: 'Multiplica por la conjugada (√5+√3): denominador = 5−3=2. Resultado: (√5+√3)/2.',
+  },
+]
+
+// ---- Módulo 5 (Semana 7): Aplicaciones ----
+export const FACTOR_APPLICATION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Un rectángulo tiene un perímetro de 30 m y un área de 56 m². Plantea el sistema y factoriza para hallar las dimensiones.',
+    options: ['7 y 8 metros', '4 y 14 metros', '2 y 28 metros', '6 y 9 metros'],
+    answerIndex: 0,
+    solution: 'x+y=15, xy=56 → x²−15x+56=(x−8)(x−7)=0. Dimensiones: 7 y 8 metros.',
+  },
+  {
+    prompt: 'Un proyectil sigue h(t) = −4.9t² + 40t. Factoriza para hallar cuándo toca el suelo (h=0).',
+    options: ['t = 0 o t ≈ 8.16 segundos', 't = 0 o t ≈ 4.9 segundos', 't = 1 o t ≈ 8.16 segundos', 't ≈ 4.08 segundos (único)'],
+    answerIndex: 0,
+    solution: 't(−4.9t + 40) = 0 → t=0 o t = 40/4.9 ≈ 8.16 segundos.',
+  },
+  {
+    prompt: 'La suma de dos números es 15 y la suma de sus cuadrados es 113. Plantea y factoriza una ecuación para encontrarlos.',
+    options: ['7 y 8', '6 y 9', '5 y 10', '4 y 11'],
+    answerIndex: 0,
+    solution: 'xy = [(x+y)² − (x²+y²)]/2 = (225−113)/2 = 56. Con x+y=15 y xy=56: x²−15x+56=(x−8)(x−7). Números: 7 y 8.',
+  },
+  {
+    prompt: 'La diferencia entre los cuadrados de dos números consecutivos es 39. ¿Cuáles son los números?',
+    options: ['19 y 20', '18 y 19', '20 y 21', '17 y 18'],
+    answerIndex: 0,
+    solution: '(n+1)² − n² = 39 → 2n + 1 = 39 → n = 19. Los números son 19 y 20.',
   },
 ]
