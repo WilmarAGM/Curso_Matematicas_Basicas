@@ -48,6 +48,12 @@ export type SectionId =
   | 'operacionesRacionales'
   | 'racionalizacion'
   | 'aplicacionesFactorRacional'
+  | 'semana8'
+  | 'ecuacionLineal'
+  | 'ecuacionCuadratica'
+  | 'discriminanteComplejos'
+  | 'operacionesComplejos'
+  | 'aplicacionesEcuaciones'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -103,6 +109,14 @@ export const MODULES_SEMANA7: { id: SectionId; short: string; title: string }[] 
   { id: 'operacionesRacionales', short: '03', title: 'Operaciones con Expresiones Racionales' },
   { id: 'racionalizacion', short: '04', title: 'Racionalización' },
   { id: 'aplicacionesFactorRacional', short: '05', title: 'Aplicaciones' },
+]
+
+export const MODULES_SEMANA8: { id: SectionId; short: string; title: string }[] = [
+  { id: 'ecuacionLineal', short: '01', title: 'Ecuación Lineal' },
+  { id: 'ecuacionCuadratica', short: '02', title: 'Ecuación Cuadrática' },
+  { id: 'discriminanteComplejos', short: '03', title: 'Discriminante y Números Complejos' },
+  { id: 'operacionesComplejos', short: '04', title: 'Operaciones con Complejos' },
+  { id: 'aplicacionesEcuaciones', short: '05', title: 'Aplicaciones' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -1554,5 +1568,183 @@ export const FACTOR_APPLICATION_QUIZ: WordProblem[] = [
     options: ['19 y 20', '18 y 19', '20 y 21', '17 y 18'],
     answerIndex: 0,
     solution: '(n+1)² − n² = 39 → 2n + 1 = 39 → n = 19. Los números son 19 y 20.',
+  },
+]
+
+// =====================================================================
+// SEMANA 8 — Ecuación lineal, ecuación cuadrática, discriminante,
+// números imaginarios y complejos. Basado en Guia_Algebra.pdf pp. 61-84.
+// Todas las identidades y soluciones verificadas con sympy.
+// =====================================================================
+
+// ---- Módulo 1 (Semana 8): Ecuación lineal ----
+/** Ejemplo 42a de la guía: 6x − 7 = 2x + 5. */
+export const LINEAR_EQ_STEPS: AlgebraStep[] = [
+  { label: 'Forma general', expr: 'mx + b = 0  →  x = −b/m' },
+  { label: 'Agrupa los términos con x a un lado', expr: '6x − 2x = 5 + 7' },
+  { label: 'Simplifica ambos lados', expr: '4x = 12' },
+  { label: 'Despeja x', expr: 'x = 12/4 = 3' },
+]
+
+export const LINEAR_EQ_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve: 3x − 7 = 2x + 5',
+    options: ['x = 12', 'x = 13', 'x = 14', 'x = 15'],
+    answerIndex: 0,
+    solution: '3x − 2x = 5 + 7 → x = 12.',
+  },
+  {
+    prompt: 'Resuelve: (8x − 2)(3x + 4) = (4x + 3)(6x − 1)',
+    options: ['x = 5/12', 'x = 12/5', 'x = −5/12', 'x = 5'],
+    answerIndex: 0,
+    solution: 'Al expandir ambos lados: 24x² + 26x − 8 = 24x² + 14x − 3. Los términos x² se cancelan: 12x = 5 → x = 5/12.',
+  },
+]
+
+// ---- Módulo 2 (Semana 8): Ecuación cuadrática ----
+export const QUADRATIC_FORMULA = 'x = [−b ± √(b² − 4ac)] / 2a,  con a ≠ 0'
+
+/** Ejemplo 49 de la guía: 2x² + 8x − 24 = 0. */
+export const QUADRATIC_EQ_STEPS: AlgebraStep[] = [
+  { label: 'Identifica a, b, c', expr: '2x² + 8x − 24 = 0 → a=2, b=8, c=−24' },
+  { label: 'Sustituye en la fórmula general', expr: 'x = [−8 ± √(8² − 4(2)(−24))] / 2(2)' },
+  { label: 'Simplifica dentro de la raíz', expr: 'x = [−8 ± √(64 + 192)] / 4 = [−8 ± √256] / 4' },
+  { label: 'Saca la raíz y simplifica', expr: 'x = (−8 ± 16) / 4' },
+  { label: 'Resultado: dos soluciones', expr: 'x = 2  o  x = −6' },
+]
+
+export const QUADRATIC_EQ_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve por factorización: (x − 2)(x + 3) = 0',
+    options: ['x = 2 o x = −3', 'x = −2 o x = 3', 'x = 2 o x = 3', 'x = −2 o x = −3'],
+    answerIndex: 0,
+    solution: 'Propiedad del producto cero: x − 2 = 0 → x=2; x + 3 = 0 → x=−3.',
+  },
+  {
+    prompt: 'Resuelve con la fórmula general: 3x² − 2x − 4 = 0',
+    options: ['x = 1/3 ± √13/3', 'x = 1/3 ± √52/3', 'x = 2/3 ± √13/3', 'x = 1 ± √13'],
+    answerIndex: 0,
+    solution: 'x = [2 ± √(4+48)]/6 = [2 ± √52]/6 = [2 ± 2√13]/6 = 1/3 ± √13/3.',
+  },
+]
+
+// ---- Módulo 3 (Semana 8): Discriminante y números complejos ----
+export const DISCRIMINANT_CASES = [
+  { condition: 'b² − 4ac > 0', result: '2 soluciones reales distintas' },
+  { condition: 'b² − 4ac = 0', result: '1 sola solución real (raíz doble)' },
+  { condition: 'b² − 4ac < 0', result: 'No hay solución real — hay 2 soluciones complejas' },
+]
+
+export const DISCRIMINANT_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Calcula el discriminante de x² + 4x − 1 = 0 y clasifica sus soluciones.',
+    options: ['20, dos soluciones reales', '0, una solución real', '−4, dos soluciones complejas', '16, una solución real'],
+    answerIndex: 0,
+    solution: 'b²−4ac = 16 − 4(1)(−1) = 20 > 0. Dos soluciones reales distintas.',
+  },
+  {
+    prompt: 'Calcula el discriminante de 4x² − 12x + 9 = 0 y clasifica sus soluciones.',
+    options: ['0, una sola solución real', '144, dos soluciones reales', '−36, dos soluciones complejas', '36, una solución real'],
+    answerIndex: 0,
+    solution: 'b²−4ac = 144 − 4(4)(9) = 144 − 144 = 0. Una sola solución real (raíz doble).',
+  },
+  {
+    prompt: 'Calcula el discriminante de (1/3)x² − 2x + 4 = 0 y clasifica sus soluciones.',
+    options: ['−4/3, dos soluciones complejas', '4/3, dos soluciones reales', '0, una solución real', '20/3, dos soluciones reales'],
+    answerIndex: 0,
+    solution: 'b²−4ac = 4 − 4(1/3)(4) = 4 − 16/3 = −4/3 < 0. No hay solución real: dos soluciones complejas.',
+  },
+]
+
+/** Ejemplo 45 de la guía: raíces cuadradas de números negativos → i. */
+export const IMAGINARY_STEPS: AlgebraStep[] = [
+  { label: 'Definición', expr: 'i = √(−1),  por lo tanto i² = −1' },
+  { label: 'Ejemplo: √(−12)', expr: '√(−12) = √(−1 · 4 · 3) = √4 · √3 · √(−1)' },
+  { label: 'Simplifica', expr: '= 2√3 · i = 2√3 i' },
+]
+
+export const COMPLEX_NUMBER_TABLE = [
+  { term: 'Número complejo', def: 'a + bi, con a, b reales e i² = −1', example: '3 + i,  5i' },
+  { term: 'Número imaginario', def: 'a + bi con b ≠ 0', example: '3i + 2i,  −5i' },
+  { term: 'Número imaginario puro', def: 'bi con b ≠ 0 (parte real = 0)', example: '−3i,  i' },
+  { term: 'Igualdad de complejos', def: 'a + bi = c + di si y solo si a=c y b=d', example: 'x + yi = 3 + 4i → x=3, y=4' },
+]
+
+// ---- Módulo 4 (Semana 8): Operaciones con complejos ----
+/** z1 = 3 + 2i, z2 = 1 − 5i — ejemplos propios, verificados con sympy. */
+export const COMPLEX_ADD_STEPS: AlgebraStep[] = [
+  { label: 'Datos', expr: 'z₁ = 3 + 2i,  z₂ = 1 − 5i' },
+  { label: 'Suma parte real con parte real, imaginaria con imaginaria', expr: 'z₁ + z₂ = (3+1) + (2−5)i' },
+  { label: 'Resultado', expr: 'z₁ + z₂ = 4 − 3i' },
+]
+
+export const COMPLEX_SUB_STEPS: AlgebraStep[] = [
+  { label: 'Datos', expr: 'z₁ = 3 + 2i,  z₂ = 1 − 5i' },
+  { label: 'Resta parte real con parte real, imaginaria con imaginaria', expr: 'z₁ − z₂ = (3−1) + (2−(−5))i' },
+  { label: 'Resultado', expr: 'z₁ − z₂ = 2 + 7i' },
+]
+
+export const COMPLEX_MULT_STEPS: AlgebraStep[] = [
+  { label: 'Datos', expr: 'z₁ = 3 + 2i,  z₂ = 1 − 5i' },
+  { label: 'Aplica la propiedad distributiva', expr: 'z₁ · z₂ = 3(1) + 3(−5i) + 2i(1) + 2i(−5i)' },
+  { label: 'Simplifica', expr: '= 3 − 15i + 2i − 10i²' },
+  { label: 'Reemplaza i² = −1', expr: '= 3 − 13i − 10(−1) = 3 − 13i + 10' },
+  { label: 'Resultado', expr: 'z₁ · z₂ = 13 − 13i' },
+]
+
+export const COMPLEX_DIV_STEPS: AlgebraStep[] = [
+  { label: 'Datos', expr: 'z₁ = 3 + 2i,  z₂ = 1 − 5i' },
+  { label: 'Multiplica por la conjugada del denominador', expr: 'z₁/z₂ = (3+2i)/(1−5i) · (1+5i)/(1+5i)' },
+  { label: 'El denominador se vuelve real (diferencia de cuadrados)', expr: 'Denominador: 1² + 5² = 26' },
+  { label: 'Desarrolla el numerador', expr: 'Numerador: 3 + 15i + 2i + 10i² = 3 + 17i − 10 = −7 + 17i' },
+  { label: 'Resultado', expr: 'z₁/z₂ = −7/26 + (17/26)i' },
+]
+
+export const COMPLEX_OPS_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Sea z₁ = −3 + 4i y z₂ = 5 − 2i. Calcula z₁ + z₂.',
+    options: ['2 + 2i', '2 − 2i', '−8 + 6i', '8 + 6i'],
+    answerIndex: 0,
+    solution: 'z₁ + z₂ = (−3+5) + (4−2)i = 2 + 2i.',
+  },
+  {
+    prompt: 'Sea z₁ = −3 + 4i y z₂ = 5 − 2i. Calcula z₁ − z₂.',
+    options: ['−8 + 6i', '8 − 6i', '2 + 2i', '−8 − 6i'],
+    answerIndex: 0,
+    solution: 'z₁ − z₂ = (−3−5) + (4−(−2))i = −8 + 6i.',
+  },
+  {
+    prompt: 'Racionaliza y simplifica: z₁/z₂ con z₁ = −3+4i, z₂ = 5−2i (multiplica por la conjugada 5+2i).',
+    options: ['−23/29 + (14/29)i', '23/29 + (14/29)i', '−23/29 − (14/29)i', '−7/29 + (14/29)i'],
+    answerIndex: 0,
+    solution: 'Denominador: 5²+2²=29. Numerador: (−3+4i)(5+2i) = −15−6i+20i+8i² = −15+14i−8 = −23+14i. Resultado: −23/29 + (14/29)i.',
+  },
+]
+
+// ---- Módulo 5 (Semana 8): Aplicaciones ----
+export const EQUATIONS_APPLICATION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Un jardín rectangular tiene área de 24 m². El largo es 2 m más que el ancho. Encuentra las dimensiones.',
+    options: ['Ancho = 4, Largo = 6', 'Ancho = 6, Largo = 4', 'Ancho = 3, Largo = 8', 'Ancho = 8, Largo = 3'],
+    answerIndex: 0,
+    solution: 'x(x+2)=24 → x²+2x−24=0 → (x+6)(x−4)=0 → x=4 (se descarta −6). Ancho=4, Largo=6.',
+  },
+  {
+    prompt: 'Una pelota se lanza verticalmente con velocidad inicial 30 m/s: h = 30t − 9.8t². ¿Cuándo alcanza su altura máxima?',
+    options: ['t ≈ 1.53 s', 't ≈ 3.06 s', 't ≈ 2.04 s', 't ≈ 0.65 s'],
+    answerIndex: 0,
+    solution: 'La altura máxima de una parábola h=at²+bt+c se alcanza en el vértice, t = −b/(2a) = −30/(2·(−9.8)) = 30/19.6 ≈ 1.53 s.',
+  },
+  {
+    prompt: 'Un globo de agua se lanza hacia abajo a 48 pies/s desde 64 pies de altura: s = 16t² − 48t − 64. ¿Cuándo llega al suelo (s=0)?',
+    options: ['t = 4 segundos', 't = 2 segundos', 't = 1 segundo', 't = 8 segundos'],
+    answerIndex: 0,
+    solution: 'Dividiendo por 16: t² − 3t − 4 = 0 → (t−4)(t+1)=0 → t=4 (se descarta −1).',
+  },
+  {
+    prompt: 'Un fabricante quiere una lata cilíndrica de 20 cm de altura y 3000 cm³ de capacidad (V=πr²h). ¿Cuál es el radio interior?',
+    options: ['r ≈ 6.91 cm', 'r ≈ 3.91 cm', 'r ≈ 9.16 cm', 'r ≈ 15 cm'],
+    answerIndex: 0,
+    solution: 'r² = V/(πh) = 3000/(20π) ≈ 47.75 → r ≈ 6.91 cm (se toma solo el valor positivo).',
   },
 ]

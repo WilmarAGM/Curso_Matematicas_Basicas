@@ -16,6 +16,7 @@ import { WeekHub4 } from '@/sections/WeekHub4'
 import { WeekHub5 } from '@/sections/WeekHub5'
 import { WeekHub6 } from '@/sections/WeekHub6'
 import { WeekHub7 } from '@/sections/WeekHub7'
+import { WeekHub8 } from '@/sections/WeekHub8'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -52,6 +53,11 @@ import { Module32FactorTheorem } from '@/sections/Module32FactorTheorem'
 import { Module33RationalOps } from '@/sections/Module33RationalOps'
 import { Module34Rationalization } from '@/sections/Module34Rationalization'
 import { Module35FactorRationalApplications } from '@/sections/Module35FactorRationalApplications'
+import { Module36LinearEquation } from '@/sections/Module36LinearEquation'
+import { Module37QuadraticEquation } from '@/sections/Module37QuadraticEquation'
+import { Module38DiscriminantComplex } from '@/sections/Module38DiscriminantComplex'
+import { Module39ComplexOps } from '@/sections/Module39ComplexOps'
+import { Module40EquationsApplications } from '@/sections/Module40EquationsApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -228,6 +234,23 @@ function App() {
           )}
           {page === 'aplicacionesFactorRacional' && (
             <Module35FactorRationalApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesFactorRacional')} />
+          )}
+
+          {page === 'semana8' && <WeekHub8 onNavigate={navigate as any} completed={completed} />}
+          {page === 'ecuacionLineal' && (
+            <Module36LinearEquation onNavigate={navigate as any} onDone={() => markComplete('ecuacionLineal')} />
+          )}
+          {page === 'ecuacionCuadratica' && (
+            <Module37QuadraticEquation onNavigate={navigate as any} onDone={() => markComplete('ecuacionCuadratica')} />
+          )}
+          {page === 'discriminanteComplejos' && (
+            <Module38DiscriminantComplex onNavigate={navigate as any} onDone={() => markComplete('discriminanteComplejos')} />
+          )}
+          {page === 'operacionesComplejos' && (
+            <Module39ComplexOps onNavigate={navigate as any} onDone={() => markComplete('operacionesComplejos')} />
+          )}
+          {page === 'aplicacionesEcuaciones' && (
+            <Module40EquationsApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesEcuaciones')} />
           )}
         </div>
 

@@ -76,10 +76,11 @@ export const WEEKS: Week[] = [
   {
     number: 8,
     title: 'Ecuaciones lineales y cuadráticas',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
     summary:
-      'Ecuación lineal y sus aplicaciones, ecuación cuadrática, discriminante y soluciones complejas.',
+      'Ecuación lineal, ecuación cuadrática con la fórmula general, discriminante, números imaginarios y operaciones con complejos.',
+    hubId: 'semana8',
   },
   {
     number: 9,
