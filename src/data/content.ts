@@ -66,6 +66,12 @@ export type SectionId =
   | 'noLinealCaso3'
   | 'noLinealRepaso'
   | 'aplicacionesNoLineales'
+  | 'semana11'
+  | 'logaritmos'
+  | 'ecuacionesExpLog'
+  | 'aplicacionesLogaritmos'
+  | 'intervalos'
+  | 'valorAbsolutoDistancia'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -145,6 +151,14 @@ export const MODULES_SEMANA10: { id: SectionId; short: string; title: string }[]
   { id: 'noLinealCaso3', short: '03', title: 'Caso 3: Lineal e Irracional' },
   { id: 'noLinealRepaso', short: '04', title: 'Repaso Mixto' },
   { id: 'aplicacionesNoLineales', short: '05', title: 'Aplicaciones' },
+]
+
+export const MODULES_SEMANA11: { id: SectionId; short: string; title: string }[] = [
+  { id: 'logaritmos', short: '01', title: 'Logaritmos' },
+  { id: 'ecuacionesExpLog', short: '02', title: 'Ecuaciones Exponenciales y Logarítmicas' },
+  { id: 'aplicacionesLogaritmos', short: '03', title: 'Aplicaciones de Logaritmos' },
+  { id: 'intervalos', short: '04', title: 'Recta Numérica: Intervalos' },
+  { id: 'valorAbsolutoDistancia', short: '05', title: 'Valor Absoluto y Distancia' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -2038,5 +2052,198 @@ export const NONLINEAR_APPLICATION_QUIZ: WordProblem[] = [
     options: ['Avión: 575 mi/h, Viento: 25 mi/h', 'Avión: 600 mi/h, Viento: 50 mi/h', 'Avión: 550 mi/h, Viento: 25 mi/h', 'Avión: 575 mi/h, Viento: 50 mi/h'],
     answerIndex: 0,
     solution: '3300=(Va+Vv)(5.5) y 3300=(Va−Vv)(6). Resolviendo el sistema: Va=575 mi/h, Vv=25 mi/h.',
+  },
+]
+
+// =====================================================================
+// SEMANA 11 — Logaritmos, ecuaciones exponenciales/logarítmicas, y recta
+// numérica (intervalos, valor absoluto, distancia). Basado en
+// Guia_Algebra.pdf pp. 132-160. Verificado con sympy.
+// =====================================================================
+
+// ---- Módulo 1 (Semana 11): Logaritmos ----
+export const LOG_DEFINITION = 'log_B P = E  si y solo si  B^E = P   (B > 0, B ≠ 1)'
+
+export const LOG_TO_POWER_STEPS: AlgebraStep[] = [
+  { label: 'Ejemplo: log₁₀ x = 2', expr: 'Como potencia: 10² = x → x = 100' },
+  { label: 'Ejemplo: log₃ 2187 = y', expr: 'Como potencia: 3^y = 2187 = 3⁷ → y = 7 (bases iguales)' },
+]
+
+export const LOG_PROPERTIES = [
+  { name: 'Producto', rule: 'log_B(MN) = log_B M + log_B N' },
+  { name: 'Cociente', rule: 'log_B(M/N) = log_B M − log_B N' },
+  { name: 'Potencia', rule: 'log_B(M^k) = k·log_B M' },
+  { name: 'Logaritmo de la base', rule: 'log_B B = 1' },
+]
+
+export const LOG_EXPAND_STEPS: AlgebraStep[] = [
+  { label: 'Expresión', expr: 'log_a (x³√y / z²)' },
+  { label: 'Aplica la propiedad del cociente', expr: '= log_a(x³√y) − log_a z²' },
+  { label: 'Aplica la propiedad del producto y la potencia', expr: '= 3 log_a x + (1/2) log_a y − 2 log_a z' },
+]
+
+export const LOG_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Convierte a forma exponencial y resuelve: log₂ x = 4',
+    options: ['x = 16', 'x = 8', 'x = 32', 'x = 2'],
+    answerIndex: 0,
+    solution: '2⁴ = x → x = 16.',
+  },
+  {
+    prompt: 'Expande usando las propiedades de logaritmos: log_a(x³/z²)',
+    options: ['3 log_a x − 2 log_a z', '3 log_a x + 2 log_a z', 'log_a x³ − log_a z²', '(3/2) log_a(x/z)'],
+    answerIndex: 0,
+    solution: 'Cociente: log_a x³ − log_a z². Potencia: 3 log_a x − 2 log_a z.',
+  },
+]
+
+// ---- Módulo 2 (Semana 11): Ecuaciones exponenciales y logarítmicas ----
+/** Ejemplo 72 de la guía (versión corregida y completa): 3^x = 27. */
+export const EXP_EQ_STEPS: AlgebraStep[] = [
+  { label: 'Ecuación', expr: '3^x = 27' },
+  { label: 'Expresa 27 como potencia de 3', expr: '3^x = 3³' },
+  { label: 'Si las bases son iguales, los exponentes lo son', expr: 'x = 3' },
+]
+
+/** Ejemplo 70c de la guía: 2^(x-3) = 8^(x+1), convirtiendo a la misma base. */
+export const EXP_EQ_BASE_STEPS: AlgebraStep[] = [
+  { label: 'Ecuación', expr: '2^(x−3) = 8^(x+1)' },
+  { label: 'Expresa 8 como 2³', expr: '2^(x−3) = (2³)^(x+1) = 2^(3x+3)' },
+  { label: 'Iguala los exponentes (misma base)', expr: 'x − 3 = 3x + 3' },
+  { label: 'Despeja x', expr: '−2x = 6 → x = −3' },
+]
+
+/** Ejemplo 70a de la guía: e^(10k) = 7, usando logaritmo natural. */
+export const LOG_EQ_STEPS: AlgebraStep[] = [
+  { label: 'Ecuación', expr: 'e^(10k) = 7' },
+  { label: 'Aplica ln a ambos lados', expr: 'ln(e^(10k)) = ln 7' },
+  { label: 'Usa la propiedad de la potencia (ln e = 1)', expr: '10k · ln e = ln 7 → 10k = ln 7' },
+  { label: 'Despeja k', expr: 'k = ln 7 / 10 ≈ 0.1946' },
+]
+
+export const EXP_LOG_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve: 2^(x+2) = 4^(x-1)',
+    options: ['x = 4', 'x = 2', 'x = 0', 'x = 6'],
+    answerIndex: 0,
+    solution: '2^(x+2) = (2²)^(x-1) = 2^(2x-2) → x+2 = 2x-2 → x = 4.',
+  },
+  {
+    prompt: 'Resuelve: log₂(25 − x) = 3',
+    options: ['x = 17', 'x = 8', 'x = 22', 'x = −3'],
+    answerIndex: 0,
+    solution: 'Como potencia: 2³ = 25−x → 8 = 25−x → x = 17.',
+  },
+  {
+    prompt: 'Resuelve: log(x+2) + log(x−1) = 1',
+    options: ['x = 3', 'x = 4', 'x = 3 y x = −4', 'x = −4'],
+    answerIndex: 0,
+    solution: 'log[(x+2)(x−1)] = 1 → (x+2)(x−1) = 10 → x²+x−12=0 → (x+4)(x−3)=0. x=−4 se descarta (log de negativo). x=3.',
+  },
+]
+
+// ---- Módulo 3 (Semana 11): Aplicaciones de logaritmos ----
+export const LOG_APPLICATION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Una población de bacterias se triplica cada 4 horas. Si inicialmente hay 1000, ¿cuánto tiempo tardará en llegar a 1,000,000?',
+    options: ['≈25.15 horas', '≈25.16 horas', '≈20.15 horas', '≈30.15 horas'],
+    answerIndex: 0,
+    solution: '1000·3^t = 1,000,000 → 3^t=1000 → t=log(1000)/log(3)≈6.29 periodos de 4h → 6.29×4 ≈ 25.15 horas.',
+  },
+  {
+    prompt: 'La escala de Richter usa R = log(I/I₀). Si un sismo tiene una intensidad de 100,000 veces I₀, ¿cuál es su magnitud R?',
+    options: ['R = 5', 'R = 4', 'R = 100000', 'R = 50'],
+    answerIndex: 0,
+    solution: 'R = log(100000) = log(10⁵) = 5.',
+  },
+  {
+    prompt: 'El nivel de ruido en dB es I = 10·log₁₀(P/P₀). Si un sonido tiene 70 dB, ¿cuántas veces más potente es que el sonido de referencia?',
+    options: ['10,000,000 (10⁷) veces', '1,000,000 (10⁶) veces', '100,000,000 (10⁸) veces', '700 veces'],
+    answerIndex: 0,
+    solution: '70 = 10·log(P/P₀) → 7 = log(P/P₀) → P/P₀ = 10⁷.',
+  },
+]
+
+// ---- Módulo 4 (Semana 11): Recta numérica — intervalos ----
+export const INTERVAL_NOTATION = [
+  { notation: '(a, b)', set: '{x | a < x < b}', tipo: 'Abierto' },
+  { notation: '[a, b]', set: '{x | a ≤ x ≤ b}', tipo: 'Cerrado' },
+  { notation: '[a, b)', set: '{x | a ≤ x < b}', tipo: 'Semiabierto' },
+  { notation: '(a, ∞)', set: '{x | a < x}', tipo: 'No acotado' },
+  { notation: '(−∞, b]', set: '{x | x ≤ b}', tipo: 'No acotado' },
+]
+
+/** Ejemplo 75-76 de la guía (verificado): A=(1,3), B=[2,7], C=[-2,1]. */
+export const INTERVAL_UNION_STEPS: AlgebraStep[] = [
+  { label: 'Datos', expr: 'A = {x | 1 < x < 3},  B = {x | 2 ≤ x ≤ 7},  C = {x | −2 ≤ x ≤ 1}' },
+  { label: 'A ∪ B: todos los elementos de A o de B (o ambos)', expr: 'A ∪ B = (1, 7]  (se unen sin dejar huecos, porque se solapan en [2,3))' },
+  { label: 'A ∪ C: como C termina donde A empieza (ambos incluyen 1)', expr: 'A ∪ C = [−2, 3)' },
+  { label: 'A ∩ B: solo lo que está en ambos', expr: 'A ∩ B = [2, 3)' },
+]
+
+export const INTERVAL_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Sea A = {x | x > −2} y B = {x | x < 4}. Encuentra A ∪ B.',
+    options: ['(−∞, ∞) — todos los reales', '(−2, 4)', '(−2, ∞)', '∅'],
+    answerIndex: 0,
+    solution: 'A cubre todo a la derecha de −2, B cubre todo a la izquierda de 4. Como −2<4, se solapan y juntos cubren todos los reales.',
+  },
+  {
+    prompt: 'Sea A = {x | x > −2} y B = {x | x < 4}. Encuentra A ∩ B.',
+    options: ['(−2, 4)', '(−∞, ∞)', '(4, ∞)', '∅'],
+    answerIndex: 0,
+    solution: 'Solo los valores que cumplen ambas condiciones a la vez: −2 < x < 4.',
+  },
+  {
+    prompt: 'Sea B = {x | x < 4} y C = {x | −1 < x ≤ 5}. Encuentra B ∪ C.',
+    options: ['(−∞, 5]', '(−1, 4)', '(−∞, 4)', '[−1, 5]'],
+    answerIndex: 0,
+    solution: 'B cubre hasta 4 (sin incluir), C cubre de −1 a 5 (incluido). Juntos: (−∞, 5].',
+  },
+]
+
+// ---- Módulo 5 (Semana 11): Valor absoluto y distancia ----
+export const ABS_VALUE_PROPERTIES = [
+  { rule: '|a| ≥ 0', desc: 'El valor absoluto siempre es positivo o cero.' },
+  { rule: '|a| = |−a|', desc: 'Un número y su negativo tienen el mismo valor absoluto.' },
+  { rule: '|a·b| = |a|·|b|', desc: 'El valor absoluto de un producto es el producto de los valores absolutos.' },
+  { rule: '|a/b| = |a|/|b|', desc: 'El valor absoluto de un cociente es el cociente de los valores absolutos.' },
+]
+
+export const ABS_INEQ_CASES = [
+  { modelo: '|a| < b', solucion: '−b < a < b' },
+  { modelo: '|a| ≤ b', solucion: '−b ≤ a ≤ b' },
+  { modelo: '|a| > b', solucion: 'a < −b  o  a > b' },
+  { modelo: '|a| ≥ b', solucion: 'a ≤ −b  o  a ≥ b' },
+]
+
+/** Ejemplo 81 de la guía: |x-3| ≤ 2. */
+export const ABS_INEQ_STEPS: AlgebraStep[] = [
+  { label: 'Desigualdad', expr: '|x − 3| ≤ 2' },
+  { label: 'Usa el modelo |a| ≤ b → −b ≤ a ≤ b', expr: '−2 ≤ x − 3 ≤ 2' },
+  { label: 'Suma 3 en los tres lados', expr: '−2+3 ≤ x ≤ 2+3' },
+  { label: 'Resultado', expr: '1 ≤ x ≤ 5' },
+]
+
+export const DISTANCE_FORMULA = 'd(a,b) = |b − a|'
+
+export const ABS_DISTANCE_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Calcula la distancia entre los puntos −3 y 6 en la recta numérica.',
+    options: ['9', '3', '6', '−9'],
+    answerIndex: 0,
+    solution: 'd(−3,6) = |6−(−3)| = |9| = 9.',
+  },
+  {
+    prompt: 'Resuelve: |x + 2| < 5',
+    options: ['−7 < x < 3', '−3 < x < 7', 'x < −7 o x > 3', '−5 < x < 5'],
+    answerIndex: 0,
+    solution: '|a|<b → −b<a<b. Con a=x+2, b=5: −5<x+2<5 → −7<x<3.',
+  },
+  {
+    prompt: 'Resuelve: |2x − 1| ≥ 3',
+    options: ['x ≤ −1 o x ≥ 2', '−1 ≤ x ≤ 2', 'x ≥ 2', 'x ≤ −1'],
+    answerIndex: 0,
+    solution: '|a|≥b → a≤−b o a≥b. Con a=2x−1, b=3: 2x−1≤−3 → x≤−1;  o 2x−1≥3 → x≥2.',
   },
 ]

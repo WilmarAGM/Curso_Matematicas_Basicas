@@ -103,8 +103,9 @@ export const WEEKS: Week[] = [
   {
     number: 11,
     title: 'Logaritmos y recta numérica',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
+    hubId: 'semana11',
     summary:
       'Logaritmos: ecuaciones exponenciales y logarítmicas. Recta numérica: conjunto, intervalos, valor absoluto y distancia.',
   },

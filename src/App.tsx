@@ -19,6 +19,7 @@ import { WeekHub7 } from '@/sections/WeekHub7'
 import { WeekHub8 } from '@/sections/WeekHub8'
 import { WeekHub9 } from '@/sections/WeekHub9'
 import { WeekHub10 } from '@/sections/WeekHub10'
+import { WeekHub11 } from '@/sections/WeekHub11'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -70,6 +71,11 @@ import { Module47NonlinearCase2 } from '@/sections/Module47NonlinearCase2'
 import { Module48NonlinearCase3 } from '@/sections/Module48NonlinearCase3'
 import { Module49NonlinearRepaso } from '@/sections/Module49NonlinearRepaso'
 import { Module50NonlinearApplications } from '@/sections/Module50NonlinearApplications'
+import { Module51Logarithms } from '@/sections/Module51Logarithms'
+import { Module52ExpLogEquations } from '@/sections/Module52ExpLogEquations'
+import { Module53LogApplications } from '@/sections/Module53LogApplications'
+import { Module54Intervals } from '@/sections/Module54Intervals'
+import { Module55AbsValueDistance } from '@/sections/Module55AbsValueDistance'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -297,6 +303,23 @@ function App() {
           )}
           {page === 'aplicacionesNoLineales' && (
             <Module50NonlinearApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesNoLineales')} />
+          )}
+
+          {page === 'semana11' && <WeekHub11 onNavigate={navigate as any} completed={completed} />}
+          {page === 'logaritmos' && (
+            <Module51Logarithms onNavigate={navigate as any} onDone={() => markComplete('logaritmos')} />
+          )}
+          {page === 'ecuacionesExpLog' && (
+            <Module52ExpLogEquations onNavigate={navigate as any} onDone={() => markComplete('ecuacionesExpLog')} />
+          )}
+          {page === 'aplicacionesLogaritmos' && (
+            <Module53LogApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesLogaritmos')} />
+          )}
+          {page === 'intervalos' && (
+            <Module54Intervals onNavigate={navigate as any} onDone={() => markComplete('intervalos')} />
+          )}
+          {page === 'valorAbsolutoDistancia' && (
+            <Module55AbsValueDistance onNavigate={navigate as any} onDone={() => markComplete('valorAbsolutoDistancia')} />
           )}
         </div>
 
