@@ -36,6 +36,12 @@ export type SectionId =
   | 'trinomioSimple'
   | 'trinomioGeneral'
   | 'aplicacionesFactorizacion'
+  | 'semana6'
+  | 'trinomioCuadradoPerfecto'
+  | 'diferenciaCuadrados'
+  | 'tcpAdicionSustraccion'
+  | 'repasoFactorizacion'
+  | 'aplicacionesGeometricas'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -75,6 +81,14 @@ export const MODULES_SEMANA5: { id: SectionId; short: string; title: string }[] 
   { id: 'trinomioSimple', short: '03', title: 'Trinomio x² + bx + c' },
   { id: 'trinomioGeneral', short: '04', title: 'Trinomio ax² + bx + c' },
   { id: 'aplicacionesFactorizacion', short: '05', title: 'Aplicaciones: División y Factorización' },
+]
+
+export const MODULES_SEMANA6: { id: SectionId; short: string; title: string }[] = [
+  { id: 'trinomioCuadradoPerfecto', short: '01', title: 'Trinomio Cuadrado Perfecto' },
+  { id: 'diferenciaCuadrados', short: '02', title: 'Diferencia de Cuadrados' },
+  { id: 'tcpAdicionSustraccion', short: '03', title: 'TCP por Adición y Sustracción' },
+  { id: 'repasoFactorizacion', short: '04', title: 'Repaso: Todos los Métodos' },
+  { id: 'aplicacionesGeometricas', short: '05', title: 'Aplicaciones Geométricas' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -1174,5 +1188,187 @@ export const FACTORING_APPLICATION_QUIZ: WordProblem[] = [
     options: ['3x + 5', '3x − 5', '2x + 5', '3x + 1'],
     answerIndex: 0,
     solution: '6x² + 7x − 5 = (3x + 5)(2x − 1). El otro lado es (3x + 5).',
+  },
+]
+
+// =====================================================================
+// SEMANA 6 — Trinomio cuadrado perfecto, diferencia de cuadrados, TCP por
+// adición y sustracción, y repaso general de factorización. Basado en
+// Guia_Algebra.pdf pp. 35-41. Todas las identidades verificadas con sympy.
+// =====================================================================
+
+// ---- Módulo 1 (Semana 6): Trinomio Cuadrado Perfecto ----
+export const TCP_CONDITIONS = [
+  'El primer y el último término deben ser cuadrados perfectos (tienen raíz cuadrada exacta).',
+  'El término del medio debe ser el doble producto de esas dos raíces cuadradas.',
+  'Si ambas condiciones se cumplen, es un Trinomio Cuadrado Perfecto (TCP).',
+  'El resultado es un binomio al cuadrado: se pone el signo del término medio y se eleva todo al cuadrado.',
+]
+
+/** Ejemplo 26a de la guía: x² + 6x + 9 = (x + 3)². */
+export const TCP_STEPS: AlgebraStep[] = [
+  { label: 'Saca raíz cuadrada al primer y último término', expr: '√x² = x,   √9 = 3' },
+  { label: 'Verifica el término del medio (doble producto)', expr: '2 · x · 3 = 6x ✓ (coincide con el término medio)' },
+  { label: 'Escribe el binomio con el signo del término medio', expr: 'x² + 6x + 9 = (x + 3)²' },
+]
+
+/** Ejemplo 26b de la guía: 4x² − 4xy + y² = (2x − y)². */
+export const TCP_STEPS_2: AlgebraStep[] = [
+  { label: 'Saca raíz cuadrada al primer y último término', expr: '√4x² = 2x,   √y² = y' },
+  { label: 'Verifica el término del medio', expr: '2 · 2x · y = 4xy ✓ (coincide, con signo negativo)' },
+  { label: 'Escribe el binomio', expr: '4x² − 4xy + y² = (2x − y)²' },
+]
+
+export const TCP_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Factoriza (si es TCP): 9x² + 30x + 25',
+    options: ['(3x + 5)²', '(3x − 5)²', '(9x + 5)²', 'No es TCP'],
+    answerIndex: 0,
+    solution: '√9x² = 3x, √25 = 5, doble producto 2(3x)(5) = 30x ✓. Es (3x + 5)².',
+  },
+  {
+    prompt: 'Factoriza (si es TCP): x² − 14x + 49',
+    options: ['(x − 7)²', '(x + 7)²', '(x − 14)²', 'No es TCP'],
+    answerIndex: 0,
+    solution: '√x² = x, √49 = 7, doble producto 2(x)(7) = 14x ✓. Es (x − 7)².',
+  },
+  {
+    prompt: 'Factoriza (si es TCP): 16x² − 24xy + 9y²',
+    options: ['(4x − 3y)²', '(4x + 3y)²', '(16x − 9y)²', 'No es TCP'],
+    answerIndex: 0,
+    solution: '√16x² = 4x, √9y² = 3y, doble producto 2(4x)(3y) = 24xy ✓. Es (4x − 3y)².',
+  },
+  {
+    prompt: '¿Es 4x² + 10x + 25 un Trinomio Cuadrado Perfecto?',
+    options: ['No, porque 2(2x)(5) = 20x ≠ 10x', 'Sí, es (2x + 5)²', 'Sí, es (2x − 5)²', 'No, porque 25 no es cuadrado perfecto'],
+    answerIndex: 0,
+    solution: 'Las raíces son 2x y 5, pero el doble producto 2(2x)(5) = 20x no coincide con el término medio 10x. No es TCP.',
+  },
+]
+
+// ---- Módulo 2 (Semana 6): Diferencia de cuadrados ----
+/** Ejemplo 27 de la guía: 4x² − 9y² = (2x + 3y)(2x − 3y). */
+export const DIFF_SQ_STEPS: AlgebraStep[] = [
+  { label: 'Identifica las raíces cuadradas', expr: '√4x² = 2x,   √9y² = 3y' },
+  { label: 'Escribe la suma por la diferencia de esas raíces', expr: '4x² − 9y² = (2x + 3y)(2x − 3y)' },
+]
+
+/** Ejemplo 27 de la guía: 36m² − 25n² = (6m + 5n)(6m − 5n). */
+export const DIFF_SQ_STEPS_2: AlgebraStep[] = [
+  { label: 'Identifica las raíces cuadradas', expr: '√36m² = 6m,   √25n² = 5n' },
+  { label: 'Escribe la suma por la diferencia de esas raíces', expr: '36m² − 25n² = (6m + 5n)(6m − 5n)' },
+]
+
+export const DIFF_SQ_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Factoriza: 49a² − 16b²',
+    options: ['(7a + 4b)(7a − 4b)', '(7a − 4b)²', '(7a + 4b)²', '(49a + 16b)(a − b)'],
+    answerIndex: 0,
+    solution: '√49a² = 7a, √16b² = 4b. Es diferencia de cuadrados: (7a + 4b)(7a − 4b).',
+  },
+  {
+    prompt: 'Factoriza: 100x² − 1',
+    options: ['(10x + 1)(10x − 1)', '(10x − 1)²', '(100x + 1)(x − 1)', '(10x + 1)²'],
+    answerIndex: 0,
+    solution: '√100x² = 10x, √1 = 1. Es diferencia de cuadrados: (10x + 1)(10x − 1).',
+  },
+  {
+    prompt: 'Factoriza completamente: x⁴ − 16 (pista: la diferencia de cuadrados se puede aplicar dos veces)',
+    options: ['(x² + 4)(x + 2)(x − 2)', '(x² − 4)(x² + 4)', '(x² + 4)²', '(x + 2)²(x − 2)²'],
+    answerIndex: 0,
+    solution: 'x⁴ − 16 = (x² + 4)(x² − 4). Como x² − 4 también es diferencia de cuadrados: (x² + 4)(x + 2)(x − 2).',
+  },
+]
+
+// ---- Módulo 3 (Semana 6): TCP por adición y sustracción (caso especial) ----
+/** Ejemplo 28 de la guía: a⁴ + a² + 1 = (a² + a + 1)(a² − a + 1). */
+export const TCPAS_STEPS: AlgebraStep[] = [
+  { label: 'Identifica las raíces del primer y último término', expr: 'a⁴ + a² + 1 → √a⁴ = a², √1 = 1' },
+  { label: 'El doble producto esperado sería 2a², pero el término medio es solo a²', expr: 'Falta a² para completar el TCP' },
+  { label: 'Suma y resta ese a² que falta', expr: '(a⁴ + 2a² + 1) − a² = (a² + 1)² − a²' },
+  { label: 'Ahora es una diferencia de cuadrados', expr: '[(a² + 1) + a][(a² + 1) − a]' },
+  { label: 'Resultado', expr: '= (a² + a + 1)(a² − a + 1)' },
+]
+
+export const TCPAS_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Factoriza usando TCP por adición y sustracción: x⁴ + x² + 1',
+    options: ['(x² + x + 1)(x² − x + 1)', '(x² + 1)²', '(x² + x − 1)(x² − x − 1)', 'No se puede factorizar'],
+    answerIndex: 0,
+    solution: 'Igual que a⁴+a²+1: suma y resta x² → (x²+1)² − x² = (x²+x+1)(x²−x+1).',
+  },
+  {
+    prompt: 'Factoriza usando TCP por adición y sustracción: x⁴ + 4',
+    options: ['(x² + 2x + 2)(x² − 2x + 2)', '(x² + 2)²', '(x² + 2x − 2)(x² − 2x − 2)', 'No se puede factorizar'],
+    answerIndex: 0,
+    solution: 'Suma y resta 4x²: (x⁴+4x²+4) − 4x² = (x²+2)² − (2x)² = (x²+2x+2)(x²−2x+2).',
+  },
+]
+
+// ---- Módulo 4 (Semana 6): Repaso — todos los métodos de factorización ----
+export const REPASO_FACTORIZACION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Factoriza: a² − 14a + 33',
+    options: ['(a − 11)(a − 3)', '(a + 11)(a − 3)', '(a − 11)(a + 3)', '(a + 11)(a + 3)'],
+    answerIndex: 0,
+    solution: 'Trinomio x²+bx+c: dos números que multiplicados den 33 y sumados −14: −11 y −3.',
+  },
+  {
+    prompt: 'Factoriza: 30x² + 13x − 10',
+    options: ['(6x + 5)(5x − 2)', '(6x − 5)(5x + 2)', '(6x + 5)(5x + 2)', '(6x − 5)(5x − 2)'],
+    answerIndex: 0,
+    solution: 'Trinomio ax²+bx+c: (6x+5)(5x−2) da 30x², 6x·(−2)+5·5x=−12x+25x=13x, 5·(−2)=−10. Coincide.',
+  },
+  {
+    prompt: 'Factoriza: 9x² + 37x + 4',
+    options: ['(9x + 1)(x + 4)', '(9x + 4)(x + 1)', '(9x − 1)(x − 4)', '(3x + 1)(3x + 4)'],
+    answerIndex: 0,
+    solution: '(9x+1)(x+4): 9x², 9x·4+1·x=36x+x=37x, 1·4=4. Coincide.',
+  },
+  {
+    prompt: 'Factoriza completamente: 8x⁴y² + 6x³y³ − 2xy⁴',
+    options: ['2xy²(4x³ + 3x²y − y²)', '2xy(4x³y + 3x²y² − y³)', 'xy²(8x³ + 6x²y − 2y²)', '2x(4x³y² + 3x²y³ − y⁴)'],
+    answerIndex: 0,
+    solution: 'Factor común: coeficientes (2), potencias mínimas de x (x) y de y (y²): 2xy²(4x³ + 3x²y − y²).',
+  },
+  {
+    prompt: 'Factoriza por agrupación: ax − 2bx − 2ay + 4by',
+    options: ['(a − 2b)(x − 2y)', '(a + 2b)(x − 2y)', '(a − 2b)(x + 2y)', '(a − 2y)(x − 2b)'],
+    answerIndex: 0,
+    solution: 'Agrupa: (ax − 2bx) + (−2ay + 4by) = x(a − 2b) − 2y(a − 2b) = (a − 2b)(x − 2y).',
+  },
+  {
+    prompt: 'Factoriza: a²/4 − ab + b²',
+    options: ['(a/2 − b)²', '(a/2 + b)²', '(a − b/2)²', 'No es TCP'],
+    answerIndex: 0,
+    solution: '√(a²/4) = a/2, √b² = b, doble producto 2(a/2)(b) = ab ✓. Es (a/2 − b)².',
+  },
+]
+
+// ---- Módulo 5 (Semana 6): Aplicaciones geométricas ----
+export const GEOMETRIC_APPLICATION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Un lado de un triángulo rectángulo es 3 unidades más largo que el otro (x y x+3), y la hipotenusa mide 15. Encuentra los catetos.',
+    options: ['9 y 12', '8 y 11', '9 y 11', '10 y 13'],
+    answerIndex: 0,
+    solution: 'Pitágoras: 15² = x² + (x+3)² → 2x² + 6x + 9 = 225 → x² + 3x − 108 = 0 → (x+12)(x−9)=0 → x=9. Catetos: 9 y 12.',
+  },
+  {
+    prompt: 'Un rectángulo tiene lados (x + 5) y (x − 3). Si su área es 48, ¿cuáles son las dimensiones?',
+    options: ['4 y 12', '3 y 16', '6 y 8', '5 y 10'],
+    answerIndex: 0,
+    solution: '(x+5)(x−3) = 48 → x² + 2x − 63 = 0 → (x+9)(x−7) = 0 → x = 7. Lados: x+5=12, x−3=4.',
+  },
+  {
+    prompt: 'El mismo rectángulo de lados (x + 5) y (x − 3), pero ahora con área 20. ¿Cuáles son las dimensiones?',
+    options: ['2 y 10', '1 y 20', '4 y 5', '2 y 12'],
+    answerIndex: 0,
+    solution: '(x+5)(x−3) = 20 → x² + 2x − 35 = 0 → (x+7)(x−5) = 0 → x = 5. Lados: x+5=10, x−3=2.',
+  },
+  {
+    prompt: 'Demuestra algebraicamente: (a + b)² − 2ab = a² + b². ¿Qué producto notable se usó?',
+    options: ['Cuadrado de un binomio', 'Suma por diferencia', 'Cubo de un binomio', 'Trinomio cuadrado'],
+    answerIndex: 0,
+    solution: '(a+b)² = a² + 2ab + b². Al restar 2ab queda a² + b². Se usó el cuadrado de un binomio.',
   },
 ]

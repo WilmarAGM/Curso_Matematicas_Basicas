@@ -58,9 +58,11 @@ export const WEEKS: Week[] = [
   {
     number: 6,
     title: 'Factorización',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
-    summary: 'Factorización.',
+    summary:
+      'Trinomio cuadrado perfecto, diferencia de cuadrados, TCP por adición y sustracción, repaso general y aplicaciones geométricas.',
+    hubId: 'semana6',
   },
   {
     number: 7,

@@ -14,6 +14,7 @@ import { WeekHub2 } from '@/sections/WeekHub2'
 import { WeekHub3 } from '@/sections/WeekHub3'
 import { WeekHub4 } from '@/sections/WeekHub4'
 import { WeekHub5 } from '@/sections/WeekHub5'
+import { WeekHub6 } from '@/sections/WeekHub6'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -40,6 +41,11 @@ import { Module22FactorComun } from '@/sections/Module22FactorComun'
 import { Module23TrinomioSimple } from '@/sections/Module23TrinomioSimple'
 import { Module24TrinomioGeneral } from '@/sections/Module24TrinomioGeneral'
 import { Module25FactorApplications } from '@/sections/Module25FactorApplications'
+import { Module26TCP } from '@/sections/Module26TCP'
+import { Module27DiffSquares } from '@/sections/Module27DiffSquares'
+import { Module28TcpAdicionSustraccion } from '@/sections/Module28TcpAdicionSustraccion'
+import { Module29RepasoFactorizacion } from '@/sections/Module29RepasoFactorizacion'
+import { Module30GeometricApplications } from '@/sections/Module30GeometricApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -182,6 +188,23 @@ function App() {
           )}
           {page === 'aplicacionesFactorizacion' && (
             <Module25FactorApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesFactorizacion')} />
+          )}
+
+          {page === 'semana6' && <WeekHub6 onNavigate={navigate as any} completed={completed} />}
+          {page === 'trinomioCuadradoPerfecto' && (
+            <Module26TCP onNavigate={navigate as any} onDone={() => markComplete('trinomioCuadradoPerfecto')} />
+          )}
+          {page === 'diferenciaCuadrados' && (
+            <Module27DiffSquares onNavigate={navigate as any} onDone={() => markComplete('diferenciaCuadrados')} />
+          )}
+          {page === 'tcpAdicionSustraccion' && (
+            <Module28TcpAdicionSustraccion onNavigate={navigate as any} onDone={() => markComplete('tcpAdicionSustraccion')} />
+          )}
+          {page === 'repasoFactorizacion' && (
+            <Module29RepasoFactorizacion onNavigate={navigate as any} onDone={() => markComplete('repasoFactorizacion')} />
+          )}
+          {page === 'aplicacionesGeometricas' && (
+            <Module30GeometricApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesGeometricas')} />
           )}
         </div>
 
