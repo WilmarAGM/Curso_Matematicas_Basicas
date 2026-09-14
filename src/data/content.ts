@@ -72,6 +72,12 @@ export type SectionId =
   | 'aplicacionesLogaritmos'
   | 'intervalos'
   | 'valorAbsolutoDistancia'
+  | 'semana12'
+  | 'inecuacionesLineales'
+  | 'inecuacionesValorAbsoluto'
+  | 'inecuacionesRacionales'
+  | 'inecuacionesCuadraticas'
+  | 'aplicacionesInecuaciones'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -159,6 +165,14 @@ export const MODULES_SEMANA11: { id: SectionId; short: string; title: string }[]
   { id: 'aplicacionesLogaritmos', short: '03', title: 'Aplicaciones de Logaritmos' },
   { id: 'intervalos', short: '04', title: 'Recta Numérica: Intervalos' },
   { id: 'valorAbsolutoDistancia', short: '05', title: 'Valor Absoluto y Distancia' },
+]
+
+export const MODULES_SEMANA12: { id: SectionId; short: string; title: string }[] = [
+  { id: 'inecuacionesLineales', short: '01', title: 'Inecuaciones Lineales' },
+  { id: 'inecuacionesValorAbsoluto', short: '02', title: 'Inecuaciones con Valor Absoluto' },
+  { id: 'inecuacionesRacionales', short: '03', title: 'Inecuaciones Racionales' },
+  { id: 'inecuacionesCuadraticas', short: '04', title: 'Inecuaciones Cuadráticas' },
+  { id: 'aplicacionesInecuaciones', short: '05', title: 'Aplicaciones' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -2245,5 +2259,169 @@ export const ABS_DISTANCE_QUIZ: WordProblem[] = [
     options: ['x ≤ −1 o x ≥ 2', '−1 ≤ x ≤ 2', 'x ≥ 2', 'x ≤ −1'],
     answerIndex: 0,
     solution: '|a|≥b → a≤−b o a≥b. Con a=2x−1, b=3: 2x−1≤−3 → x≤−1;  o 2x−1≥3 → x≥2.',
+  },
+]
+
+// =====================================================================
+// SEMANA 12 — Inecuaciones lineales, con valor absoluto, racionales y
+// cuadráticas. Basado en Guia_Algebra.pdf pp. 162-180. Última semana del
+// bloque de Álgebra. Todo verificado con sympy.
+// =====================================================================
+
+// ---- Módulo 1 (Semana 12): Inecuaciones lineales ----
+/** Ejemplo 84a de la guía: 8x + 4 < 16 + 5x. */
+export const LINEAR_INEQ_STEPS: AlgebraStep[] = [
+  { label: 'Inecuación', expr: '8x + 4 < 16 + 5x' },
+  { label: 'Agrupa los términos con x a la izquierda', expr: '8x − 5x < 16 − 4' },
+  { label: 'Simplifica', expr: '3x < 12' },
+  { label: 'Divide por 3 (positivo: no cambia el signo)', expr: 'x < 4' },
+]
+
+/** Ejemplo 84c de la guía: inecuación simultánea −7 ≤ 2x+1 < 19. */
+export const LINEAR_INEQ_SIMULTANEOUS_STEPS: AlgebraStep[] = [
+  { label: 'Inecuación simultánea', expr: '−7 ≤ 2x + 1 < 19' },
+  { label: 'Resta 1 en las tres partes', expr: '−8 ≤ 2x < 18' },
+  { label: 'Divide entre 2 (positivo: no cambia el signo)', expr: '−4 ≤ x < 9' },
+  { label: 'En notación de intervalo', expr: '[−4, 9)' },
+]
+
+export const LINEAR_INEQ_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve: 2x − 5 > 7',
+    options: ['x > 6', 'x > 5', 'x > −6', 'x > 7'],
+    answerIndex: 0,
+    solution: '2x > 12 → x > 6.',
+  },
+  {
+    prompt: 'Resuelve: −3x + 5 ≤ 2 (¡cuidado al dividir por negativo!)',
+    options: ['x ≥ 1', 'x ≤ 1', 'x ≥ −1', 'x ≤ −1'],
+    answerIndex: 0,
+    solution: '−3x ≤ −3. Al dividir por −3 (negativo), se invierte la desigualdad: x ≥ 1.',
+  },
+]
+
+// ---- Módulo 2 (Semana 12): Inecuaciones con valor absoluto ----
+export const ABS_INEQ_CASES_2 = [
+  { modelo: '|a| < b', solucion: '−b < a < b', tipo: 'intervalo (intersección)' },
+  { modelo: '|a| ≤ b', solucion: '−b ≤ a ≤ b', tipo: 'intervalo (intersección)' },
+  { modelo: '|a| > b', solucion: 'a < −b  o  a > b', tipo: 'unión de dos rayos' },
+  { modelo: '|a| ≥ b', solucion: 'a ≤ −b  o  a ≥ b', tipo: 'unión de dos rayos' },
+]
+
+/** Ejemplo 85a de la guía: |3x - 7| < 1 (caso 1). */
+export const ABS_INEQ_CASE1_STEPS: AlgebraStep[] = [
+  { label: 'Inecuación (modelo |a| < b)', expr: '|3x − 7| < 1' },
+  { label: 'Reescribe como doble desigualdad', expr: '−1 < 3x − 7 < 1' },
+  { label: 'Suma 7 en las tres partes', expr: '6 < 3x < 8' },
+  { label: 'Divide entre 3', expr: '2 < x < 8/3' },
+]
+
+/** Ejemplo 85c de la guía: |3 + x| > 7 (caso 3). */
+export const ABS_INEQ_CASE3_STEPS: AlgebraStep[] = [
+  { label: 'Inecuación (modelo |a| > b)', expr: '|3 + x| > 7' },
+  { label: 'Se separa en dos desigualdades con "o"', expr: '3 + x < −7   o   3 + x > 7' },
+  { label: 'Resuelve cada una', expr: 'x < −10   o   x > 4' },
+  { label: 'Conjunto solución (unión)', expr: '(−∞, −10) ∪ (4, ∞)' },
+]
+
+export const ABS_INEQ_QUIZ_2: WordProblem[] = [
+  {
+    prompt: 'Resuelve: |2x + 1| < 5',
+    options: ['−3 < x < 2', '−2 < x < 3', '−5 < x < 5', 'x < −3 o x > 2'],
+    answerIndex: 0,
+    solution: '−5 < 2x+1 < 5 → −6 < 2x < 4 → −3 < x < 2.',
+  },
+  {
+    prompt: 'Resuelve: |3x − 6| ≤ 12',
+    options: ['−2 ≤ x ≤ 6', '−6 ≤ x ≤ 2', 'x ≤ −2 o x ≥ 6', '−4 ≤ x ≤ 4'],
+    answerIndex: 0,
+    solution: '−12 ≤ 3x−6 ≤ 12 → −6 ≤ 3x ≤ 18 → −2 ≤ x ≤ 6.',
+  },
+]
+
+// ---- Módulo 3 (Semana 12): Inecuaciones racionales ----
+export const RATIONAL_INEQ_STEPS_METHOD = [
+  'Pasa todos los términos al lado izquierdo (deja 0 a la derecha).',
+  'Factoriza el numerador y el denominador.',
+  'Halla los puntos críticos (donde numerador o denominador valen 0).',
+  'Evalúa el signo de la expresión en cada intervalo entre puntos críticos.',
+  'Escribe el conjunto solución — excluye siempre los puntos donde el denominador es 0.',
+]
+
+/** Ejemplo 86a de la guía (corregido): (x+4)/(x-2) ≥ 3 → (2, 5]. */
+export const RATIONAL_INEQ_STEPS: AlgebraStep[] = [
+  { label: 'Inecuación', expr: '(x + 4)/(x − 2) ≥ 3' },
+  { label: 'Pasa el 3 a la izquierda y suma fracciones', expr: '[(x+4) − 3(x−2)] / (x−2) ≥ 0' },
+  { label: 'Simplifica el numerador', expr: '(−2x + 10)/(x − 2) ≥ 0' },
+  { label: 'Puntos críticos: numerador=0 en x=5, denominador=0 en x=2', expr: 'x=2 (excluido), x=5 (incluido)' },
+  { label: 'Evalúa el signo en cada intervalo (prueba x=1 y x=3)', expr: 'En (2,5) el cociente es positivo ✓' },
+  { label: 'Conjunto solución (2 excluido porque anula el denominador)', expr: '(2, 5]' },
+]
+
+export const RATIONAL_INEQ_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve: (x − 2)/(x + 3) ≥ 0',
+    options: ['(−∞, −3) ∪ [2, ∞)', '(−3, 2)', '[−3, 2]', '(−∞, −3] ∪ (2, ∞)'],
+    answerIndex: 0,
+    solution: 'Puntos críticos: −3 (excluido) y 2 (incluido). El cociente es ≥0 fuera del intervalo entre ellos: (−∞,−3) ∪ [2,∞).',
+  },
+  {
+    prompt: 'Resuelve: x²−x−6 < 0 (factoriza primero)',
+    options: ['(−2, 3)', '(−3, 2)', '(−∞,−2) ∪ (3,∞)', '[−2, 3]'],
+    answerIndex: 0,
+    solution: 'x²−x−6=(x−3)(x+2). Como abre hacia arriba y buscamos <0, la solución está entre las raíces: (−2,3).',
+  },
+]
+
+// ---- Módulo 4 (Semana 12): Inecuaciones cuadráticas ----
+/** Ejemplo 87 de la guía: 4x² − 9x + 2 ≥ 0. */
+export const QUADRATIC_INEQ_STEPS: AlgebraStep[] = [
+  { label: 'Inecuación', expr: '4x² − 9x + 2 ≥ 0' },
+  { label: 'Factoriza (trinomio ax²+bx+c)', expr: '(4x − 1)(x − 2) ≥ 0' },
+  { label: 'Puntos críticos', expr: '4x−1=0 → x=1/4;   x−2=0 → x=2' },
+  { label: 'Evalúa el signo en cada intervalo', expr: 'Positivo fuera de [1/4, 2], negativo dentro' },
+  { label: 'Conjunto solución (≥0: fuera del intervalo, incluidos los bordes)', expr: '(−∞, 1/4] ∪ [2, ∞)' },
+]
+
+export const QUADRATIC_INEQ_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve: x² − 4x − 5 ≤ 0',
+    options: ['[−1, 5]', '(−∞,−1] ∪ [5,∞)', '(−1, 5)', '[−5, 1]'],
+    answerIndex: 0,
+    solution: 'x²−4x−5=(x−5)(x+1). Como abre hacia arriba y buscamos ≤0, la solución está entre las raíces: [−1, 5].',
+  },
+  {
+    prompt: 'Resuelve: x² − 3x − 18 ≤ 0',
+    options: ['[−3, 6]', '(−∞,−3] ∪ [6,∞)', '(−3, 6)', '[3, 6]'],
+    answerIndex: 0,
+    solution: 'x²−3x−18=(x−6)(x+3). Entre las raíces: [−3, 6].',
+  },
+]
+
+// ---- Módulo 5 (Semana 12): Aplicaciones ----
+export const INEQ_APPLICATION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Una fábrica produce pelotas de tenis con costo C(x) = 0.5x + 100. Si el presupuesto máximo es $500, ¿cuántas pelotas como máximo se pueden producir?',
+    options: ['800 pelotas', '700 pelotas', '600 pelotas', '500 pelotas'],
+    answerIndex: 0,
+    solution: '0.5x + 100 ≤ 500 → 0.5x ≤ 400 → x ≤ 800.',
+  },
+  {
+    prompt: 'Un taxi cobra $5 base más $0.50 por km. Si un cliente tiene $25, ¿cuál es la distancia máxima que puede recorrer?',
+    options: ['40 km', '50 km', '60 km', '30 km'],
+    answerIndex: 0,
+    solution: '5 + 0.5x ≤ 25 → 0.5x ≤ 20 → x ≤ 40.',
+  },
+  {
+    prompt: 'Una dieta recomienda entre 1500 y 2000 calorías diarias. Si el desayuno aporta 400 y la cena 600, ¿cuántas calorías puede tener el almuerzo?',
+    options: ['Entre 500 y 1000', 'Entre 400 y 900', 'Entre 300 y 800', 'Entre 200 y 700'],
+    answerIndex: 0,
+    solution: '1500 ≤ 400+x+600 ≤ 2000 → 1500 ≤ 1000+x ≤ 2000 → 500 ≤ x ≤ 1000.',
+  },
+  {
+    prompt: 'Una fábrica produce entre 100 y 250 unidades. Vende a $50 c/u, con costos fijos $3000 y costo de producción $30/unidad. ¿Para qué niveles de producción el beneficio supera $1000?',
+    options: ['200 < x ≤ 250', '100 < x ≤ 250', '150 < x < 250', '200 ≤ x ≤ 250'],
+    answerIndex: 0,
+    solution: 'Beneficio(x)=50x−(3000+30x)=20x−3000>1000 → x>200. Combinado con 100<x≤250: 200<x≤250.',
   },
 ]

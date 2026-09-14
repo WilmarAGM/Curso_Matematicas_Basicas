@@ -112,8 +112,9 @@ export const WEEKS: Week[] = [
   {
     number: 12,
     title: 'Inecuaciones',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
+    hubId: 'semana12',
     summary: 'Inecuaciones lineales, inecuaciones con valor absoluto e inecuaciones racionales y cuadráticas.',
   },
   {

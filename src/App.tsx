@@ -20,6 +20,7 @@ import { WeekHub8 } from '@/sections/WeekHub8'
 import { WeekHub9 } from '@/sections/WeekHub9'
 import { WeekHub10 } from '@/sections/WeekHub10'
 import { WeekHub11 } from '@/sections/WeekHub11'
+import { WeekHub12 } from '@/sections/WeekHub12'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -76,6 +77,11 @@ import { Module52ExpLogEquations } from '@/sections/Module52ExpLogEquations'
 import { Module53LogApplications } from '@/sections/Module53LogApplications'
 import { Module54Intervals } from '@/sections/Module54Intervals'
 import { Module55AbsValueDistance } from '@/sections/Module55AbsValueDistance'
+import { Module56LinearInequalities } from '@/sections/Module56LinearInequalities'
+import { Module57AbsInequalities } from '@/sections/Module57AbsInequalities'
+import { Module58RationalInequalities } from '@/sections/Module58RationalInequalities'
+import { Module59QuadraticInequalities } from '@/sections/Module59QuadraticInequalities'
+import { Module60IneqApplications } from '@/sections/Module60IneqApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -320,6 +326,23 @@ function App() {
           )}
           {page === 'valorAbsolutoDistancia' && (
             <Module55AbsValueDistance onNavigate={navigate as any} onDone={() => markComplete('valorAbsolutoDistancia')} />
+          )}
+
+          {page === 'semana12' && <WeekHub12 onNavigate={navigate as any} completed={completed} />}
+          {page === 'inecuacionesLineales' && (
+            <Module56LinearInequalities onNavigate={navigate as any} onDone={() => markComplete('inecuacionesLineales')} />
+          )}
+          {page === 'inecuacionesValorAbsoluto' && (
+            <Module57AbsInequalities onNavigate={navigate as any} onDone={() => markComplete('inecuacionesValorAbsoluto')} />
+          )}
+          {page === 'inecuacionesRacionales' && (
+            <Module58RationalInequalities onNavigate={navigate as any} onDone={() => markComplete('inecuacionesRacionales')} />
+          )}
+          {page === 'inecuacionesCuadraticas' && (
+            <Module59QuadraticInequalities onNavigate={navigate as any} onDone={() => markComplete('inecuacionesCuadraticas')} />
+          )}
+          {page === 'aplicacionesInecuaciones' && (
+            <Module60IneqApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesInecuaciones')} />
           )}
         </div>
 
