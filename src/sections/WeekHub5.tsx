@@ -1,38 +1,39 @@
-import { MODULES_SEMANA2, type SectionId } from '@/data/content'
+import { MODULES_SEMANA5, type SectionId } from '@/data/content'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
 
-interface WeekHub2Props {
+interface WeekHub5Props {
   onNavigate: (id: SectionId) => void
   completed: Record<string, boolean>
 }
 
-export function WeekHub2({ onNavigate, completed }: WeekHub2Props) {
-  const doneCount = MODULES_SEMANA2.filter((m) => completed[m.id]).length
+export function WeekHub5({ onNavigate, completed }: WeekHub5Props) {
+  const doneCount = MODULES_SEMANA5.filter((m) => completed[m.id]).length
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
-      <p className="font-mono-nums text-sm uppercase tracking-[0.14em] text-warm">Semana 2</p>
-      <h1 className="mt-2 font-display text-4xl text-ink">Racionales, Irracionales y Fracciones</h1>
+      <p className="font-mono-nums text-sm uppercase tracking-[0.14em] text-warm">Semana 5</p>
+      <h1 className="mt-2 font-display text-4xl text-ink">División y Factorización</h1>
       <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-ink-muted">
-        Recorre los cinco módulos sobre fraccionarios. Cada uno combina teoría con un ejercicio
-        interactivo — tu progreso se guarda automáticamente.
+        Recorre los cinco módulos: división de polinomios (larga y sintética), factor común y
+        agrupación, y factorización de trinomios x²+bx+c y ax²+bx+c. Cada uno combina teoría con un
+        ejercicio interactivo — tu progreso se guarda automáticamente.
       </p>
 
       <div className="mt-4 flex items-center gap-3">
         <div className="h-1.5 w-48 overflow-hidden rounded-full bg-line">
           <div
             className="h-full rounded-full bg-warm transition-[width]"
-            style={{ width: `${(doneCount / MODULES_SEMANA2.length) * 100}%` }}
+            style={{ width: `${(doneCount / MODULES_SEMANA5.length) * 100}%` }}
           />
         </div>
         <span className="font-mono-nums text-sm text-ink-muted">
-          {doneCount}/{MODULES_SEMANA2.length} completados
+          {doneCount}/{MODULES_SEMANA5.length} completados
         </span>
       </div>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {MODULES_SEMANA2.map((m) => (
+        {MODULES_SEMANA5.map((m) => (
           <Card
             key={m.id}
             role="button"

@@ -52,7 +52,7 @@ export function WeekHub({ onNavigate, completed }: WeekHubProps) {
               historyDone ? 'text-primary' : 'text-ink-muted',
             )}
           >
-            <span className={cn('h-2 w-2 rounded-full', historyDone ? 'bg-accent-green' : 'bg-line-strong')} />
+            <span className={cn('h-2 w-2 rounded-full', historyDone ? 'bg-leaf' : 'bg-line-strong')} />
             {historyDone ? 'Completado' : 'Empezar'}
           </span>
         </Card>
@@ -75,7 +75,7 @@ export function WeekHub({ onNavigate, completed }: WeekHubProps) {
                 completed[m.id] ? 'text-primary' : 'text-ink-muted',
               )}
             >
-              <span className={cn('h-2 w-2 rounded-full', completed[m.id] ? 'bg-accent-green' : 'bg-line-strong')} />
+              <span className={cn('h-2 w-2 rounded-full', completed[m.id] ? 'bg-leaf' : 'bg-line-strong')} />
               {completed[m.id] ? 'Completado' : 'Empezar'}
             </span>
           </Card>

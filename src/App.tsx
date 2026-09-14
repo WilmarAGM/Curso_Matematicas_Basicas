@@ -13,6 +13,7 @@ import { WeekHub } from '@/sections/WeekHub'
 import { WeekHub2 } from '@/sections/WeekHub2'
 import { WeekHub3 } from '@/sections/WeekHub3'
 import { WeekHub4 } from '@/sections/WeekHub4'
+import { WeekHub5 } from '@/sections/WeekHub5'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -34,6 +35,11 @@ import { Module17AlgebraProps } from '@/sections/Module17AlgebraProps'
 import { Module18PolyOps } from '@/sections/Module18PolyOps'
 import { Module19NotableProducts } from '@/sections/Module19NotableProducts'
 import { Module20AlgebraApplications } from '@/sections/Module20AlgebraApplications'
+import { Module21DivisionPoly } from '@/sections/Module21DivisionPoly'
+import { Module22FactorComun } from '@/sections/Module22FactorComun'
+import { Module23TrinomioSimple } from '@/sections/Module23TrinomioSimple'
+import { Module24TrinomioGeneral } from '@/sections/Module24TrinomioGeneral'
+import { Module25FactorApplications } from '@/sections/Module25FactorApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -159,6 +165,23 @@ function App() {
           )}
           {page === 'aplicacionesAlgebra' && (
             <Module20AlgebraApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesAlgebra')} />
+          )}
+
+          {page === 'semana5' && <WeekHub5 onNavigate={navigate as any} completed={completed} />}
+          {page === 'divisionPolinomios' && (
+            <Module21DivisionPoly onNavigate={navigate as any} onDone={() => markComplete('divisionPolinomios')} />
+          )}
+          {page === 'factorComun' && (
+            <Module22FactorComun onNavigate={navigate as any} onDone={() => markComplete('factorComun')} />
+          )}
+          {page === 'trinomioSimple' && (
+            <Module23TrinomioSimple onNavigate={navigate as any} onDone={() => markComplete('trinomioSimple')} />
+          )}
+          {page === 'trinomioGeneral' && (
+            <Module24TrinomioGeneral onNavigate={navigate as any} onDone={() => markComplete('trinomioGeneral')} />
+          )}
+          {page === 'aplicacionesFactorizacion' && (
+            <Module25FactorApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesFactorizacion')} />
           )}
         </div>
 

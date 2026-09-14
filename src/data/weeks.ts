@@ -49,9 +49,11 @@ export const WEEKS: Week[] = [
   {
     number: 5,
     title: 'División y factorización',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
-    summary: 'Expresiones algebraicas, división de polinomios y factorización.',
+    summary:
+      'División de polinomios (larga y sintética), factor común y agrupación, y factorización de trinomios x²+bx+c y ax²+bx+c.',
+    hubId: 'semana5',
   },
   {
     number: 6,

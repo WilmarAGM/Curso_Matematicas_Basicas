@@ -30,6 +30,12 @@ export type SectionId =
   | 'operacionesPolinomios'
   | 'productosNotables'
   | 'aplicacionesAlgebra'
+  | 'semana5'
+  | 'divisionPolinomios'
+  | 'factorComun'
+  | 'trinomioSimple'
+  | 'trinomioGeneral'
+  | 'aplicacionesFactorizacion'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -61,6 +67,14 @@ export const MODULES_SEMANA4: { id: SectionId; short: string; title: string }[] 
   { id: 'operacionesPolinomios', short: '03', title: 'Operaciones con Polinomios' },
   { id: 'productosNotables', short: '04', title: 'Productos Notables' },
   { id: 'aplicacionesAlgebra', short: '05', title: 'Aplicaciones con Expresiones Algebraicas' },
+]
+
+export const MODULES_SEMANA5: { id: SectionId; short: string; title: string }[] = [
+  { id: 'divisionPolinomios', short: '01', title: 'División de Polinomios' },
+  { id: 'factorComun', short: '02', title: 'Factor Común y Agrupación' },
+  { id: 'trinomioSimple', short: '03', title: 'Trinomio x² + bx + c' },
+  { id: 'trinomioGeneral', short: '04', title: 'Trinomio ax² + bx + c' },
+  { id: 'aplicacionesFactorizacion', short: '05', title: 'Aplicaciones: División y Factorización' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -959,5 +973,206 @@ export const ALGEBRA_APPLICATION_PROBLEMS: WordProblem[] = [
     options: ['C(x) = 10x − 0.0005x²', 'C(x) = 10x − 0.005x²', 'C(x) = 10x + 0.0005x²', 'C(x) = 10x − 0.05x²'],
     answerIndex: 0,
     solution: 'El costo por unidad es 10 − 0.05(x/100) = 10 − 0.0005x. Costo total = x·(10 − 0.0005x) = 10x − 0.0005x².',
+  },
+]
+
+// =====================================================================
+// SEMANA 5 — División de polinomios y factorización (factor común,
+// agrupación, trinomio x²+bx+c y ax²+bx+c). Basado en Guia_Algebra.pdf,
+// pp. 26-35. Todas las identidades verificadas con sympy.
+// =====================================================================
+
+// ---- Módulo 1 (Semana 5): División de polinomios ----
+export const DIVISION_TERMS = { dividendo: 'D', divisor: 'd', cociente: 'C', residuo: 'R' }
+
+/** Ejemplo 18 de la guía: prueba de la división 17 ÷ 5. */
+export const DIVISION_PROOF_STEPS: AlgebraStep[] = [
+  { label: 'Datos', expr: 'Dividendo D = 17, Divisor d = 5' },
+  { label: 'Divide', expr: 'C = 3 (el múltiplo de 5 más cercano a 17 sin pasarse), R = 2' },
+  { label: 'Prueba: (C · d) + R = D', expr: '(3 · 5) + 2 = 15 + 2 = 17 ✓' },
+]
+
+/** Ejemplo 19 (verificado con sympy): (−9x⁴+9x³−14x²+8x) ÷ (3x²−2x). */
+export const LONG_DIVISION_STEPS: AlgebraStep[] = [
+  { label: 'Ordena dividendo y divisor de mayor a menor grado', expr: '(−9x⁴ + 9x³ − 14x² + 8x) ÷ (3x² − 2x)' },
+  { label: 'Divide los primeros términos', expr: '−9x⁴ ÷ 3x² = −3x²' },
+  { label: 'Multiplica y resta', expr: '−3x²(3x² − 2x) = −9x⁴ + 6x³ → queda 3x³ − 14x² + 8x' },
+  { label: 'Repite: divide, multiplica y resta', expr: '3x³ ÷ 3x² = x → x(3x² − 2x) = 3x³ − 2x² → queda −12x² + 8x' },
+  { label: 'Repite una vez más', expr: '−12x² ÷ 3x² = −4 → −4(3x² − 2x) = −12x² + 8x → queda 0' },
+  { label: 'Resultado', expr: 'Cociente = −3x² + x − 4, Residuo = 0' },
+]
+
+/** Ejemplo 21 (verificado con sympy): (3x³ − 7x + 5) ÷ (x − 2) por Ruffini. */
+export const SYNTHETIC_DIVISION_STEPS: AlgebraStep[] = [
+  { label: 'Ordena coeficientes (con 0 en el término que falta) y toma la raíz de x − 2', expr: '3   0   −7   5   |   raíz = 2' },
+  { label: 'Baja el primer coeficiente', expr: '3' },
+  { label: 'Multiplica 3 × 2 = 6 y súmalo al siguiente', expr: '0 + 6 = 6' },
+  { label: 'Multiplica 6 × 2 = 12 y súmalo al siguiente', expr: '−7 + 12 = 5' },
+  { label: 'Multiplica 5 × 2 = 10 y súmalo al último (residuo)', expr: '5 + 10 = 15' },
+  { label: 'Resultado', expr: 'Cociente = 3x² + 6x + 5, Residuo = 15' },
+]
+
+export const DIVISION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Divide (6x² − 26x + 12) ÷ (x − 4) y halla cociente y residuo.',
+    options: ['Cociente: 6x − 2, Residuo: 4', 'Cociente: 6x + 2, Residuo: 4', 'Cociente: 6x − 2, Residuo: −4', 'Cociente: 6x − 4, Residuo: 2'],
+    answerIndex: 0,
+    solution: 'Por división larga: cociente 6x − 2, residuo 4. Comprueba: (6x−2)(x−4)+4 = 6x²−26x+8+4 = 6x²−26x+12.',
+  },
+  {
+    prompt: 'Divide (x³ + 2x² − 4x + 5) ÷ (x + 3) y halla cociente y residuo.',
+    options: ['Cociente: x² − x − 1, Residuo: 8', 'Cociente: x² + x − 1, Residuo: 8', 'Cociente: x² − x + 1, Residuo: 8', 'Cociente: x² − x − 1, Residuo: −8'],
+    answerIndex: 0,
+    solution: 'Por Ruffini con raíz −3: cociente x² − x − 1, residuo 8.',
+  },
+  {
+    prompt: 'Divide (4x³ + 6x² + 5x + 6) ÷ (2x² + x + 3) y halla cociente y residuo.',
+    options: ['Cociente: 2x + 2, Residuo: −3x', 'Cociente: 2x + 2, Residuo: 3x', 'Cociente: 2x − 2, Residuo: −3x', 'Cociente: 2x + 2, Residuo: −3x + 6'],
+    answerIndex: 0,
+    solution: 'Por división larga (el divisor es de grado 2, no se puede usar Ruffini): cociente 2x + 2, residuo −3x.',
+  },
+  {
+    prompt: 'La prueba de la división dice que (C·d) + R = D. Si C = −x − 1, d = −x² − 2x + 7 y R = −x + 11, ¿cuál es el dividendo D?',
+    options: ['x³ + 3x² − 6x + 4', 'x³ − 3x² − 6x + 4', 'x³ + 3x² + 6x + 4', 'x³ + 3x² − 6x − 4'],
+    answerIndex: 0,
+    solution: '(−x−1)(−x²−2x+7) + (−x+11) = x³ + 3x² − 6x − 7 + (−x + 11) = x³ + 3x² − 6x + 4.',
+  },
+]
+
+// ---- Módulo 2 (Semana 5): Factor común y agrupación ----
+/** Ejemplo 22 de la guía: 3x² − 6x = 3x(x − 2). */
+export const FACTOR_COMUN_STEPS: AlgebraStep[] = [
+  { label: 'Identifica el factor común', expr: '3x² − 6x → el factor común es 3x' },
+  { label: 'Divide cada término entre el factor común', expr: '3x²/3x = x,   −6x/3x = −2' },
+  { label: 'Escribe el resultado', expr: '3x² − 6x = 3x(x − 2)' },
+]
+
+/** Ejemplo 23 de la guía: a² + ab + ax + bx = (a + b)(a + x). */
+export const FACTOR_GROUP_STEPS: AlgebraStep[] = [
+  { label: 'Agrupa de dos en dos', expr: '(a² + ab) + (ax + bx)' },
+  { label: 'Saca el factor común de cada grupo', expr: 'a(a + b) + x(a + b)' },
+  { label: 'El factor común ahora es el binomio (a + b)', expr: '(a + b)(a + x)' },
+]
+
+export const FACTOR_COMUN_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Factoriza completamente: 2x³ − 18x',
+    options: ['2x(x − 3)(x + 3)', '2x(x − 3)²', '2x(x + 3)²', '2x(x² − 9x)'],
+    answerIndex: 0,
+    solution: 'Factor común: 2x(x² − 9). Luego x² − 9 es diferencia de cuadrados: (x−3)(x+3). Resultado: 2x(x−3)(x+3).',
+  },
+  {
+    prompt: 'Factoriza por agrupación: x³ + 2x² + 3x + 6',
+    options: ['(x + 2)(x² + 3)', '(x − 2)(x² + 3)', '(x + 2)(x² − 3)', '(x + 3)(x² + 2)'],
+    answerIndex: 0,
+    solution: 'Agrupa: (x³ + 2x²) + (3x + 6) = x²(x + 2) + 3(x + 2) = (x + 2)(x² + 3).',
+  },
+  {
+    prompt: 'Factoriza por agrupación: am + an + bm + bn',
+    options: ['(a + b)(m + n)', '(a − b)(m + n)', '(a + b)(m − n)', '(a + m)(b + n)'],
+    answerIndex: 0,
+    solution: 'Agrupa: (am + an) + (bm + bn) = a(m + n) + b(m + n) = (a + b)(m + n).',
+  },
+]
+
+// ---- Módulo 3 (Semana 5): Trinomio de la forma x² + bx + c ----
+/** Ejemplo 24 de la guía: x² + 7x + 12 = (x + 4)(x + 3). */
+export const TRINOMIO_SIMPLE_STEPS: AlgebraStep[] = [
+  { label: 'Identifica b y c', expr: 'x² + 7x + 12 → b = 7, c = 12' },
+  { label: 'Busca dos números que multiplicados den c y sumados den b', expr: '4 × 3 = 12  y  4 + 3 = 7' },
+  { label: 'Escribe los dos binomios', expr: '(x + 4)(x + 3)' },
+  { label: 'Verifica expandiendo', expr: '(x+4)(x+3) = x² + 7x + 12 ✓' },
+]
+
+export const TRINOMIO_SIMPLE_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Factoriza: x² − 2x − 15',
+    options: ['(x − 5)(x + 3)', '(x + 5)(x − 3)', '(x − 5)(x − 3)', '(x + 5)(x + 3)'],
+    answerIndex: 0,
+    solution: 'Busca dos números que multiplicados den −15 y sumados den −2: −5 y 3. (x − 5)(x + 3).',
+  },
+  {
+    prompt: 'Factoriza: x² + x − 12',
+    options: ['(x + 4)(x − 3)', '(x − 4)(x + 3)', '(x + 4)(x + 3)', '(x − 4)(x − 3)'],
+    answerIndex: 0,
+    solution: 'Dos números que multiplicados den −12 y sumados den 1: 4 y −3. (x + 4)(x − 3).',
+  },
+  {
+    prompt: 'Factoriza: y² + 5y − 24',
+    options: ['(y + 8)(y − 3)', '(y − 8)(y + 3)', '(y + 8)(y + 3)', '(y − 8)(y − 3)'],
+    answerIndex: 0,
+    solution: 'Dos números que multiplicados den −24 y sumados den 5: 8 y −3. (y + 8)(y − 3).',
+  },
+  {
+    prompt: 'Factoriza: x² − 17x − 60',
+    options: ['(x − 20)(x + 3)', '(x + 20)(x − 3)', '(x − 20)(x − 3)', '(x + 20)(x + 3)'],
+    answerIndex: 0,
+    solution: 'Dos números que multiplicados den −60 y sumados den −17: −20 y 3. (x − 20)(x + 3).',
+  },
+]
+
+// ---- Módulo 4 (Semana 5): Trinomio de la forma ax² + bx + c ----
+/** Ejemplo 25 de la guía: 6x² + 7x − 5 = (3x + 5)(2x − 1). */
+export const TRINOMIO_GENERAL_STEPS: AlgebraStep[] = [
+  { label: 'Identifica a, b y c', expr: '6x² + 7x − 5 → a = 6, b = 7, c = −5' },
+  { label: 'Descompón a en dos factores y prueba combinaciones', expr: '6 = 3 × 2   →   prueba (3x ± __)(2x ± __)' },
+  { label: 'Verifica que el producto cruzado sume b', expr: '(3x + 5)(2x − 1): 3x·(−1) + 5·2x = −3x + 10x = 7x ✓' },
+  { label: 'Verifica el término independiente', expr: '5 · (−1) = −5 ✓' },
+  { label: 'Resultado', expr: '6x² + 7x − 5 = (3x + 5)(2x − 1)' },
+]
+
+export const TRINOMIO_GENERAL_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Factoriza: 2x² + 5x − 3',
+    options: ['(2x − 1)(x + 3)', '(2x + 1)(x − 3)', '(2x − 1)(x − 3)', '(2x + 1)(x + 3)'],
+    answerIndex: 0,
+    solution: 'Prueba (2x − 1)(x + 3): 2x·x=2x², 2x·3 + (−1)·x = 6x − x = 5x, (−1)·3 = −3. Coincide.',
+  },
+  {
+    prompt: 'Factoriza: 6x² − x − 2',
+    options: ['(3x − 2)(2x + 1)', '(3x + 2)(2x − 1)', '(3x − 2)(2x − 1)', '(3x + 2)(2x + 1)'],
+    answerIndex: 0,
+    solution: 'Prueba (3x − 2)(2x + 1): 3x·2x=6x², 3x·1 + (−2)·2x = 3x − 4x = −x, (−2)·1 = −2. Coincide.',
+  },
+  {
+    prompt: 'Factoriza: 4x² + 4x − 3',
+    options: ['(2x + 3)(2x − 1)', '(2x − 3)(2x + 1)', '(2x + 3)(2x + 1)', '(2x − 3)(2x − 1)'],
+    answerIndex: 0,
+    solution: 'Prueba (2x + 3)(2x − 1): 4x², 2x·(−1) + 3·2x = −2x + 6x = 4x, 3·(−1) = −3. Coincide.',
+  },
+]
+
+// ---- Módulo 5 (Semana 5): Aplicaciones — división y factorización ----
+export const FACTORING_METHOD_GUIDE = [
+  { situation: 'Siempre primero', method: 'Busca factor común', example: '6x² − 12x = 6x(x − 2)' },
+  { situation: '2 términos', method: 'Diferencia de cuadrados o de cubos (Semana 4)', example: 'x² − 9 = (x+3)(x−3)' },
+  { situation: '3 términos', method: 'Trinomio x²+bx+c o ax²+bx+c', example: 'x²+7x+12 = (x+4)(x+3)' },
+  { situation: '4 términos', method: 'Agrupación de a dos', example: 'a²+ab+ax+bx = (a+b)(a+x)' },
+]
+
+export const FACTORING_APPLICATION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Un terreno rectangular tiene un área de (x² + 7x + 12) m². Si el ancho es (x + 3) m, ¿cuánto mide el largo?',
+    options: ['x + 4', 'x + 3', 'x + 5', 'x − 4'],
+    answerIndex: 0,
+    solution: 'x² + 7x + 12 = (x + 4)(x + 3). Con ancho (x+3), el largo es (x+4).',
+  },
+  {
+    prompt: 'Divide (8x⁴ + 6x² − 3x + 1) ÷ (2x² − x + 2) para hallar cociente y residuo.',
+    options: ['Cociente: 4x² + 2x, Residuo: −7x + 1', 'Cociente: 4x² − 2x, Residuo: 7x + 1', 'Cociente: 4x² + 2x, Residuo: 7x − 1', 'Cociente: 4x² + 2x, Residuo: −7x − 1'],
+    answerIndex: 0,
+    solution: 'Por división larga: cociente 4x² + 2x, residuo −7x + 1.',
+  },
+  {
+    prompt: 'Factoriza completamente: 2x³ − 18x (pista: primero factor común, luego diferencia de cuadrados)',
+    options: ['2x(x − 3)(x + 3)', '2x(x − 9)', '2(x − 3)(x + 3)', 'x(2x − 3)(2x + 3)'],
+    answerIndex: 0,
+    solution: 'Factor común 2x: 2x(x² − 9). Diferencia de cuadrados: 2x(x − 3)(x + 3).',
+  },
+  {
+    prompt: 'Un cultivo rectangular tiene área (6x² + 7x − 5) m² y uno de sus lados mide (2x − 1) m. ¿Cuál es el otro lado?',
+    options: ['3x + 5', '3x − 5', '2x + 5', '3x + 1'],
+    answerIndex: 0,
+    solution: '6x² + 7x − 5 = (3x + 5)(2x − 1). El otro lado es (3x + 5).',
   },
 ]

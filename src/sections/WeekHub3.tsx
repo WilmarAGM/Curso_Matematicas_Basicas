@@ -51,7 +51,7 @@ export function WeekHub3({ onNavigate, completed }: WeekHub3Props) {
                 completed[m.id] ? 'text-primary' : 'text-ink-muted',
               )}
             >
-              <span className={cn('h-2 w-2 rounded-full', completed[m.id] ? 'bg-accent-green' : 'bg-line-strong')} />
+              <span className={cn('h-2 w-2 rounded-full', completed[m.id] ? 'bg-leaf' : 'bg-line-strong')} />
               {completed[m.id] ? 'Completado' : 'Empezar'}
             </span>
           </Card>
