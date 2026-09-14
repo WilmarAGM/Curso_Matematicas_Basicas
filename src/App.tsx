@@ -18,6 +18,7 @@ import { WeekHub6 } from '@/sections/WeekHub6'
 import { WeekHub7 } from '@/sections/WeekHub7'
 import { WeekHub8 } from '@/sections/WeekHub8'
 import { WeekHub9 } from '@/sections/WeekHub9'
+import { WeekHub10 } from '@/sections/WeekHub10'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -64,6 +65,11 @@ import { Module42Sys2x2Cramer } from '@/sections/Module42Sys2x2Cramer'
 import { Module43Sys3x3Sub } from '@/sections/Module43Sys3x3Sub'
 import { Module44Sys3x3Cramer } from '@/sections/Module44Sys3x3Cramer'
 import { Module45SystemsApplications } from '@/sections/Module45SystemsApplications'
+import { Module46NonlinearCase1 } from '@/sections/Module46NonlinearCase1'
+import { Module47NonlinearCase2 } from '@/sections/Module47NonlinearCase2'
+import { Module48NonlinearCase3 } from '@/sections/Module48NonlinearCase3'
+import { Module49NonlinearRepaso } from '@/sections/Module49NonlinearRepaso'
+import { Module50NonlinearApplications } from '@/sections/Module50NonlinearApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -274,6 +280,23 @@ function App() {
           )}
           {page === 'aplicacionesSistemas' && (
             <Module45SystemsApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesSistemas')} />
+          )}
+
+          {page === 'semana10' && <WeekHub10 onNavigate={navigate as any} completed={completed} />}
+          {page === 'noLinealCaso1' && (
+            <Module46NonlinearCase1 onNavigate={navigate as any} onDone={() => markComplete('noLinealCaso1')} />
+          )}
+          {page === 'noLinealCaso2' && (
+            <Module47NonlinearCase2 onNavigate={navigate as any} onDone={() => markComplete('noLinealCaso2')} />
+          )}
+          {page === 'noLinealCaso3' && (
+            <Module48NonlinearCase3 onNavigate={navigate as any} onDone={() => markComplete('noLinealCaso3')} />
+          )}
+          {page === 'noLinealRepaso' && (
+            <Module49NonlinearRepaso onNavigate={navigate as any} onDone={() => markComplete('noLinealRepaso')} />
+          )}
+          {page === 'aplicacionesNoLineales' && (
+            <Module50NonlinearApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesNoLineales')} />
           )}
         </div>
 

@@ -60,6 +60,12 @@ export type SectionId =
   | 'sistema3x3SustitucionIgualacion'
   | 'sistema3x3ReduccionCramer'
   | 'aplicacionesSistemas'
+  | 'semana10'
+  | 'noLinealCaso1'
+  | 'noLinealCaso2'
+  | 'noLinealCaso3'
+  | 'noLinealRepaso'
+  | 'aplicacionesNoLineales'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -131,6 +137,14 @@ export const MODULES_SEMANA9: { id: SectionId; short: string; title: string }[] 
   { id: 'sistema3x3SustitucionIgualacion', short: '03', title: 'Sistema 3x3: Sustitución e Igualación' },
   { id: 'sistema3x3ReduccionCramer', short: '04', title: 'Sistema 3x3: Reducción y Cramer' },
   { id: 'aplicacionesSistemas', short: '05', title: 'Aplicaciones' },
+]
+
+export const MODULES_SEMANA10: { id: SectionId; short: string; title: string }[] = [
+  { id: 'noLinealCaso1', short: '01', title: 'Caso 1: Lineal y No Lineal' },
+  { id: 'noLinealCaso2', short: '02', title: 'Caso 2: Ambas No Lineales' },
+  { id: 'noLinealCaso3', short: '03', title: 'Caso 3: Lineal e Irracional' },
+  { id: 'noLinealRepaso', short: '04', title: 'Repaso Mixto' },
+  { id: 'aplicacionesNoLineales', short: '05', title: 'Aplicaciones' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -1915,5 +1929,114 @@ export const SYSTEMS_APPLICATION_QUIZ: WordProblem[] = [
     options: ['I₂ = 3', 'I₂ = 2', 'I₂ = 3/4', 'I₂ = 9/4'],
     answerIndex: 0,
     solution: 'Resolviendo el sistema 3x3: I₁=3/4, I₂=3, I₃=9/4.',
+  },
+]
+
+// =====================================================================
+// SEMANA 10 — Sistemas de ecuaciones no lineales 2x2: los tres casos.
+// Basado en Guia_Algebra.pdf pp. 122-130. Todas las soluciones
+// verificadas con sympy.
+// =====================================================================
+
+// ---- Módulo 1 (Semana 10): Caso 1 — una ecuación lineal y otra no lineal ----
+/** Ejemplo 65 de la guía: x − y + 3 = 0, x² + y² = 5. */
+export const NONLINEAR_CASE1_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: '{ x − y = −3  (1)\n  x² + y² = 5  (2) }' },
+  { label: 'Despeja la variable de la ecuación lineal', expr: 'x = y − 3  (1)' },
+  { label: 'Sustituye en la ecuación no lineal', expr: '(y−3)² + y² = 5' },
+  { label: 'Expande y agrupa', expr: 'y² − 6y + 9 + y² = 5 → 2y² − 6y + 4 = 0 → y² − 3y + 2 = 0' },
+  { label: 'Factoriza', expr: '(y − 2)(y − 1) = 0 → y = 2  o  y = 1' },
+  { label: 'Sustituye cada y en x = y − 3', expr: '(x,y) = (−1, 2)  o  (x,y) = (−2, 1)' },
+]
+
+export const NONLINEAR_CASE1_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve: { x + y = 4 ; x² + y² = 10 }',
+    options: ['(1,3) y (3,1)', '(2,2) y (−2,6)', '(0,4) y (4,0)', '(1,3) y (−1,5)'],
+    answerIndex: 0,
+    solution: 'x=4−y. (4−y)²+y²=10 → 16−8y+2y²=10 → y²−4y+3=0 → (y−1)(y−3)=0 → y=1,x=3 o y=3,x=1.',
+  },
+]
+
+// ---- Módulo 2 (Semana 10): Caso 2 — ambas ecuaciones no lineales ----
+/** Ejemplo 66 de la guía: x²+y²=41, x²−y²=9. */
+export const NONLINEAR_CASE2_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: '{ x² + y² = 41  (1)\n  x² − y² = 9   (2) }' },
+  { label: 'Suma las ecuaciones para eliminar y²', expr: '2x² = 50 → x² = 25 → x = ±5' },
+  { label: 'Resta las ecuaciones para eliminar x² (o multiplica (2) por −1 y suma)', expr: '2y² = 32 → y² = 16 → y = ±4' },
+  { label: 'Combina todos los signos posibles', expr: '(5,4), (5,−4), (−5,4), (−5,−4)' },
+]
+
+export const NONLINEAR_CASE2_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve: { x² + y² = 25 ; x² − y² = 7 }',
+    options: ['x=±4, y=±3', 'x=±3, y=±4', 'x=±5, y=±2', 'x=±16, y=±9'],
+    answerIndex: 0,
+    solution: 'Sumando: 2x²=32→x²=16→x=±4. Restando: 2y²=18→y²=9→y=±3.',
+  },
+]
+
+// ---- Módulo 3 (Semana 10): Caso 3 — una ecuación lineal y una irracional ----
+/** Ejemplo 67 de la guía: 2√(x+1) = y+1, 2x−3y=1. */
+export const NONLINEAR_CASE3_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: '{ 2√(x+1) = y+1  (1)\n  2x − 3y = 1     (2) }' },
+  { label: 'Eleva al cuadrado ambos lados de (1) para eliminar el radical', expr: '4(x+1) = (y+1)² → 4x+4 = y²+2y+1' },
+  { label: 'Ordena esta nueva ecuación', expr: 'y² + 2y − 4x = 3  (1\')' },
+  { label: 'Elimina x combinando con (2) (multiplica (2) por 2)', expr: '4x − 6y = 2  →  al sumar con (1\'): y² − 4y = 5' },
+  { label: 'Factoriza', expr: 'y² − 4y − 5 = 0 → (y−5)(y+1) = 0 → y=5 o y=−1' },
+  { label: 'Descarta y=−1 (no cumple la raíz positiva) y despeja x en (2)', expr: 'Con y=5: 2x − 15 = 1 → x = 8' },
+  { label: 'Solución', expr: '(x,y) = (8, 5)' },
+]
+
+export const NONLINEAR_CASE3_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Verifica: en (x,y)=(8,5), ¿se cumple 2√(x+1) = y+1?',
+    options: ['Sí: 2√9 = 6 = 5+1', 'No, da 2√9 = 4', 'Sí, pero solo aproximadamente', 'No se puede verificar sin calculadora'],
+    answerIndex: 0,
+    solution: '2√(8+1) = 2√9 = 2(3) = 6, y y+1 = 5+1 = 6. Se cumple exactamente.',
+  },
+]
+
+// ---- Módulo 4 (Semana 10): Repaso mixto ----
+export const NONLINEAR_REPASO_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve: { y = x² − 4x ; y = −x² + 8 } (iguala las dos parábolas)',
+    options: ['x = 1 ± √5', 'x = 2 ± √5', 'x = 1 ± √3', 'x = −1 ± √5'],
+    answerIndex: 0,
+    solution: 'x²−4x = −x²+8 → 2x²−4x−8=0 → x²−2x−4=0 → x = [2±√(4+16)]/2 = 1±√5.',
+  },
+  {
+    prompt: 'Resuelve el sistema: { x² − 2x + y² = 0 ; x² − 2y + y² = 0 }',
+    options: ['(0,0) y (1,1)', '(0,1) y (1,0)', '(0,0) y (2,2)', 'Solo (1,1)'],
+    answerIndex: 0,
+    solution: 'Restando ambas: −2x+2y=0 → x=y. Sustituyendo: 2x²−2x=0 → x(x−1)=0 → x=0 o x=1. Soluciones: (0,0) y (1,1).',
+  },
+  {
+    prompt: 'Resuelve: { y = x ; y² = x + 2 }',
+    options: ['x = −1 y x = 2', 'x = 1 y x = −2', 'x = −1 y x = −2', 'x = 1 y x = 2'],
+    answerIndex: 0,
+    solution: 'x² = x+2 → x²−x−2=0 → (x−2)(x+1)=0 → x=2 o x=−1.',
+  },
+]
+
+// ---- Módulo 5 (Semana 10): Aplicaciones ----
+export const NONLINEAR_APPLICATION_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Una persona tiene 25 monedas entre monedas de 10 y de 25 centavos, que suman $4.75 (475 centavos). ¿Cuántas monedas de cada una tiene?',
+    options: ['10 monedas de 10¢ y 15 de 25¢', '15 monedas de 10¢ y 10 de 25¢', '5 monedas de 10¢ y 20 de 25¢', '12 monedas de 10¢ y 13 de 25¢'],
+    answerIndex: 0,
+    solution: 'd+q=25, 10d+25q=475. Resolviendo: d=10, q=15 (10(10)+25(15)=100+375=475 ✓).',
+  },
+  {
+    prompt: 'A un clásico de fútbol ingresaron 18,000 personas entre abonados ($45,000 c/u) y no abonados ($80,000 c/u), recaudando $1,062,000,000. ¿Cuántos abonados y no abonados ingresaron?',
+    options: ['10,800 abonados y 7,200 no abonados', '7,200 abonados y 10,800 no abonados', '9,000 abonados y 9,000 no abonados', '12,000 abonados y 6,000 no abonados'],
+    answerIndex: 0,
+    solution: 'a+n=18000, 45000a+80000n=1062000000. Resolviendo: a=10800, n=7200.',
+  },
+  {
+    prompt: 'Un avión vuela 3300 mi de Hawái a California en 5.5 h con viento de cola, y el regreso (contra el viento) dura 6 h. Usando x = v·t, encuentra la velocidad del avión y del viento.',
+    options: ['Avión: 575 mi/h, Viento: 25 mi/h', 'Avión: 600 mi/h, Viento: 50 mi/h', 'Avión: 550 mi/h, Viento: 25 mi/h', 'Avión: 575 mi/h, Viento: 50 mi/h'],
+    answerIndex: 0,
+    solution: '3300=(Va+Vv)(5.5) y 3300=(Va−Vv)(6). Resolviendo el sistema: Va=575 mi/h, Vv=25 mi/h.',
   },
 ]

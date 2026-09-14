@@ -94,10 +94,11 @@ export const WEEKS: Week[] = [
   {
     number: 10,
     title: 'Sistemas no lineales',
-    status: 'proximamente',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
     summary:
-      'Sistemas de ecuaciones no lineales 2x2 con ecuaciones cuadráticas. Ingreso del segundo 30 %.',
+      'Los tres casos de sistemas de ecuaciones no lineales 2x2 (lineal+no lineal, ambas no lineales, lineal+irracional) y sus aplicaciones.',
+    hubId: 'semana10',
   },
   {
     number: 11,
