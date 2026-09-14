@@ -1,6 +1,20 @@
 import { useState } from 'react'
 import { ModuleShell } from '@/components/app/ModuleShell'
-import { MODULES_SEMANA4, NOTABLE_PRODUCTS_LIST, NOTABLE_PRODUCTS_QUIZ, type SectionId } from '@/data/content'
+import { StepBlock } from '@/components/app/StepBlock'
+import { DifferenceOfSquaresTiles, SquareBinomialTiles } from '@/components/app/AlgebraTiles'
+import {
+  CUBE_BINOMIAL_STEPS,
+  DIAGONAL_AREA_STEPS,
+  DIFFERENCE_SQUARES_STEPS,
+  DIFF_CUBES_STEPS,
+  MODULES_SEMANA4,
+  NOTABLE_PRODUCTS_LIST,
+  NOTABLE_PRODUCTS_QUIZ,
+  SQUARE_BINOMIAL_STEPS,
+  SUM_CUBES_STEPS,
+  TRINOMIAL_SQUARE_STEPS,
+  type SectionId,
+} from '@/data/content'
 import { cn } from '@/lib/utils'
 
 interface Module19Props {
@@ -42,15 +56,90 @@ export function Module19NotableProducts({ onNavigate, onDone }: Module19Props) {
       modules={MODULES_SEMANA4}
       hubId="semana4"
       hubLabel="Semana 4"
-      intro="Ciertos productos de binomios se presentan con tanta frecuencia que conviene reconocerlos de memoria, sin desarrollarlos paso a paso."
+      intro="Ciertos productos de binomios se presentan con tanta frecuencia que conviene reconocerlos de memoria. Aquí no solo memorizamos las fórmulas: las vemos geométricamente y las desarrollamos paso a paso."
     >
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="mb-3 grid gap-3 sm:grid-cols-2">
         {NOTABLE_PRODUCTS_LIST.map((p) => (
           <div key={p.name} className="rounded border border-line bg-surface p-4">
             <span className="font-medium text-ink">{p.name}</span>
             <p className="mt-1 font-mono-nums text-sm text-ink-muted">{p.example}</p>
           </div>
         ))}
+      </div>
+      <p className="mb-10 text-xs text-ink-muted">↑ Formulario de referencia — vuelve aquí cuando lo necesites.</p>
+
+      <div className="flex flex-col gap-10">
+        <div className="rounded border border-line bg-surface p-6">
+          <h2 className="font-display text-lg text-ink">¿Por qué (a + b)² no es a² + b²?</h2>
+          <p className="mt-2 max-w-prose text-sm leading-relaxed text-ink-muted">
+            Geométricamente, (a + b)² es el área de un cuadrado de lado (a + b). Al dividirlo, aparecen
+            <em> cuatro</em> regiones: el cuadrado a², dos rectángulos iguales de área ab, y el cuadrado b².
+            Por eso el término del medio (2ab) existe.
+          </p>
+          <div className="mt-5">
+            <SquareBinomialTiles sign="+" />
+          </div>
+          <div className="mt-6">
+            <StepBlock title="Ejemplo: (x + 5)²" steps={SQUARE_BINOMIAL_STEPS} accent="pine" />
+          </div>
+        </div>
+
+        <div className="rounded border border-line bg-surface p-6">
+          <h2 className="font-display text-lg text-ink">Suma por diferencia: a² − b² = (a + b)(a − b)</h2>
+          <p className="mt-2 max-w-prose text-sm leading-relaxed text-ink-muted">
+            Si le recortas una esquina cuadrada de lado b a un cuadrado de lado a, el área que queda
+            (a² − b²) se puede reacomodar exactamente en un rectángulo de lados (a + b) y (a − b).
+          </p>
+          <div className="mt-5">
+            <DifferenceOfSquaresTiles />
+          </div>
+          <div className="mt-6">
+            <StepBlock title="Comprobación numérica" steps={DIFFERENCE_SQUARES_STEPS} accent="leaf" />
+          </div>
+        </div>
+
+        <div className="rounded border border-line bg-surface p-6">
+          <h2 className="font-display text-lg text-ink">Cubo de un binomio</h2>
+          <p className="mt-2 max-w-prose text-sm leading-relaxed text-ink-muted">
+            El mismo patrón se extiende a tres dimensiones: (a − b)³ reparte el cubo a³ entre cuatro
+            términos, con signos alternos porque b se resta.
+          </p>
+          <div className="mt-5">
+            <StepBlock title="Ejemplo: (2x − 1)³" steps={CUBE_BINOMIAL_STEPS} accent="ember" />
+          </div>
+        </div>
+
+        <div className="rounded border border-line bg-surface p-6">
+          <h2 className="font-display text-lg text-ink">Trinomio al cuadrado</h2>
+          <p className="mt-2 max-w-prose text-sm leading-relaxed text-ink-muted">
+            Con tres términos aparecen tres cuadrados y tres dobles productos (uno por cada pareja posible).
+          </p>
+          <div className="mt-5">
+            <StepBlock title="Ejemplo: (x + y + 9)²" steps={TRINOMIAL_SQUARE_STEPS} accent="warm" />
+          </div>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded border border-line bg-surface p-6">
+            <h2 className="font-display text-lg text-ink">Suma de cubos</h2>
+            <StepBlock title="Ejemplo: 8x³ + 27y³" steps={SUM_CUBES_STEPS} accent="pine" />
+          </div>
+          <div className="rounded border border-line bg-surface p-6">
+            <h2 className="font-display text-lg text-ink">Diferencia de cubos</h2>
+            <StepBlock title="Ejemplo: 8x³ − 27y³" steps={DIFF_CUBES_STEPS} accent="leaf" />
+          </div>
+        </div>
+
+        <div className="rounded border border-warm/40 bg-warm/5 p-6">
+          <h2 className="font-display text-lg text-ink">Reto integrador: la diagonal y el área</h2>
+          <p className="mt-2 max-w-prose text-sm leading-relaxed text-ink-muted">
+            La diagonal de un rectángulo mide x cm y el largo es 2 cm más que el ancho. Este problema
+            combina el teorema de Pitágoras con el cuadrado de un binomio para hallar el área.
+          </p>
+          <div className="mt-5">
+            <StepBlock title="Área del rectángulo en función de x" steps={DIAGONAL_AREA_STEPS} accent="warm" />
+          </div>
+        </div>
       </div>
 
       <div className="mt-12">

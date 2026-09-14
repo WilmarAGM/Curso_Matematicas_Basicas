@@ -1,9 +1,18 @@
 import { useState } from 'react'
 import { ModuleShell } from '@/components/app/ModuleShell'
-import { ALGEBRA_PROPERTY_LIST, ALGEBRA_PROPERTY_QUIZ, MODULES_SEMANA4, type SectionId } from '@/data/content'
+import { StepBlock } from '@/components/app/StepBlock'
+import {
+  ALGEBRA_PROPERTY_ANALOGIES,
+  ALGEBRA_PROPERTY_LIST,
+  ALGEBRA_PROPERTY_QUIZ,
+  ALGEBRA_PROPERTY_STEPS,
+  MODULES_SEMANA4,
+  type SectionId,
+} from '@/data/content'
 import { cn } from '@/lib/utils'
 
 const OPTIONS = ['Asociativa', 'Conmutativa', 'Elemento Neutro', 'Inverso', 'Distributiva'] as const
+const PROPERTY_ACCENTS = ['pine', 'leaf', 'ember', 'warm', 'pine'] as const
 
 interface Module17Props {
   onNavigate: (id: SectionId) => void
@@ -46,11 +55,17 @@ export function Module17AlgebraProps({ onNavigate, onDone }: Module17Props) {
       hubLabel="Semana 4"
       intro="Las operaciones de suma y producto definidas en las expresiones algebraicas (números y letras) cumplen las mismas propiedades de los números reales."
     >
-      <div className="grid gap-3 sm:grid-cols-2">
-        {ALGEBRA_PROPERTY_LIST.map((p) => (
-          <div key={p.name} className="rounded border border-line bg-surface p-4">
-            <span className="font-medium text-ink">{p.name}</span>
-            <p className="mt-1 font-mono-nums text-sm text-ink-muted">{p.example}</p>
+      <div className="flex flex-col gap-6">
+        {ALGEBRA_PROPERTY_LIST.map((p, i) => (
+          <div key={p.name} className="rounded border border-line-strong bg-surface-raised/40 p-1">
+            <div className="rounded-t bg-surface-raised px-4 py-3">
+              <p className="text-sm italic leading-relaxed text-ink-muted">
+                💡 <strong className="not-italic text-ink">Analogía:</strong> {ALGEBRA_PROPERTY_ANALOGIES[p.name]}
+              </p>
+            </div>
+            <div className="p-4">
+              <StepBlock title={p.name} steps={ALGEBRA_PROPERTY_STEPS[p.name]} accent={PROPERTY_ACCENTS[i]} />
+            </div>
           </div>
         ))}
       </div>

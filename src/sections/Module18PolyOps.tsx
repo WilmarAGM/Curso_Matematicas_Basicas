@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ModuleShell } from '@/components/app/ModuleShell'
+import { StepBlock } from '@/components/app/StepBlock'
 import {
   MODULES_SEMANA4,
   POLY_ADD_STEPS,
@@ -13,31 +14,6 @@ import { cn } from '@/lib/utils'
 interface Module18Props {
   onNavigate: (id: SectionId) => void
   onDone: () => void
-}
-
-function StepBlock({ title, steps }: { title: string; steps: { label: string; expr: string }[] }) {
-  const [step, setStep] = useState(0)
-  return (
-    <div className="rounded border border-line bg-surface p-5">
-      <h2 className="font-display text-lg text-ink">{title}</h2>
-      <div className="mt-4 flex flex-col gap-2">
-        {steps.slice(0, step + 1).map((s) => (
-          <div key={s.label} className="animate-in fade-in slide-in-from-bottom-1 rounded border border-line bg-surface-raised p-3 duration-300">
-            <span className="text-xs uppercase tracking-wide text-warm">{s.label}</span>
-            <p className="mt-1 font-mono-nums text-base text-ink">{s.expr}</p>
-          </div>
-        ))}
-      </div>
-      {step < steps.length - 1 && (
-        <button
-          onClick={() => setStep((s) => Math.min(s + 1, steps.length - 1))}
-          className="mt-4 rounded bg-pine px-4 py-2 text-sm font-medium text-pine-foreground transition hover:opacity-90"
-        >
-          Siguiente paso →
-        </button>
-      )}
-    </div>
-  )
 }
 
 export function Module18PolyOps({ onNavigate, onDone }: Module18Props) {
@@ -77,9 +53,9 @@ export function Module18PolyOps({ onNavigate, onDone }: Module18Props) {
       intro="Sea P(x) = x³ − 6x² + 2x + 4 y Q(x) = 6x² + 2x + 4. Sumamos y restamos agrupando términos semejantes; multiplicamos aplicando la propiedad distributiva."
     >
       <div className="flex flex-col gap-6">
-        <StepBlock title="Adición: P(x) + Q(x)" steps={POLY_ADD_STEPS} />
-        <StepBlock title="Sustracción: P(x) − Q(x)" steps={POLY_SUB_STEPS} />
-        <StepBlock title="Producto: P(x) · Q(x)" steps={POLY_PRODUCT_STEPS} />
+        <StepBlock title="Adición: P(x) + Q(x)" steps={POLY_ADD_STEPS} accent="leaf" />
+        <StepBlock title="Sustracción: P(x) − Q(x)" steps={POLY_SUB_STEPS} accent="ember" />
+        <StepBlock title="Producto: P(x) · Q(x)" steps={POLY_PRODUCT_STEPS} accent="warm" />
       </div>
 
       <div className="mt-12">

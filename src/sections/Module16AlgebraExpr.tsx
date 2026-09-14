@@ -1,10 +1,13 @@
 import { useMemo, useState } from 'react'
 import { ModuleShell } from '@/components/app/ModuleShell'
+import { StepBlock } from '@/components/app/StepBlock'
 import {
   ALGEBRA_CLASSIFY_ITEMS,
   ALGEBRA_INTRO_PROBLEMS,
   ALGEBRA_KIND_LABELS,
   MODULES_SEMANA4,
+  MONOMIAL_ANATOMY,
+  RECTANGLE_PERIMETER_STEPS,
   type AlgebraKind,
   type SectionId,
 } from '@/data/content'
@@ -91,7 +94,31 @@ export function Module16AlgebraExpr({ onNavigate, onDone }: Module16Props) {
         </>
       }
     >
-      <div className="mt-2">
+      <div className="mt-2 rounded border border-line bg-surface p-6">
+        <h2 className="font-display text-lg text-ink">Anatomía de un monomio</h2>
+        <p className="mt-1 text-sm text-ink-muted">Cada término algebraico tiene tres partes: coeficiente, variable y exponente.</p>
+        <div className="mt-5 flex flex-wrap items-end justify-center gap-1 font-mono-nums text-4xl font-bold text-ink">
+          <span className="rounded bg-pine/20 px-2 text-pine">{MONOMIAL_ANATOMY.coefficient}</span>
+          <span className="rounded bg-leaf/20 px-2 text-leaf">{MONOMIAL_ANATOMY.variable}</span>
+          <sup className="rounded bg-ember/20 px-1.5 text-lg text-ember">{MONOMIAL_ANATOMY.exponent}</sup>
+        </div>
+        <div className="mt-3 flex flex-wrap justify-center gap-6 text-center text-xs">
+          <div>
+            <span className="block h-1 w-8 rounded bg-pine" />
+            <span className="mt-1 block text-ink-muted">coeficiente</span>
+          </div>
+          <div>
+            <span className="block h-1 w-8 rounded bg-leaf" />
+            <span className="mt-1 block text-ink-muted">variable</span>
+          </div>
+          <div>
+            <span className="block h-1 w-8 rounded bg-ember" />
+            <span className="mt-1 block text-ink-muted">exponente (grado)</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-12">
         <div className="mb-4 flex items-baseline justify-between">
           <h2 className="font-display text-xl text-ink">Clasifica cada expresión</h2>
           <span className="font-mono-nums text-sm text-ink-muted">
@@ -140,8 +167,17 @@ export function Module16AlgebraExpr({ onNavigate, onDone }: Module16Props) {
       </div>
 
       <div className="mt-12">
+        <h2 className="mb-4 font-display text-xl text-ink">Ejemplo guiado: de palabras a expresión algebraica</h2>
+        <p className="mb-4 max-w-prose text-sm leading-relaxed text-ink-muted">
+          «Un rectángulo tiene un largo que es 3 unidades más que el doble de su ancho. Expresa el
+          perímetro del rectángulo en términos del ancho.» Sigue el razonamiento paso a paso:
+        </p>
+        <StepBlock title="Perímetro del rectángulo" steps={RECTANGLE_PERIMETER_STEPS} accent="leaf" />
+      </div>
+
+      <div className="mt-12">
         <div className="mb-4 flex items-baseline justify-between">
-          <h2 className="font-display text-xl text-ink">Traduce el lenguaje verbal a expresiones algebraicas</h2>
+          <h2 className="font-display text-xl text-ink">Ahora tú: traduce el lenguaje verbal a expresiones algebraicas</h2>
           <span className="font-mono-nums text-sm text-ink-muted">
             Problema {Math.min(current + 1, ALGEBRA_INTRO_PROBLEMS.length)}/{ALGEBRA_INTRO_PROBLEMS.length}
           </span>

@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import { ModuleShell } from '@/components/app/ModuleShell'
-import { ALGEBRA_APPLICATION_PROBLEMS, MODULES_SEMANA4, type SectionId } from '@/data/content'
+import {
+  ALGEBRA_APPLICATION_PROBLEMS,
+  ALGEBRA_PROPERTY_LIST,
+  MODULES_SEMANA4,
+  NOTABLE_PRODUCTS_LIST,
+  type SectionId,
+} from '@/data/content'
 import { cn } from '@/lib/utils'
 
 interface Module20Props {
@@ -44,6 +50,27 @@ export function Module20AlgebraApplications({ onNavigate, onDone }: Module20Prop
       hubLabel="Semana 4"
       intro="Cierra la semana traduciendo situaciones cotidianas — salarios, edades, tarifas, costos de producción — a expresiones algebraicas."
     >
+      <div className="mb-12 rounded border border-line bg-surface p-6">
+        <h2 className="font-display text-lg text-ink">Mapa de fórmulas de la Semana 4</h2>
+        <p className="mt-1 text-sm text-ink-muted">Repásalas antes de resolver los problemas finales.</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          {ALGEBRA_PROPERTY_LIST.map((p) => (
+            <div key={p.name} className="rounded border border-line-strong bg-surface-raised px-4 py-3">
+              <span className="text-xs font-semibold uppercase tracking-wide text-pine">{p.name}</span>
+              <p className="mt-1 font-mono-nums text-sm text-ink">{p.example}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          {NOTABLE_PRODUCTS_LIST.map((p) => (
+            <div key={p.name} className="rounded border border-line-strong bg-surface-raised px-4 py-3">
+              <span className="text-xs font-semibold uppercase tracking-wide text-ember">{p.name}</span>
+              <p className="mt-1 font-mono-nums text-sm text-ink">{p.example}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="mb-4 flex items-baseline justify-between">
         <h2 className="font-display text-xl text-ink">
           Problema {Math.min(current + 1, ALGEBRA_APPLICATION_PROBLEMS.length)}/{ALGEBRA_APPLICATION_PROBLEMS.length}

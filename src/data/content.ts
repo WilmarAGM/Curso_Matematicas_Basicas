@@ -670,6 +670,18 @@ export const ALGEBRA_KIND_LABELS: Record<AlgebraKind, string> = {
   polinomio: 'Polinomio',
 }
 
+/** Anatomía de un monomio, para el diagrama etiquetado del Módulo 1. */
+export const MONOMIAL_ANATOMY = { term: '4x³', coefficient: '4', variable: 'x', exponent: '3' }
+
+/** Ejemplo destacado (guía, Ejemplo 3): traducir un enunciado a expresión algebraica, paso a paso. */
+export const RECTANGLE_PERIMETER_STEPS: AlgebraStep[] = [
+  { label: 'Paso 1 — Define la variable', expr: 'x = ancho del rectángulo' },
+  { label: 'Paso 2 — Expresa el largo en términos de x', expr: 'largo = 2x + 3' },
+  { label: 'Paso 3 — Fórmula del perímetro', expr: 'P = 2(largo + ancho)' },
+  { label: 'Paso 4 — Sustituye', expr: 'P = 2[x + (2x + 3)]' },
+  { label: 'Paso 5 — Simplifica', expr: 'P = 2(3x + 3) = 6x + 6' },
+]
+
 export const ALGEBRA_INTRO_PROBLEMS: WordProblem[] = [
   {
     prompt: 'Un rectángulo tiene un largo que es 3 unidades más que el doble de su ancho. Expresa el perímetro del rectángulo en términos del ancho x.',
@@ -698,6 +710,11 @@ export const ALGEBRA_INTRO_PROBLEMS: WordProblem[] = [
 ]
 
 // ---- Módulo 2 (Semana 4): Propiedades de las expresiones algebraicas ----
+export interface AlgebraStep {
+  label: string
+  expr: string
+}
+
 export const ALGEBRA_PROPERTY_LIST = [
   { name: 'Asociativa', example: '5x + (6y + 7) = (5x + 6y) + 7' },
   { name: 'Conmutativa', example: '5x · 6y = 6y · 5x' },
@@ -705,6 +722,47 @@ export const ALGEBRA_PROPERTY_LIST = [
   { name: 'Inverso', example: '5x + (−5x) = 0' },
   { name: 'Distributiva', example: '7 · (5x + 6y) = 35x + 42y' },
 ]
+
+/** Analogía cotidiana para cada propiedad — el "por qué" antes del "cómo". */
+export const ALGEBRA_PROPERTY_ANALOGIES: Record<string, string> = {
+  Asociativa:
+    'Como agrupar mercado en dos bolsas o en tres: el orden en que agrupas los paquetes no cambia cuánto llevas en total.',
+  Conmutativa:
+    'Como sumar el precio de un café y un pan: da igual si primero cobras el café o el pan, el total es el mismo.',
+  'Elemento Neutro':
+    'Sumar 0 o multiplicar por 1 es como no hacer nada: la cantidad se queda exactamente igual.',
+  Inverso:
+    'Un préstamo de $5x se cancela con un pago de −5x: al sumarlos, la deuda queda en 0.',
+  Distributiva:
+    'Repartir un descuento del 7% entre dos productos (5x y 6y) es igual a aplicarlo a cada uno por separado y sumar.',
+}
+
+/** Desarrollo paso a paso de cada propiedad con el ejemplo 5x, 6y, 7 de la guía. */
+export const ALGEBRA_PROPERTY_STEPS: Record<string, AlgebraStep[]> = {
+  Asociativa: [
+    { label: 'Regla general', expr: 'a + (b + c) = (a + b) + c' },
+    { label: 'Sustituye a = 5x, b = 6y, c = 7', expr: '5x + (6y + 7) = (5x + 6y) + 7' },
+    { label: 'Ambos lados valen lo mismo', expr: '5x + 6y + 7 = 5x + 6y + 7 ✓' },
+  ],
+  Conmutativa: [
+    { label: 'Regla general', expr: 'a · b = b · a' },
+    { label: 'Sustituye a = 5x, b = 6y', expr: '5x · 6y = 6y · 5x' },
+    { label: 'Se verifica multiplicando', expr: '30xy = 30xy ✓' },
+  ],
+  'Elemento Neutro': [
+    { label: 'Regla general', expr: 'a + 0 = a' },
+    { label: 'Sustituye a = 5x', expr: '5x + 0 = 5x' },
+  ],
+  Inverso: [
+    { label: 'Regla general', expr: 'a + (−a) = 0' },
+    { label: 'Sustituye a = 5x', expr: '5x + (−5x) = 0' },
+  ],
+  Distributiva: [
+    { label: 'Regla general', expr: 'c · (a + b) = c · a + c · b' },
+    { label: 'Sustituye a = 5x, b = 6y, c = 7', expr: '7 · (5x + 6y) = 7 · 5x + 7 · 6y' },
+    { label: 'Simplifica cada producto', expr: '= 35x + 42y' },
+  ],
+}
 
 export const ALGEBRA_PROPERTY_QUIZ: PropertyQuestion[] = [
   { expression: '5x + 6y = 6y + 5x', answer: 'Conmutativa' },
@@ -776,6 +834,53 @@ export const NOTABLE_PRODUCTS_LIST = [
   { name: 'Trinomio cuadrado', example: '(x + y + c)² = x² + 2xy + y² + 2yc + 2xc + c²' },
   { name: 'Suma de cubos', example: 'a³ + b³ = (a + b)(a² − ab + b²)' },
   { name: 'Diferencia de cubos', example: 'a³ − b³ = (a − b)(a² + ab + b²)' },
+]
+
+/** Desarrollo paso a paso, verificado, de los productos notables clave (ejemplos de la guía). */
+export const SQUARE_BINOMIAL_STEPS: AlgebraStep[] = [
+  { label: 'Fórmula', expr: '(a + b)² = a² + 2ab + b²' },
+  { label: 'Sustituye a = x, b = 5', expr: '(x + 5)² = x² + 2(x)(5) + 5²' },
+  { label: 'Simplifica', expr: '= x² + 10x + 25' },
+]
+
+export const DIFFERENCE_SQUARES_STEPS: AlgebraStep[] = [
+  { label: 'Fórmula', expr: '(a + b)(a − b) = a² − b²' },
+  { label: 'Ejemplo numérico: a = 5, b = 3', expr: '(5 + 3)(5 − 3) = 8 · 2 = 16' },
+  { label: 'Comprobación con la fórmula', expr: '5² − 3² = 25 − 9 = 16 ✓' },
+]
+
+export const CUBE_BINOMIAL_STEPS: AlgebraStep[] = [
+  { label: 'Fórmula', expr: '(a − b)³ = a³ − 3a²b + 3ab² − b³' },
+  { label: 'Sustituye a = 2x, b = 1', expr: '(2x − 1)³ = (2x)³ − 3(2x)²(1) + 3(2x)(1)² − 1³' },
+  { label: 'Simplifica cada término', expr: '= 8x³ − 12x² + 6x − 1' },
+]
+
+export const TRINOMIAL_SQUARE_STEPS: AlgebraStep[] = [
+  { label: 'Fórmula', expr: '(x + y + c)² = x² + 2xy + y² + 2yc + 2xc + c²' },
+  { label: 'Sustituye c = 9', expr: '(x + y + 9)² = x² + 2xy + y² + 2y(9) + 2x(9) + 9²' },
+  { label: 'Simplifica', expr: '= x² + 2xy + y² + 18y + 18x + 81' },
+]
+
+export const SUM_CUBES_STEPS: AlgebraStep[] = [
+  { label: 'Fórmula', expr: 'a³ + b³ = (a + b)(a² − ab + b²)' },
+  { label: 'Identifica a y b en 8x³ + 27y³', expr: '8x³ = (2x)³, 27y³ = (3y)³ → a = 2x, b = 3y' },
+  { label: 'Sustituye en la fórmula', expr: '8x³ + 27y³ = (2x + 3y)(4x² − 6xy + 9y²)' },
+]
+
+export const DIFF_CUBES_STEPS: AlgebraStep[] = [
+  { label: 'Fórmula', expr: 'a³ − b³ = (a − b)(a² + ab + b²)' },
+  { label: 'Identifica a y b en 8x³ − 27y³', expr: '8x³ = (2x)³, 27y³ = (3y)³ → a = 2x, b = 3y' },
+  { label: 'Sustituye en la fórmula', expr: '8x³ − 27y³ = (2x − 3y)(4x² + 6xy + 9y²)' },
+]
+
+/** Reto integrador (ejemplo 16 de la guía): diagonal x, largo = ancho + 2. */
+export const DIAGONAL_AREA_STEPS: AlgebraStep[] = [
+  { label: 'Datos', expr: 'x = diagonal, y = ancho, largo = y + 2' },
+  { label: 'Teorema de Pitágoras', expr: 'x² = y² + (y + 2)²' },
+  { label: 'Desarrolla el cuadrado de binomio', expr: 'x² = y² + (y² + 4y + 4) = 2y² + 4y + 4' },
+  { label: 'Despeja y²', expr: 'y² = (x² − 4y − 4) / 2' },
+  { label: 'Área del rectángulo', expr: 'A = y(y + 2) = y² + 2y' },
+  { label: 'Sustituye y² y simplifica', expr: 'A = (x² − 4y − 4)/2 + 2y = (x² − 4)/2' },
 ]
 
 export const NOTABLE_PRODUCTS_QUIZ: WordProblem[] = [

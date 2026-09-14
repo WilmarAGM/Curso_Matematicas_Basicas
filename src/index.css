@@ -11,23 +11,26 @@
 ---------------------------------------------------------- */
 @layer base {
   :root {
-    --bg: #0b162c;
-    --surface: #142240;
-    --surface-raised: #1f3054;
-    --ink: #f7f9fa;
-    --ink-muted: #a3adc2;
-    --accent: #4a77ff;
-    --accent-ink: #ffffff;
-    --accent-warm: #ff7878;
-    --accent-warm-ink: #ffffff;
-    --accent-green: #d6f523;
-    --accent-green-ink: #0b162c;
-    --accent-orange: #ffb433;
-    --accent-orange-ink: #0b162c;
-    --line: #293859;
-    --line-strong: #3b4e78;
-    --danger: #ff7878;
-    --success: #3be665;
+    /* Tripletas "R G B" (sin rgb(), sin comas) para que las clases de
+       opacidad de Tailwind (p. ej. bg-pine/20) puedan calcular alfa vía
+       rgb(var(--x) / <alpha-value>). No usar valores hex aquí. */
+    --bg: 11 22 44;
+    --surface: 20 34 64;
+    --surface-raised: 31 48 84;
+    --ink: 247 249 250;
+    --ink-muted: 163 173 194;
+    --accent: 74 119 255;
+    --accent-ink: 255 255 255;
+    --accent-warm: 255 120 120;
+    --accent-warm-ink: 255 255 255;
+    --accent-green: 214 245 35;
+    --accent-green-ink: 11 22 44;
+    --accent-orange: 255 180 51;
+    --accent-orange-ink: 11 22 44;
+    --line: 41 56 89;
+    --line-strong: 59 78 120;
+    --danger: 255 120 120;
+    --success: 59 230 101;
 
     --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -65,8 +68,8 @@
     scroll-behavior: smooth;
   }
   body {
-    background-color: var(--bg);
-    color: var(--ink);
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
     font-family: var(--font-body);
   }
   h1, h2, h3, h4 {
