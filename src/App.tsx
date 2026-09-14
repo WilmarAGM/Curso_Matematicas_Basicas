@@ -17,6 +17,7 @@ import { WeekHub5 } from '@/sections/WeekHub5'
 import { WeekHub6 } from '@/sections/WeekHub6'
 import { WeekHub7 } from '@/sections/WeekHub7'
 import { WeekHub8 } from '@/sections/WeekHub8'
+import { WeekHub9 } from '@/sections/WeekHub9'
 import { History } from '@/sections/History'
 import { Module1Sets } from '@/sections/Module1Sets'
 import { Module2Properties } from '@/sections/Module2Properties'
@@ -58,6 +59,11 @@ import { Module37QuadraticEquation } from '@/sections/Module37QuadraticEquation'
 import { Module38DiscriminantComplex } from '@/sections/Module38DiscriminantComplex'
 import { Module39ComplexOps } from '@/sections/Module39ComplexOps'
 import { Module40EquationsApplications } from '@/sections/Module40EquationsApplications'
+import { Module41Sys2x2Sub } from '@/sections/Module41Sys2x2Sub'
+import { Module42Sys2x2Cramer } from '@/sections/Module42Sys2x2Cramer'
+import { Module43Sys3x3Sub } from '@/sections/Module43Sys3x3Sub'
+import { Module44Sys3x3Cramer } from '@/sections/Module44Sys3x3Cramer'
+import { Module45SystemsApplications } from '@/sections/Module45SystemsApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -251,6 +257,23 @@ function App() {
           )}
           {page === 'aplicacionesEcuaciones' && (
             <Module40EquationsApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesEcuaciones')} />
+          )}
+
+          {page === 'semana9' && <WeekHub9 onNavigate={navigate as any} completed={completed} />}
+          {page === 'sistema2x2SustitucionIgualacion' && (
+            <Module41Sys2x2Sub onNavigate={navigate as any} onDone={() => markComplete('sistema2x2SustitucionIgualacion')} />
+          )}
+          {page === 'sistema2x2ReduccionCramer' && (
+            <Module42Sys2x2Cramer onNavigate={navigate as any} onDone={() => markComplete('sistema2x2ReduccionCramer')} />
+          )}
+          {page === 'sistema3x3SustitucionIgualacion' && (
+            <Module43Sys3x3Sub onNavigate={navigate as any} onDone={() => markComplete('sistema3x3SustitucionIgualacion')} />
+          )}
+          {page === 'sistema3x3ReduccionCramer' && (
+            <Module44Sys3x3Cramer onNavigate={navigate as any} onDone={() => markComplete('sistema3x3ReduccionCramer')} />
+          )}
+          {page === 'aplicacionesSistemas' && (
+            <Module45SystemsApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesSistemas')} />
           )}
         </div>
 

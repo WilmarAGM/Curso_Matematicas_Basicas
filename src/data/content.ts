@@ -54,6 +54,12 @@ export type SectionId =
   | 'discriminanteComplejos'
   | 'operacionesComplejos'
   | 'aplicacionesEcuaciones'
+  | 'semana9'
+  | 'sistema2x2SustitucionIgualacion'
+  | 'sistema2x2ReduccionCramer'
+  | 'sistema3x3SustitucionIgualacion'
+  | 'sistema3x3ReduccionCramer'
+  | 'aplicacionesSistemas'
 
 export const MODULES: { id: SectionId; short: string; title: string }[] = [
   { id: 'conjuntos', short: '01', title: 'Conjuntos Numéricos' },
@@ -117,6 +123,14 @@ export const MODULES_SEMANA8: { id: SectionId; short: string; title: string }[] 
   { id: 'discriminanteComplejos', short: '03', title: 'Discriminante y Números Complejos' },
   { id: 'operacionesComplejos', short: '04', title: 'Operaciones con Complejos' },
   { id: 'aplicacionesEcuaciones', short: '05', title: 'Aplicaciones' },
+]
+
+export const MODULES_SEMANA9: { id: SectionId; short: string; title: string }[] = [
+  { id: 'sistema2x2SustitucionIgualacion', short: '01', title: 'Sistema 2x2: Sustitución e Igualación' },
+  { id: 'sistema2x2ReduccionCramer', short: '02', title: 'Sistema 2x2: Reducción y Cramer' },
+  { id: 'sistema3x3SustitucionIgualacion', short: '03', title: 'Sistema 3x3: Sustitución e Igualación' },
+  { id: 'sistema3x3ReduccionCramer', short: '04', title: 'Sistema 3x3: Reducción y Cramer' },
+  { id: 'aplicacionesSistemas', short: '05', title: 'Aplicaciones' },
 ]
 
 // ---- PLACEHOLDER: reemplaza estos avisos por los reales del semestre ----
@@ -1746,5 +1760,160 @@ export const EQUATIONS_APPLICATION_QUIZ: WordProblem[] = [
     options: ['r ≈ 6.91 cm', 'r ≈ 3.91 cm', 'r ≈ 9.16 cm', 'r ≈ 15 cm'],
     answerIndex: 0,
     solution: 'r² = V/(πh) = 3000/(20π) ≈ 47.75 → r ≈ 6.91 cm (se toma solo el valor positivo).',
+  },
+]
+
+// =====================================================================
+// SEMANA 9 — Sistemas de ecuaciones lineales 2x2 y 3x3: sustitución,
+// igualación, reducción y Cramer. Basado en Guia_Algebra.pdf pp. 87-107.
+// Todas las soluciones verificadas con sympy.
+// =====================================================================
+
+const SYS_2X2_EXAMPLE = '{ x + y = 5  (1)\n  x − y = 1  (2) }'
+
+// ---- Módulo 1 (Semana 9): Sistema 2x2 — sustitución e igualación ----
+export const SYS_2X2_SUBSTITUTION_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: SYS_2X2_EXAMPLE },
+  { label: 'Paso 1 — Despeja x en la ecuación (1)', expr: 'x = 5 − y' },
+  { label: 'Paso 2 — Sustituye en la ecuación (2)', expr: '(5 − y) − y = 1' },
+  { label: 'Paso 3 — Resuelve para y', expr: '5 − 2y = 1 → y = 2' },
+  { label: 'Paso 4 — Sustituye y en (1)', expr: 'x = 5 − 2 = 3' },
+  { label: 'Solución', expr: '(x, y) = (3, 2)' },
+]
+
+export const SYS_2X2_EQUALIZATION_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: SYS_2X2_EXAMPLE },
+  { label: 'Despeja x en ambas ecuaciones', expr: 'x = 5 − y  (1)     x = 1 + y  (2)' },
+  { label: 'Iguala las dos expresiones', expr: '5 − y = 1 + y' },
+  { label: 'Resuelve para y', expr: '2y = 4 → y = 2' },
+  { label: 'Sustituye en (1)', expr: 'x = 5 − 2 = 3' },
+  { label: 'Solución', expr: '(x, y) = (3, 2)' },
+]
+
+export const SYS_2X2_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve por sustitución: { 2x + y = 7 ; x − y = 2 }',
+    options: ['x = 3, y = 1', 'x = 1, y = 3', 'x = 3, y = −1', 'x = 2, y = 3'],
+    answerIndex: 0,
+    solution: 'De la 2ª: x = y+2. Sustituyendo: 2(y+2)+y=7 → 3y=3 → y=1, x=3.',
+  },
+  {
+    prompt: 'Resuelve por igualación: { y = 3x − 1 ; y = −x + 7 }',
+    options: ['x = 2, y = 5', 'x = 5, y = 2', 'x = 2, y = −5', 'x = 1, y = 2'],
+    answerIndex: 0,
+    solution: 'Igualando: 3x−1=−x+7 → 4x=8 → x=2, y=3(2)−1=5.',
+  },
+]
+
+// ---- Módulo 2 (Semana 9): Sistema 2x2 — reducción y Cramer ----
+export const SYS_2X2_REDUCTION_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: SYS_2X2_EXAMPLE },
+  { label: 'Suma las dos ecuaciones (la y se cancela)', expr: '(x+y) + (x−y) = 5 + 1' },
+  { label: 'Resuelve para x', expr: '2x = 6 → x = 3' },
+  { label: 'Sustituye en (1) para hallar y', expr: '3 + y = 5 → y = 2' },
+  { label: 'Solución', expr: '(x, y) = (3, 2)' },
+]
+
+export const SYS_2X2_CRAMER_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: SYS_2X2_EXAMPLE },
+  { label: 'Determinante del sistema Ds', expr: 'Ds = |1  1; 1 −1| = (1)(−1) − (1)(1) = −2' },
+  { label: 'Determinante de x: Dx (reemplaza la columna de x por los términos independientes)', expr: 'Dx = |5  1; 1 −1| = (5)(−1) − (1)(1) = −6' },
+  { label: 'x = Dx / Ds', expr: 'x = −6 / −2 = 3' },
+  { label: 'Determinante de y: Dy', expr: 'Dy = |1  5; 1  1| = (1)(1) − (5)(1) = −4' },
+  { label: 'y = Dy / Ds', expr: 'y = −4 / −2 = 2' },
+]
+
+export const SYS_2X2_METHOD2_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve por reducción: { 3x + 2y = 16 ; x − 2y = 0 }',
+    options: ['x = 4, y = 2', 'x = 2, y = 4', 'x = 4, y = 4', 'x = 8, y = 4'],
+    answerIndex: 0,
+    solution: 'Sumando ambas ecuaciones: 4x=16 → x=4. Sustituyendo: 4−2y=0 → y=2.',
+  },
+  {
+    prompt: 'Resuelve por Cramer: { x + 3y = 10 ; 2x − y = -1 }',
+    options: ['x = 1, y = 3', 'x = 3, y = 1', 'x = 1, y = 4', 'x = 4, y = 2'],
+    answerIndex: 0,
+    solution: 'Ds=(1)(-1)-(3)(2)=-7. Dx=(10)(-1)-(3)(-1)=-7 → x=1. Dy=(1)(-1)-(10)(2)=-21 → y=3.',
+  },
+]
+
+// ---- Módulo 3 (Semana 9): Sistema 3x3 — sustitución e igualación ----
+const SYS_3X3_EXAMPLE = '{ x + y + z = 15   (1)\n  x − 2y + z = 0   (2)\n  x − z = −6        (3) }'
+const SYS_3X3_INTRO = 'Un número de tres cifras: la suma de sus cifras es 15, las centenas más las unidades es el doble de las decenas, y el número original más 594 invierte sus cifras.'
+
+export const SYS_3X3_SUBSTITUTION_STEPS: AlgebraStep[] = [
+  { label: 'Sistema planteado (x=centenas, y=decenas, z=unidades)', expr: SYS_3X3_EXAMPLE },
+  { label: 'Despeja x en (1) y sustituye en (2)', expr: 'x = 15−y−z → (15−y−z)−2y+z = 0 → 3y = 15 → y = 5' },
+  { label: 'Con y=5, usa (2) para relacionar x y z', expr: 'x − 2(5) + z = 0 → x + z = 10  (4)' },
+  { label: 'Combina (4) con (3): x − z = −6', expr: 'Sumando (4)+(3): 2x = 4 → x = 2' },
+  { label: 'Sustituye x=2 en (4)', expr: 'z = 10 − 2 = 8' },
+  { label: 'Solución', expr: '(x,y,z) = (2, 5, 8) → el número es 258' },
+]
+
+export const SYS_3X3_EQUALIZATION_STEPS: AlgebraStep[] = [
+  { label: 'Despeja x en las tres ecuaciones', expr: 'x=15−y−z (1)   x=2y−z (2)   x=−6+z (3)' },
+  { label: 'Iguala (1) y (2)', expr: '15−y−z = 2y−z → 3y=15 → y=5' },
+  { label: 'Iguala (2) y (3)', expr: '2y−z = −6+z → 2(5)−z=−6+z → 16=2z → z=8' },
+  { label: 'Sustituye y, z en (1)', expr: 'x = 15 − 5 − 8 = 2' },
+  { label: 'Solución', expr: '(x,y,z) = (2, 5, 8) → el número es 258' },
+]
+
+export const SYS_3X3_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Resuelve por sustitución: { x+y+z=6 ; x−y=0 ; y+z=4 }',
+    options: ['x=2, y=2, z=2', 'x=1, y=1, z=4', 'x=2, y=1, z=3', 'x=3, y=3, z=0'],
+    answerIndex: 0,
+    solution: 'De x−y=0: x=y. Sustituyendo en la 1ª: 2y+z=6. Con y+z=4 → z=4−y. Entonces 2y+4−y=6 → y=2, x=2, z=2.',
+  },
+]
+
+// ---- Módulo 4 (Semana 9): Sistema 3x3 — reducción y Cramer ----
+export const SYS_3X3_REDUCTION_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: SYS_3X3_EXAMPLE },
+  { label: 'Elimina y de (1) y (2): multiplica (1) por 2 y suma', expr: '2x+2y+2z=30 ; x−2y+z=0 → 3x+3z=30 → x+z=10 (4)' },
+  { label: 'La ecuación (3) ya está en x, z', expr: 'x − z = −6  (5)' },
+  { label: 'Suma (4) y (5) para eliminar z', expr: '2x = 4 → x = 2' },
+  { label: 'Sustituye en (4) y luego en (1)', expr: 'z = 10−2 = 8;  y = 15−2−8 = 5' },
+  { label: 'Solución', expr: '(x,y,z) = (2, 5, 8)' },
+]
+
+export const SYS_3X3_CRAMER_STEPS: AlgebraStep[] = [
+  { label: 'Sistema', expr: SYS_3X3_EXAMPLE },
+  { label: 'Determinante del sistema Ds', expr: 'Ds = det[[1,1,1],[1,−2,1],[1,0,−1]] = 6' },
+  { label: 'Determinante Dx (columna x → términos independientes)', expr: 'Dx = det[[15,1,1],[0,−2,1],[−6,0,−1]] = 12  →  x = 12/6 = 2' },
+  { label: 'Determinante Dz (más directo aquí)', expr: 'Sustituyendo x=2 en (3): z = 2+6 = 8' },
+  { label: 'Sustituye x, z en (1)', expr: 'y = 15 − 2 − 8 = 5' },
+  { label: 'Solución', expr: '(x,y,z) = (2, 5, 8)' },
+]
+
+export const SYS_3X3_METHOD2_QUIZ: WordProblem[] = [
+  {
+    prompt: 'Un circuito con R₁=R₂=R₃=3 ohms cumple: I₁−I₂+I₃=0 ; 3I₁+3I₂=6 ; 3I₂+3I₃=12. Encuentra las corrientes.',
+    options: ['I₁=0, I₂=2, I₃=2', 'I₁=2, I₂=0, I₃=2', 'I₁=1, I₂=1, I₃=3', 'I₁=0, I₂=0, I₃=4'],
+    answerIndex: 0,
+    solution: 'De 3I₁+3I₂=6 → I₁+I₂=2. De 3I₂+3I₃=12 → I₂+I₃=4. Con I₁−I₂+I₃=0, al resolver el sistema: I₁=0, I₂=2, I₃=2.',
+  },
+]
+
+// ---- Módulo 5 (Semana 9): Aplicaciones ----
+export const SYSTEMS_APPLICATION_QUIZ: WordProblem[] = [
+  {
+    prompt: `${SYS_3X3_INTRO} ¿Cuál es el número?`,
+    options: ['258', '285', '528', '582'],
+    answerIndex: 0,
+    solution: 'Planteando el sistema 3x3 (visto en los módulos anteriores): x=2 (centenas), y=5 (decenas), z=8 (unidades). El número es 258.',
+  },
+  {
+    prompt: 'Una inversión de $10,000 se divide en dos cuentas: una al 5% y otra al 7% de interés anual. Si el interés total es $580, ¿cuánto se invirtió en cada cuenta?',
+    options: ['$6000 al 5% y $4000 al 7%', '$4000 al 5% y $6000 al 7%', '$5000 al 5% y $5000 al 7%', '$7000 al 5% y $3000 al 7%'],
+    answerIndex: 0,
+    solution: 'a+b=10000, 0.05a+0.07b=580. Resolviendo: a=6000, b=4000.',
+  },
+  {
+    prompt: 'Un circuito con R₁=4, R₂=1, R₃=4 ohms cumple: I₁−I₂+I₃=0 ; 4I₁+I₂=6 ; I₂+4I₃=12. Encuentra I₂.',
+    options: ['I₂ = 3', 'I₂ = 2', 'I₂ = 3/4', 'I₂ = 9/4'],
+    answerIndex: 0,
+    solution: 'Resolviendo el sistema 3x3: I₁=3/4, I₂=3, I₃=9/4.',
   },
 ]

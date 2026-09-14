@@ -84,11 +84,12 @@ export const WEEKS: Week[] = [
   },
   {
     number: 9,
-    title: 'Complejos y sistemas de ecuaciones',
-    status: 'proximamente',
+    title: 'Sistemas de ecuaciones lineales',
+    status: 'disponible',
     competencia: 'Modelando expresiones algebraicas',
     summary:
-      'Números complejos (definición de imaginario y operaciones básicas), sistemas de ecuaciones lineales 2x2 y 3x3 y sus aplicaciones.',
+      'Sistemas de ecuaciones lineales 2x2 y 3x3 por sustitución, igualación, reducción y Cramer, y sus aplicaciones.',
+    hubId: 'semana9',
   },
   {
     number: 10,
