@@ -1,6 +1,7 @@
 import { MODULES_SEMANA11, type SectionId } from '@/data/content'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
+import { WeekGuideCard } from '@/components/app/WeekGuideCard'
 
 interface WeekHub11Props {
   onNavigate: (id: SectionId) => void
@@ -31,6 +32,12 @@ export function WeekHub11({ onNavigate, completed }: WeekHub11Props) {
           {doneCount}/{MODULES_SEMANA11.length} completados
         </span>
       </div>
+
+      <WeekGuideCard
+        slug="semana11"
+        pdf="Guia_Semana11_Logaritmos_RectaNumerica.pdf"
+        description="Logaritmos y sus propiedades, ecuaciones exponenciales y logarítmicas, aplicaciones, intervalos, valor absoluto y distancia: todos los ejemplos y ejercicios de la guía (con sus errores corregidos), retos y problemas tipo parcial. Cada bloque tiene «Comprobar» y «Ver solución»."
+      />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         {MODULES_SEMANA11.map((m) => (

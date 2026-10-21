@@ -1,0 +1,209 @@
+/* Guía interactiva (celular / tablet). Misma identidad visual que la versión impresa. */
+:root {
+  --ink: #1a1412; --muted: #7a6f63; --rule: #c8bfaf; --paper: #f5f0e8; --cream: #faf6ee;
+  --rust: #b84c1e; --gold: #a87a1f; --forest: #2d5c3e; --slate: #3d4a5c; --teal: #2a6b6e; --danger: #a33a31;
+  --definicion: var(--forest); --teorema: var(--slate); --teoria: var(--teal);
+  --ejemplo: var(--rust); --practica: var(--gold); --errores: var(--danger);
+  --ok: #2d7d46; --mal: #a33a31; --vacio: #c9973a;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'Source Serif 4', Georgia, serif;
+       font-size: 17px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+.katex { font-size: 1.05em; }
+/* la copia MathML invisible de KaTeX es position:absolute; sin esto escapa de las tablas desplazables y ensancha la página */
+.katex { position: relative; }
+
+/* ---------- barra superior */
+.barra { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px; background: var(--slate); color: #fff;
+         padding: calc(8px + env(safe-area-inset-top)) 12px 10px; }
+.barra a.volver, .barra .menu { color: #fff; font-size: 22px; text-decoration: none; background: none; border: 0; padding: 4px 8px; cursor: pointer; }
+.barra-tit { flex: 1; min-width: 0; }
+.barra .curso { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #f0c9b5;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.barra h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.progreso { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255, 255, 255, .15); }
+.barra-prog { height: 100%; width: 0; background: #f0c9b5; transition: width .3s; }
+
+/* ---------- índice */
+.indice { position: sticky; top: 64px; z-index: 19; max-height: calc(100vh - 64px); overflow: auto; background: #fff;
+          border-bottom: 3px solid var(--slate); padding: 6px 18px 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, .15); }
+.indice h3 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--rust); margin: 14px 0 4px; }
+.indice ol { list-style: none; margin: 0; padding: 0; }
+.indice li a { display: block; padding: 6px 0; color: var(--ink); text-decoration: none; border-bottom: 1px solid #eee7da; }
+.indice .num { display: inline-block; min-width: 1.8em; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+.indice li a.hecho::after { content: ' ✓'; color: var(--ok); }
+.acciones { display: grid; gap: 8px; margin-top: 16px; }
+
+.btn { display: inline-block; font: inherit; font-size: 15px; line-height: 1.2; padding: 8px 14px; border-radius: 8px;
+       border: 1.5px solid var(--slate); background: #fff; color: var(--slate); text-decoration: none; cursor: pointer; text-align: center; }
+.btn.principal { background: var(--rust); border-color: var(--rust); color: #fff; }
+.btn.peligro { border-color: var(--danger); color: var(--danger); }
+.btn.mini { font-size: 13px; padding: 5px 10px; }
+
+/* ---------- hojas */
+main { max-width: 920px; margin: 0 auto; padding: 10px 10px 30px; }
+.hoja { background: #fff; border-radius: 10px; margin: 14px 0; padding: 12px 14px 8px; box-shadow: 0 6px 18px rgba(26, 20, 18, .06); }
+.hoja-hdr { border-bottom: 3px double var(--slate); padding-bottom: 4px; margin-bottom: 8px; }
+.hoja-hdr h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: var(--slate); margin: 4px 0 0; line-height: 1.2; }
+.hoja-hdr .num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); vertical-align: middle; }
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #fff;
+       background: var(--slate); padding: 2px 8px; border-radius: 3px; }
+.tag.clase { background: var(--rust); } .tag.lectura { background: var(--teal); } .tag.tarea { background: var(--gold); }
+.tag.previo { background: var(--forest); } .tag.consulta { background: var(--muted); }
+
+.flow { display: flex; flex-direction: column; gap: 10px; }
+.flow p { margin: 4px 0 6px; }
+.caja { background: var(--cream); border-left: 5px solid; border-radius: 0 8px 8px 0; padding: 8px 12px; }
+.caja-titulo { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 2px; }
+.definicion { border-color: var(--definicion); } .definicion .caja-titulo, .definicion b { color: var(--definicion); }
+.teorema { border-color: var(--teorema); background: #f1f2f4; } .teorema .caja-titulo, .teorema b { color: var(--teorema); }
+h2.sub { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; margin: 4px 0; display: flex; align-items: center; gap: 9px; }
+h2.sub::before { content: ''; width: 18px; height: 4px; border-radius: 2px; background: currentColor; flex: 0 0 auto; }
+.libre.teoria h2.sub, .libre.teoria b { color: var(--teoria); }
+.libre.ejemplo h2.sub, .libre.ejemplo b { color: var(--ejemplo); }
+.libre.practica h2.sub, .libre.practica b { color: var(--practica); }
+.libre.errores h2.sub { color: var(--errores); }
+.libre.ejemplo, .libre.practica { border-top: 1px solid var(--rule); padding-top: 6px; }
+
+.fila, .cols2, .side { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); align-items: center; }
+@media (min-width: 760px) {
+  .fila, .cols2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .side { grid-template-columns: minmax(0, 1fr) auto; }
+}
+/* bloques con columnas propias (se escribieron para la hoja impresa):
+   - .cols2 con estilo: código a la izquierda (hoja de SciPy)  -> código a su ancho natural, texto con el resto
+   - .side con estilo: texto + tabla (problemas abiertos)      -> texto con el resto, tabla a su ancho natural
+   En el celular, todo en una sola columna. */
+.side[style], .cols2[style] { grid-template-columns: minmax(0, 1fr) !important; }
+@media (min-width: 760px) {
+  .cols2[style] { grid-template-columns: auto minmax(0, 1fr) !important; }
+  .side[style]:not([style*="grid-template-columns"]) { grid-template-columns: minmax(0, 1fr) auto !important; }
+  /* .side con columnas propias (QR de Colab + texto): el QR a su ancho natural, el texto con el resto */
+  .side[style*="grid-template-columns"] { grid-template-columns: auto minmax(0, 1fr) !important; }
+}
+
+/* grillas con columnas fijas escritas en línea (p. ej. opciones (i)…(v)): en el celular, una sola columna */
+@media (max-width: 759px) {
+  .flow div[style*="grid-template-columns"]:not(.cols2):not(.side) { grid-template-columns: minmax(0, 1fr) !important; justify-content: stretch !important; }
+}
+
+/* lo ancho se desliza horizontalmente en vez de romper la página */
+/* guia.js marca .mas-der / .mas-izq cuando queda contenido oculto a ese lado: el borde se desvanece para avisar que se puede deslizar */
+.mas-der { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 36px), rgba(0, 0, 0, .15)); mask-image: linear-gradient(to right, #000 calc(100% - 36px), rgba(0, 0, 0, .15)); }
+.mas-izq { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 36px), rgba(0, 0, 0, .15)); mask-image: linear-gradient(to left, #000 calc(100% - 36px), rgba(0, 0, 0, .15)); }
+.mas-der.mas-izq { -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, .15), #000 36px, #000 calc(100% - 36px), rgba(0, 0, 0, .15));
+                   mask-image: linear-gradient(to right, rgba(0, 0, 0, .15), #000 36px, #000 calc(100% - 36px), rgba(0, 0, 0, .15)); }
+.mb { margin: 6px 0; text-align: center; white-space: nowrap; overflow-x: auto; overflow-y: hidden; padding: 2px 0 6px; }
+table.t { border-collapse: collapse; margin: 6px auto; display: block; max-width: 100%; overflow-x: auto; width: max-content; }
+table.t th { font-family: 'JetBrains Mono', monospace; font-weight: 400; font-size: 11px; text-transform: uppercase; letter-spacing: .8px;
+             color: var(--slate); padding: 3px 10px; border-bottom: 1.5px solid var(--slate); }
+table.t td { white-space: nowrap; padding: 4px 10px; border-bottom: 1px solid var(--rule); text-align: center; }
+table.t td.izq { text-align: left; }
+table.t tr.done td { color: var(--muted); }
+.fig { margin: 0 auto; display: flex; flex-direction: column; align-items: center; max-width: 100%; overflow-x: auto; }
+.figbox { position: relative; flex: 0 0 auto; }
+.figbox svg { display: block; }
+.flab { position: absolute; white-space: nowrap; line-height: 1; }
+svg text { font-family: 'JetBrains Mono', monospace; }
+.cap { font-size: 13px; color: var(--muted); text-align: center; font-style: italic; max-width: 420px; }
+.nw { white-space: nowrap; }
+/* .nw solo debe pegar la puntuación a su fórmula: la fórmula larga sí puede partirse (entre términos) */
+.nw > .katex, .nw .katex-html { white-space: normal; }
+.center { text-align: center; }
+.hint { color: var(--muted); font-size: 15px; font-style: italic; }
+
+.pasos { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 10px; align-items: baseline; margin: 4px 0; }
+.pasos > .p { font-family: 'JetBrains Mono', monospace; font-size: 11px; white-space: nowrap; text-transform: uppercase; color: var(--slate); }
+.ejemplo .pasos > .p { color: var(--ejemplo); } .practica .pasos > .p { color: var(--practica); }
+.pasos > span:not(.p) { overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; }
+ol.props { padding-left: 24px; margin: 4px 0; } ol.props > li { margin: 4px 0; }
+pre.code { margin: 4px 0; padding: 8px 12px; background: #f3efe6; border-left: 4px solid var(--slate); border-radius: 0 6px 6px 0;
+           font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.45; overflow-x: auto; }
+pre.code .c { color: var(--muted); font-style: italic; }
+code { font-family: 'JetBrains Mono', monospace; font-size: .85em; }
+.trampas { display: grid; grid-template-columns: minmax(0, 1fr); }
+.trampas > div { padding: 5px 4px; border-bottom: 1px solid var(--rule); overflow-x: auto; }
+.trampas > .h { display: none; }
+.trampas > .x::before { content: '✗ '; color: var(--danger); } .trampas > .y::before { content: '✓ '; color: var(--forest); }
+.trampas > .w { color: var(--muted); font-size: 15px; border-bottom: 2px solid var(--rule); margin-bottom: 6px; }
+@media (min-width: 760px) {
+  .trampas { grid-template-columns: 1fr 1fr 1.3fr; } .trampas > .h { display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; }
+  .trampas > .w { margin: 0; border-bottom-width: 1px; }
+}
+.bad { color: var(--danger); } .ok { color: var(--forest); }
+.faq { border-top: 1px dashed var(--rule); padding-top: 4px; }
+.faq p { font-size: 15px; }
+.reto { border: 1.5px dashed var(--gold); border-radius: 6px; padding: 6px 12px; margin: 6px 0 2px; font-size: 15px; }
+.reto::before { content: '◆ Si terminas antes · '; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; color: var(--gold); }
+.abierto { border-left: 3px solid var(--rust); padding: 2px 0 6px 12px; margin: 4px 0 8px; }
+.abierto .fuente { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
+.tf { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; align-items: center; }
+.blank { display: inline-block; min-width: 3em; border-bottom: 1.3px solid var(--ink); height: 1em; }
+
+/* ---------- campos para llenar */
+input.campo { font: inherit; font-size: 15px; color: var(--ink); background: #fffdf5; border: 1.5px solid var(--slate); border-radius: 4px;
+              padding: 0 4px; margin: 0 1px; min-width: 2.6em; height: 1.6em; vertical-align: middle; text-align: center; }
+.katex input.campo { font-family: 'Source Serif 4', Georgia, serif; font-size: 14px; height: 1.5em; line-height: 1.4em; }
+input.campo:focus { outline: 2px solid var(--rust); outline-offset: 1px; background: #fff; }
+input.campo.texto { text-align: left; min-width: 7em; }
+input.campo.ok { border-color: var(--ok); background: #eaf5ee; }
+input.campo.mal { border-color: var(--mal); background: #fbecea; }
+input.campo.vacio { border-color: var(--vacio); border-style: dashed; }
+input.campo.abierta { border-color: var(--teal); background: #e9f3f3; }
+.hueco { display: inline-block; }
+/* dentro de una fracción, KaTeX apila capas posicionadas (.vlist) que quedan encima del numerador y
+   se tragan el toque: el campo va por encima de ellas */
+.katex input.campo { position: relative; z-index: 2; }
+
+.zona-bloque { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0 4px; }
+.resultado { font-size: 14px; color: var(--muted); }
+.resultado.todo-bien { color: var(--ok); font-weight: 600; }
+.modelo { font-size: 13px; color: var(--teal); display: block; margin-top: 2px; font-style: italic; }
+.sol-visible { background: #eef6f6; border-left: 4px solid var(--teal); border-radius: 0 6px 6px 0; padding: 6px 12px; margin: 6px 0; font-size: 15px; overflow-x: auto; }
+.sol-visible::before { content: 'Solución · '; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; color: var(--teal); }
+.vf-btns { display: inline-flex; gap: 4px; }
+.vf-btns button { font-family: 'JetBrains Mono', monospace; font-size: 14px; width: 2.4em; padding: 4px 0; border: 1.5px solid var(--slate);
+                  border-radius: 6px; background: #fff; color: var(--slate); cursor: pointer; }
+.vf-btns button[aria-pressed="true"] { background: var(--slate); color: #fff; }
+.vf-btns.ok button[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); }
+.vf-btns.mal button[aria-pressed="true"] { background: var(--mal); border-color: var(--mal); }
+textarea.mi-solucion, textarea.mi-texto { width: 100%; min-height: 90px; font: inherit; font-size: 15px; padding: 8px 10px; border: 1.5px solid var(--rule);
+       border-radius: 8px; background: #fffdf9; resize: vertical; }
+.aviso { font-size: 14px; color: var(--rust); font-style: italic; }
+
+/* ---------- apuntes */
+details.apuntes { margin: 10px -4px 4px; border-top: 3px solid var(--rust); background: #fffdf9; border-radius: 0 0 8px 8px; }
+details.apuntes > summary { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--rust);
+                            padding: 10px 8px; cursor: pointer; list-style: none; }
+details.apuntes > summary::before { content: '✎ '; }
+details.apuntes > summary::after { content: ' ▾'; }
+details.apuntes[open] > summary::after { content: ' ▴'; }
+details.apuntes .tiene::after { content: ' ●'; color: var(--teal); }
+.ap-sub { margin: 0 8px 6px; color: var(--muted); font-style: italic; font-size: 15px; }
+.lienzo-barra { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 4px 8px; }
+.lienzo-barra button { font: inherit; font-size: 14px; min-width: 38px; height: 34px; border: 1.5px solid var(--rule); border-radius: 6px; background: #fff; cursor: pointer; }
+.lienzo-barra button[aria-pressed="true"] { border-color: var(--slate); background: var(--slate); color: #fff; }
+.lienzo-barra .color { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1.5px var(--rule); padding: 0; min-width: 0; }
+.lienzo-barra .color[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--slate); }
+canvas.lienzo { display: block; width: 100%; touch-action: none; background-color: #fffdf9;
+                background-image: radial-gradient(circle, #cfc6b6 1px, transparent 1.2px); background-size: 20px 20px;
+                border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+canvas.lienzo.mover { touch-action: pan-y; }
+.ap-texto { padding: 8px; }
+
+.pie-guia { text-align: center; color: var(--muted); font-size: 14px; padding: 10px 20px calc(30px + env(safe-area-inset-bottom)); }
+.pie-guia a { color: var(--teal); }
+
+/* ---------- pantallas táctiles: dedos y no ratón */
+@media (pointer: coarse) {
+  /* con letra < 16 px, Safari de iPhone/iPad amplía la página al tocar un campo y no la devuelve */
+  input.campo, .katex input.campo, textarea.mi-solucion, textarea.mi-texto { font-size: 16px; }
+  input.campo { height: 1.85em; }
+  .katex input.campo { height: 1.75em; }
+  .btn.mini { font-size: 14px; padding: 10px 14px; }
+  .vf-btns { gap: 6px; }
+  .vf-btns button { width: 2.8em; padding: 9px 0; }
+  .lienzo-barra button { min-width: 42px; height: 40px; }
+  .lienzo-barra .color { width: 34px; height: 34px; min-width: 0; }
+}

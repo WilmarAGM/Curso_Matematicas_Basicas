@@ -1,0 +1,16 @@
+[
+ {
+  "slug": "semana11",
+  "titulo": "Semana 11 · Logaritmos y recta numérica",
+  "semana": "Semana 11",
+  "descripcion": "Logaritmos y sus propiedades, ecuaciones exponenciales y logarítmicas, aplicaciones, intervalos, valor absoluto y distancia.",
+  "pdf": "Guia_Semana11_Logaritmos_RectaNumerica.pdf"
+ },
+ {
+  "slug": "semana12",
+  "titulo": "Semana 12 · Inecuaciones",
+  "semana": "Semana 12",
+  "descripcion": "Inecuaciones lineales, con valor absoluto, racionales, cuadráticas y con radicales.",
+  "pdf": "Guia_Semana12_Inecuaciones.pdf"
+ }
+]

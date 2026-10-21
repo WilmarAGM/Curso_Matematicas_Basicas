@@ -42,7 +42,12 @@ export default defineConfig({
       workbox: {
         // Solo rutas de la app (sin extensión) caen al fallback offline.
         // Enlaces a archivos reales (PDF, imágenes, etc.) nunca deben servir index.html.
-        navigateFallbackDenylist: [/\.[a-zA-Z0-9]+$/],
+        // Las guías (public/guias/<semana>/) son páginas reales, no rutas del SPA.
+        navigateFallbackDenylist: [/\.[a-zA-Z0-9]+$/, /^\/guias\//],
+        // Guías, KaTeX y sus fuentes quedan disponibles sin internet.
+        globPatterns: ["**/*.{js,css,html,png,svg,woff2}"],
+        globIgnores: ["**/katex/fonts/*.{ttf,woff}", "docs/**"],
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
       },
     }),
   ],

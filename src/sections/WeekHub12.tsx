@@ -1,6 +1,7 @@
 import { MODULES_SEMANA12, type SectionId } from '@/data/content'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
+import { WeekGuideCard } from '@/components/app/WeekGuideCard'
 
 interface WeekHub12Props {
   onNavigate: (id: SectionId) => void
@@ -31,6 +32,12 @@ export function WeekHub12({ onNavigate, completed }: WeekHub12Props) {
           {doneCount}/{MODULES_SEMANA12.length} completados
         </span>
       </div>
+
+      <WeekGuideCard
+        slug="semana12"
+        pdf="Guia_Semana12_Inecuaciones.pdf"
+        description="Inecuaciones lineales, con valor absoluto, racionales, cuadráticas y con radicales: todos los ejemplos y ejercicios de la guía (con sus errores corregidos), tablas de signos para llenar, retos y problemas tipo parcial. Cada bloque tiene «Comprobar» y «Ver solución»."
+      />
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         {MODULES_SEMANA12.map((m) => (
