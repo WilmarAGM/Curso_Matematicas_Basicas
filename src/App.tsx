@@ -72,16 +72,6 @@ import { Module47NonlinearCase2 } from '@/sections/Module47NonlinearCase2'
 import { Module48NonlinearCase3 } from '@/sections/Module48NonlinearCase3'
 import { Module49NonlinearRepaso } from '@/sections/Module49NonlinearRepaso'
 import { Module50NonlinearApplications } from '@/sections/Module50NonlinearApplications'
-import { Module51Logarithms } from '@/sections/Module51Logarithms'
-import { Module52ExpLogEquations } from '@/sections/Module52ExpLogEquations'
-import { Module53LogApplications } from '@/sections/Module53LogApplications'
-import { Module54Intervals } from '@/sections/Module54Intervals'
-import { Module55AbsValueDistance } from '@/sections/Module55AbsValueDistance'
-import { Module56LinearInequalities } from '@/sections/Module56LinearInequalities'
-import { Module57AbsInequalities } from '@/sections/Module57AbsInequalities'
-import { Module58RationalInequalities } from '@/sections/Module58RationalInequalities'
-import { Module59QuadraticInequalities } from '@/sections/Module59QuadraticInequalities'
-import { Module60IneqApplications } from '@/sections/Module60IneqApplications'
 import { useProgress } from '@/hooks/useProgress'
 import { Menu } from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
@@ -311,39 +301,9 @@ function App() {
             <Module50NonlinearApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesNoLineales')} />
           )}
 
-          {page === 'semana11' && <WeekHub11 onNavigate={navigate as any} completed={completed} />}
-          {page === 'logaritmos' && (
-            <Module51Logarithms onNavigate={navigate as any} onDone={() => markComplete('logaritmos')} />
-          )}
-          {page === 'ecuacionesExpLog' && (
-            <Module52ExpLogEquations onNavigate={navigate as any} onDone={() => markComplete('ecuacionesExpLog')} />
-          )}
-          {page === 'aplicacionesLogaritmos' && (
-            <Module53LogApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesLogaritmos')} />
-          )}
-          {page === 'intervalos' && (
-            <Module54Intervals onNavigate={navigate as any} onDone={() => markComplete('intervalos')} />
-          )}
-          {page === 'valorAbsolutoDistancia' && (
-            <Module55AbsValueDistance onNavigate={navigate as any} onDone={() => markComplete('valorAbsolutoDistancia')} />
-          )}
+          {page === 'semana11' && <WeekHub11 onNavigate={navigate as any} />}
 
-          {page === 'semana12' && <WeekHub12 onNavigate={navigate as any} completed={completed} />}
-          {page === 'inecuacionesLineales' && (
-            <Module56LinearInequalities onNavigate={navigate as any} onDone={() => markComplete('inecuacionesLineales')} />
-          )}
-          {page === 'inecuacionesValorAbsoluto' && (
-            <Module57AbsInequalities onNavigate={navigate as any} onDone={() => markComplete('inecuacionesValorAbsoluto')} />
-          )}
-          {page === 'inecuacionesRacionales' && (
-            <Module58RationalInequalities onNavigate={navigate as any} onDone={() => markComplete('inecuacionesRacionales')} />
-          )}
-          {page === 'inecuacionesCuadraticas' && (
-            <Module59QuadraticInequalities onNavigate={navigate as any} onDone={() => markComplete('inecuacionesCuadraticas')} />
-          )}
-          {page === 'aplicacionesInecuaciones' && (
-            <Module60IneqApplications onNavigate={navigate as any} onDone={() => markComplete('aplicacionesInecuaciones')} />
-          )}
+          {page === 'semana12' && <WeekHub12 onNavigate={navigate as any} />}
         </div>
 
         <footer className="border-t border-line px-5 py-6 text-center text-xs text-ink-muted">
